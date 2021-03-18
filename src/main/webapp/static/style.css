@@ -1,0 +1,27 @@
+.main {
+    padding: 20px;
+
+}
+
+input {
+    margin: 10px;
+}
+
+.header {
+    width: 100%;
+    background-color: gray;
+    font-size: 20px;
+}
+
+.menu {
+    width: 20%;
+    position: fixed;
+    display: block;
+    height: 100%;
+    background-color: aquamarine;
+
+}
+.container {
+    padding-left: 20%;
+    position: relative;
+}
