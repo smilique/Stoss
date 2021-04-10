@@ -2,16 +2,22 @@ package com.epam.training.tasks.stoss;
 
 import com.epam.training.tasks.stoss.commands.Command;
 import com.epam.training.tasks.stoss.commands.CommandFactory;
+import com.epam.training.tasks.stoss.commands.CommandResult;
+import org.apache.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 public class Controller extends HttpServlet {
 
-    private final CommandFactory factory= new CommandFactory();
+    private final static Logger LOGGER = Logger.getLogger(Controller.class);
+
+    private final CommandFactory factory = new CommandFactory();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -24,13 +30,32 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        request.getRequestDispatcher("init.jsp").forward(request,response);
         String commandType = request.getParameter("command");
-
         Command command = factory.create(commandType);
 
-        String view = command.execute(request, response);
+        LOGGER.debug( " COMMAND: " + commandType);
 
-        request.getRequestDispatcher(view).forward(request,response);
+        String page;
+        boolean isRedirect = false;
+
+        try {
+            CommandResult result = command.execute(request, response);
+            LOGGER.debug("CommandResult " + result);
+            page = result.getPage();
+            LOGGER.debug(" Page: " + page);
+            isRedirect = result.isRedirect();
+        } catch (Exception e) {
+            request.setAttribute("errormessage", "NPE");
+            page = "/error.jsp"; //?
+            LOGGER.error("Exception: " + e);
+            e.printStackTrace();
+        }
+        if (!isRedirect) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect(page); //TODO?
+        }
+
     }
 }

@@ -3,26 +3,30 @@
 
 <html>
 <body>
-<div class="header">
+
+<header class="header">
     <jsp:include page="fragments/header.jsp"/>
-</div>
+</header>
 
-<div class="menu">
-    <jsp:include page="fragments/menu.jsp"/>
-</div>
+<nav class="menu">
+    <jsp:include page="fragments/sidebar.jsp"/>
+</nav>
 
-<div class="container">
-    <c:if test="${name != null}">
+<main class="container">
+
+    <c:if test="${sessionScope.user.name != null}">
         <h2>
-            Hello, ${name}
+            Hello, ${sessionScope.user.name}
         </h2>
     </c:if>
-    <c:if test="${errorMessage != null}">
-        <div style="color:#FF0000">
-                ${errorMessage}
-        </div>
-    </c:if>
-</div>
+
+<%--        <c:if test="${sessionScope.user.name == null}">--%>
+<%--            <div style="color:#7e36ec">--%>
+<%--                    ${sessionScope.errormessage}--%>
+<%--                    ${requestScope.get(0)}--%>
+<%--            </div>--%>
+<%--        </c:if>--%>
+</main>
 
 </body>
 

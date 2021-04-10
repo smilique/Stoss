@@ -1,0 +1,26 @@
+package com.epam.training.tasks.stoss.commands;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Locale;
+
+public class SetLocaleCommand implements Command{
+    private final static String LOCALE_ATTRIBUTE = "locale";
+
+    private final Locale locale;
+
+    public SetLocaleCommand (Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session= request.getSession();
+        session.setAttribute(LOCALE_ATTRIBUTE ,locale);
+        response.setLocale(locale);
+        String page = request.getRequestURI();
+
+        return CommandResult.forward("controller?command=index");
+    }
+}

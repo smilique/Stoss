@@ -1,6 +1,13 @@
+@charset "UTF-8";
+
 .main {
     padding: 20px;
-
+}
+.item {
+    width: 200px;
+    height: 100px;
+    background-color: red;
+    padding: 20px;
 }
 
 input {
@@ -9,19 +16,282 @@ input {
 
 .header {
     width: 100%;
-    background-color: gray;
-    font-size: 20px;
+    background-color: #555555;
+    padding: 10px;
 }
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.header_logo_img {
+    width: auto;
+    height: auto;
+    /*width: 192px;*/
+    /*height: 100px;*/
+}
+.header_caption {
+    align-content: center;
+    padding-left: 5%;
+}
+
+.logo_text {
+    font-size: 60px;
+    font-weight: bold;
+    /*padding-top: 20%;*/
+    /*text-transform: uppercase;*/
+}
+
+.welcome_message {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.user {
+    align: right;
+
+}
+
+.user_info {
+    text-align: right;
+    align: right;
+}
+
+.login_form {
+    text-align: right;
+}
+
 
 .menu {
     width: 20%;
     position: fixed;
     display: block;
     height: 100%;
-    background-color: aquamarine;
+    background-color: #555555;
 
 }
 .container {
-    padding-left: 20%;
+    margin-left: 20%;
+    padding: 10px;
+    position: center;
+    background-color: #7F7F7F;
+    text-align: center;
+    height: 65%;
+}
+
+.chatbox {
+    margin-left: 20%;
+    padding: 10px;
+    position: center;
+    background-color: #7F7F7F;
+    text-align: center;
+    height: 20%;
+}
+
+.sidebar {
+    position: fixed;
+    width: 19%;
+    height: 100vh;
+    background: #555555;
+    font-size: 1em;
+}
+
+.nav {
     position: relative;
+    margin: 0 15%;
+
+    top: 10%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #555555;
+}
+
+.nav ul {
+    list-style: none;
+    text-align: right;
+}
+
+    li {
+        position: relative;
+        margin: 3.2em 0;
+        border: solid #7F7F7F;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+        line-height: 30px;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 1px;
+        color: #cccccc;
+        display: block;
+        transition: all ease-out 300ms;
+    }
+.active {
+    color: greenyellow;
+}
+
+
+.language-select{
+    align: left;
+    text-align: left;
+    position: relative;
+    padding: 10px;
+    /*transform: translate(-50%, -50%);*/
+}
+
+.language-select select {
+    background-color: #555555;
+    color: #7f7f7f;
+    /*padding: 10px;*/
+    width: 70px;
+    border: solid;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
+.language-select::before {
+    align: left;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: #fdfdfe;
+    background-color: #525253;
+    pointer-events: none;
+}
+
+.language-select:hover::before {
+    color: #1f1f99;
+    background-color: #bc1f1f;
+}
+
+.language-select select option {
+    padding: 30px;
+}
+
+.marque {
+    display: inline;
+    width: 70px;
+    font-family: Commissioner, serif;
+    font-size: 18px;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    -webkit-animation: scroll 5s infinite linear;
+    -moz-animation: scroll 5s infinite linear;
+    animation: scroll 5s infinite linear;
+}
+
+
+
+
+@-webkit-keyframes scroll {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+    100% {
+        -webkit-transform: translate(-100%, 0);
+        transform: translate(-100%, 0)
+    }
+}
+
+@-moz-keyframes scroll {
+    0% {
+        -moz-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+    100% {
+        -moz-transform: translate(-100%, 0);
+        transform: translate(-100%, 0)
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-100%, 0)
+    }
+}
+
+/* commissioner-regular - latin_cyrillic */
+@font-face {
+    font-family: 'Commissioner';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/commissioner-v4-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('fonts/commissioner-v4-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/commissioner-v4-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/commissioner-v4-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+    url('fonts/commissioner-v4-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/commissioner-v4-latin_cyrillic-regular.svg#Commissioner') format('svg'); /* Legacy iOS */
+}
+/* commissioner-600 - latin_cyrillic */
+@font-face {
+    font-family: 'Commissioner';
+    font-style: normal;
+    font-weight: 600;
+    src: url('fonts/commissioner-v4-latin_cyrillic-600.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('fonts/commissioner-v4-latin_cyrillic-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/commissioner-v4-latin_cyrillic-600.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/commissioner-v4-latin_cyrillic-600.woff') format('woff'), /* Modern Browsers */
+    url('fonts/commissioner-v4-latin_cyrillic-600.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/commissioner-v4-latin_cyrillic-600.svg#Commissioner') format('svg'); /* Legacy iOS */
+}
+
+/* alegreya-regular - latin_cyrillic */
+@font-face {
+    font-family: 'Alegreya';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/static/fonts/alegreya-v19-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('/static/fonts/alegreya-v19-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-regular.svg#Alegreya') format('svg'); /* Legacy iOS */
+}
+/* alegreya-800 - latin_cyrillic */
+@font-face {
+    font-family: 'Alegreya';
+    font-style: normal;
+    font-weight: 800;
+    src: url('/static/fonts/alegreya-v19-latin_cyrillic-800.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('/static/fonts/alegreya-v19-latin_cyrillic-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-800.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-800.woff') format('woff'), /* Modern Browsers */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-800.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/static/fonts/alegreya-v19-latin_cyrillic-800.svg#Alegreya') format('svg'); /* Legacy iOS */
+}
+body {
+    font-family: 'Commissioner', serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.2;
+    font-weight: 400;
+    color: black;
+}
+html {
+    box-sizing: border-box;
+    /*font-family: "Courier New", monospace;*/
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+
 }
