@@ -45,16 +45,16 @@ public class Controller extends HttpServlet {
             LOGGER.debug(" Page: " + page);
             isRedirect = result.isRedirect();
         } catch (Exception e) {
-            request.setAttribute("errormessage", "NPE");
+            request.setAttribute("errormessage", e.getMessage());
             page = "/error.jsp"; //?
             LOGGER.error("Exception: " + e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         if (!isRedirect) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } else {
-            response.sendRedirect(page); //TODO?
+            response.sendRedirect(page); //?
         }
 
     }

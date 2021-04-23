@@ -2,7 +2,6 @@ package com.epam.training.tasks.stoss.dao;
 
 import com.epam.training.tasks.stoss.connections.ProxyConnection;
 import com.epam.training.tasks.stoss.entities.Entity;
-import com.epam.training.tasks.stoss.entities.User;
 import com.epam.training.tasks.stoss.mappers.RowMapper;
 import org.apache.log4j.Logger;
 
@@ -33,12 +32,15 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
     protected List<T> executeQuery(String query, Object... params) throws DaoException {
 
         try (PreparedStatement statement = createStatement(query, params);
-             ResultSet resultSet = statement.executeQuery(query)) {
+             ResultSet resultSet = statement.executeQuery()) {
+
+            LOGGER.debug("resultSet :" + resultSet);
             List<T> entities = new ArrayList<>();
 
             while (resultSet.next()) {
                 T entity = mapper.map(resultSet);
                 entities.add(entity);
+                LOGGER.debug("entity: " + entity);
             }
             return entities;
 
@@ -50,11 +52,13 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
         LOGGER.debug("Creating statement with " + query + " | " + params);
         PreparedStatement statement = connection.prepareStatement(query);
+        LOGGER.debug(statement);
 
-        LOGGER.debug(params.length);
-        for (int i = 1; i <= params.length; i++) {
-            statement.setObject(i,params[i-1]);
-            LOGGER.debug("current param : " + params[i-1] );
+        LOGGER.debug("params number :" + params.length);
+
+        for (int i = 0; i < params.length; i++) {
+            statement.setObject(i+1,params[i]);
+            LOGGER.debug("current param : " + params[i]);
         }
         LOGGER.debug("Statement " + statement);
         return statement;
@@ -67,7 +71,7 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
     }
 
     protected Optional<T> executeForSingleResult (String query, Object... params) throws DaoException {
-        List<T> items = executeQuery(query, mapper, params);
+        List<T> items = executeQuery(query, params);
         LOGGER.debug("Execute Query " + items);
         if (items.size() == 1) {
             return Optional.of(items.get(0));

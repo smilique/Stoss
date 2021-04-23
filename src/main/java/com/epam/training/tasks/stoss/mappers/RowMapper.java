@@ -10,15 +10,4 @@ public interface RowMapper<T extends Entity> {
 
     T map(ResultSet resultSet) throws SQLException;
 
-
-//    static RowMapper<? extends Entity> create(String table) {
-//        switch (table) {
-//            case User.TABLE: {
-//                return new UserRowMapper();
-//            }
-//            default: {
-//                throw new IllegalArgumentException(table + " table doesn't exist!");
-//            }
-//        }
-//    }
 }

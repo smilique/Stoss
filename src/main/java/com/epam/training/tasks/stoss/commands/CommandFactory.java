@@ -11,13 +11,15 @@ public class CommandFactory {
 
     private static final Logger LOGGER = Logger.getLogger(CommandFactory.class);
 
-    private final static String LOGIN_TYPE = "login";
-    private static final String MAIN_PAGE_TYPE = "mainPage";
-    private static final String INDEX_TYPE = "index";
-    private static final String REGISTER_PAGE_TYPE = "registerPage";
-    private static final String LOCALE_RU_TYPE = "ru";
-    private static final String LOCALE_BY_TYPE = "by";
-    private static final String LOCALE_EN_TYPE = "en";
+    private static final String LOGIN_COMMAND = "login";
+    private static final String MAIN_PAGE_COMMAND = "mainPage";
+    private static final String INDEX_PAGE_COMMAND = "index";
+    private static final String REGISTER_PAGE_COMMAND = "registerPage";
+    private static final String REGISTER_COMMAND = "register";
+    private static final String LOCALE_RU_COMMAND = "localeRu";
+    private static final String LOCALE_BY_COMMAND = "localeBy";
+    private static final String LOCALE_EN_COMMAND = "localeEn";
+    private static final String LOGOUT_COMMAND = "logout";
 
     private static final String INDEX_PAGE = "/index.jsp";
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
@@ -30,33 +32,40 @@ public class CommandFactory {
     public Command create(String type) {
         LOGGER.debug(" type = " + type);
         switch (type) {
-            case LOGIN_TYPE: {
+            case LOGIN_COMMAND: {
                 LOGGER.debug(" login command sent");
                 return new LoginCommand(new UserService());
             }
-            case MAIN_PAGE_TYPE: {
+            case MAIN_PAGE_COMMAND: {
                 LOGGER.debug(" main page sent");
                 return new ShowPageCommand(MAIN_PAGE);
             }
-            case INDEX_TYPE: {
+            case INDEX_PAGE_COMMAND: {
                 LOGGER.debug(" index page sent");
                 return new ShowPageCommand(INDEX_PAGE);
             }
-            case REGISTER_PAGE_TYPE: {
+            case REGISTER_PAGE_COMMAND: {
                 LOGGER.debug(" register page sent");
                 return new ShowPageCommand(REGISTER_PAGE);
             }
-            case LOCALE_RU_TYPE: {
+            case REGISTER_COMMAND: {
+                return new RegisterCommand(new UserService());
+            }
+            case LOCALE_RU_COMMAND: {
                 LOGGER.debug("locale changed to ru");
                 return new SetLocaleCommand(Locale.forLanguageTag(RU_LANGUAGE_TAG));
             }
-            case LOCALE_BY_TYPE: {
+            case LOCALE_BY_COMMAND: {
                 LOGGER.debug("locale changed to by");
                 return new SetLocaleCommand(Locale.forLanguageTag(BY_LANGUAGE_TAG));
             }
-            case LOCALE_EN_TYPE: {
+            case LOCALE_EN_COMMAND: {
                 LOGGER.debug("locale changed to en");
                 return new SetLocaleCommand(Locale.forLanguageTag(EN_LANGUAGE_TAG));
+            }
+            case LOGOUT_COMMAND: {
+                LOGGER.debug("logout command sent");
+                return new LogoutCommand();
             }
             default: {
                 LOGGER.error(" unexpected command!");

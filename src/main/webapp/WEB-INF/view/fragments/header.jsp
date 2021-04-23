@@ -15,23 +15,25 @@
         <fmt:message key="local.header.caption" var="caption" bundle="${loc}" scope="session"/>
         <h1 class="logo_text">${caption}</h1>
     </div>
-    <div class="user">
-        <c:if test="${sessionScope.user != null}">
+    <div class="user_wrapper">
+        <c:if test="${sessionScope.username != null}">
             <div class="user_info">
                 <fmt:message key="local.message.welcome" var="hello" bundle="${loc}" scope="session"/>
-                <p>${hello} ${sessionScope.user.name}</p>
-                <br/>
+                <p>${hello}, <a href="controller?command=user" class="user_profile_link">${sessionScope.user.name}</a></p>
                 <fmt:message key="local.message.balance" var="balanceText" bundle="${loc}" scope="session"/>
-                <p>${balanceText} %userbalance</p>
+                <p>${balanceText}: ${sessionScope.user.balance}</p>
                 <fmt:message key="local.message.place" var="placeText" bundle="${loc}" scope="session"/>
-                <fmt:message key="local.message.placeAddings" var="placeTextAdd" bundle="${loc}" scope="session"/>
                 <fmt:message key="local.message.points" var="pointsText" bundle="${loc}" scope="session"/>
-                <p>${placeText} %place${placeTextAdd} %points ${pointsText}</p>
-                <br/>
+                <p>${placeText} ${sessionScope.user.points} ${pointsText}</p>
                 <li class="logout">
                     <fmt:message key="local.button.logout" var="logoutText" bundle="${loc}" scope="session"/>
                     <a href="controller?command=logout">${logoutText}</a>
                 </li>
+            </div>
+            <div class="user_pic">
+                <a href="controller?command=user" class="user_profile_link">
+                    <img src="static/img/png/userpic.png" alt="${sessionScope.user.name}" class="user_pic_img">
+                </a>
             </div>
         </c:if>
     </div>

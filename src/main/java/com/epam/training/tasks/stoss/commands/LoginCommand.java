@@ -15,7 +15,7 @@ public class LoginCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
 
-    private static final String USERNAME_PARAM = "login";
+    private static final String USERNAME_PARAM = "username";
     private static final String PASSWORD_PARAM = "password";
     private static final String SUCCESSFUL_LOGIN = "controller?command=mainPage";
     private static final String UNSUCCESSFUL_LOGIN = "controller?command=index";
@@ -31,14 +31,16 @@ public class LoginCommand implements Command {
         String login = request.getParameter(USERNAME_PARAM);
         String password = request.getParameter(PASSWORD_PARAM);
 
+        LOGGER.debug(login + " | " + password);
+
+        //Optional<User> optionalUser = Optional.empty();
         Optional<User> optionalUser = null;
+
         try {
             optionalUser = userService.login(login,password);
         } catch (Exception e) {
             LOGGER.error(e);
         }
-
-        LOGGER.debug(" user: " + optionalUser);
 
         AtomicReference<String> nextPage = new AtomicReference<>();
 
@@ -48,9 +50,11 @@ public class LoginCommand implements Command {
             User user = optionalUser.get();
             LOGGER.debug(" current user: " + user.getName());
             session.setAttribute("username", user.getName());
+            session.setAttribute("user", user);
+            session.removeAttribute("errormessage");
             nextPage.set(SUCCESSFUL_LOGIN);
         } else {
-            LOGGER.debug(" can't find user with such credentials ");
+            LOGGER.debug("Invalid login or password!");
             session.setAttribute("errormessage", "Invalid login or password!");
             nextPage.set(UNSUCCESSFUL_LOGIN);
         }

@@ -13,14 +13,14 @@ public class UserRowMapper implements RowMapper<User> {
     @Override
     public User map(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(User.ID);
-//        Long id = resultSet.getLong(1);
-        String login = resultSet.getString(User.LOGIN);
-        String password = resultSet.getString(User.PASSWORD);
         String name = resultSet.getString(User.NAME);
-//        String name = resultSet.getString(2);
+        Long points = resultSet.getLong(User.POINTS);
+        Long balance = resultSet.getLong(User.BALANCE);
+        String role = resultSet.getString(User.ROLE);
 
-        LOGGER.debug(resultSet);
+        LOGGER.debug(resultSet.getLong(User.ID));
         //UserRole
-        return new User(id,name);
+//        return new User(id,name);
+        return new User(id, name, balance, points, role);
     }
 }

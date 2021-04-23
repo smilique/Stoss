@@ -1,32 +1,50 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: smilique
-  Date: 05.04.2021
-  Time: 18:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="localization" var="loc" scope="session"/>
 
     <aside class="sidebar">
         <nav class="nav">
             <div class="language-select">
-                <select id="standard-select" onchange="window.location.href=this.options[this.selectedIndex].value">
-                    <option>Change Language</option>
-                    <option value="controller?command=localeEn">EN</option>
-                    <option value="controller?command=localeRu">RU</option>
-                    <option value="controller?command=localeBy">BY</option>
-                </select>
+                <a href="controller?command=localeEn">English</a>
+                <a href="controller?command=localeRu">Русский</a>
+                <a href="controller?command=localeBy">Беларуская</a>
+<%--                <select id="standard-select" onchange="window.location.href=this.options[this.selectedIndex].value">--%>
+<%--                    <option>Change Language</option>--%>
+<%--                    <fmt:message key="locale.en" var="en" bundle="${loc}" scope="session"/>--%>
+<%--                    <option value="controller?command=localeEn">${en}</option>--%>
+<%--                    <fmt:message key="locale.ru" var="ru" bundle="${loc}" scope="session"/>--%>
+<%--                    <option value="controller?command=localeRu">${ru}</option>--%>
+<%--                    <fmt:message key="locale.by" var="by" bundle="${loc}" scope="session"/>--%>
+<%--                    <option value="controller?command=localeBy">${by}</option>--%>
+<%--                </select>--%>
             </div>
             <ul>
-                <c:if test="${sessionScope.user.name != null}">
+                <c:if test="${sessionScope.username != null}">
                     <li class="active">
-                        <a href="controller?command=mainPage">main page</a>
+                        <fmt:message key="local.menu.mainPage" var="mainPage" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=mainPage">${mainPage}</a>
+                    </li>
+                    <li class="inactive">
+                        <fmt:message key="local.menu.news" var="news" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=news">${news}</a>
+                    </li>
+                    <li class="inactive">
+                        <fmt:message key="local.menu.rules" var="rules" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=rules">${rules}</a>
+                    </li>
+                    <li class="inactive">
+                        <fmt:message key="local.menu.rating" var="rating" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=rating">${rating}</a>
                     </li>
                 </c:if>
-                <c:if test="${sessionScope.user.name == null}">
+                <c:if test="${sessionScope.username == null}">
                     <li class="inactive">
-                        <a href="controller?command=index">login page</a>
+                        <fmt:message key="menu.loginPage" var="loginPage" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=index">${loginPage}</a>
                     </li>
                 </c:if>
             </ul>

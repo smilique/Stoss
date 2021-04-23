@@ -12,7 +12,7 @@ create table user
 (
     id       bigint auto_increment
         primary key,
-    login    varchar(45) null,
+    login    varchar(45) unique,
     password varchar(45) null,
     name     varchar(45) null,
     points   bigint      null,
