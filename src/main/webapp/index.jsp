@@ -33,6 +33,9 @@
                 <fmt:message key="local.message.userNotFound" var="loginMessage" bundle="${loc}" scope="session"/>
                 ${loginMessage}
             </c:if>
+            <c:if test="${sessionScope.errormessage == 'User created!'}">
+                %userCreated
+            </c:if>
         </div>
     </c:if>
     <jsp:include page="WEB-INF/view/fragments/login.jsp"/>

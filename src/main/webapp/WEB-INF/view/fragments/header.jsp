@@ -32,7 +32,7 @@
             </div>
             <div class="user_pic">
                 <a href="controller?command=user" class="user_profile_link">
-                    <img src="static/img/png/userpic.png" alt="${sessionScope.user.name}" class="user_pic_img">
+                    <img src="${sessionScope.user.userpic}" alt="${sessionScope.user.name}" class="user_pic_img">
                 </a>
             </div>
         </c:if>

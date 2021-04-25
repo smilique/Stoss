@@ -28,23 +28,14 @@
 </nav>
 
 <main class="container">
-
     <c:if test="${sessionScope.username != null}">
-        <h2>
-            Hello, ${sessionScope.username}
-            <br/>
-            ${sessionScope.user.balance}
-            <br/>
-            ${sessionScope.user.name}
-            <br/>
-            ${sessionScope.user.id}
-            <br/>
-            ${sessionScope.user.points}
-            <br/>
-            ${sessionScope.user.role}
-            <br/>
-        </h2>
+        <div class="game">
+            <p class="game_cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>
+            <a href="controller?startGame">%startNewGame</a>
+        </div>
     </c:if>
+
+
 
 </main>
 

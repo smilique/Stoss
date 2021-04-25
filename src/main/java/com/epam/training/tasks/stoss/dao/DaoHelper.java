@@ -23,6 +23,12 @@ public class DaoHelper implements AutoCloseable {
         return userDao;
     }
 
+    public NewsDao createNewsDao() {
+        NewsDao newsDao = new NewsDao(connection);
+        LOGGER.debug("NewsDao created: " + newsDao);
+        return newsDao;
+    }
+
     //create another dao
 
     public void startTransaction() throws DaoException {
@@ -45,8 +51,10 @@ public class DaoHelper implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws SQLException {
         LOGGER.debug("Closing connection " + connection);
         connection.close();
     }
+
+
 }

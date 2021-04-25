@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="fmt_rt" uri="http://java.sun.com/jstl/fmt_rt" %>--%>
 
 <c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>
@@ -41,7 +40,7 @@
         <h2 class="welcome_message">%registerText</h2>
         <li>
             <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
-                <input class="login_form" type="hidden" name="local" value="en"/>
+                <input class="register_form" type="hidden" name="local" value="en"/>
                 <fmt:message key="local.message.username" var="usernameText" bundle="${loc}" scope="session"/>
                 <p>${usernameText}<input type="text" name="username" placeholder="username"/></p>
                 <fmt:message key="local.message.password" var="passwordText" bundle="${loc}" scope="session"/>

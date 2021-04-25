@@ -1,9 +1,14 @@
 insert into role set ID = 1, NAME = 'admin';
 insert into role set ID = 2, NAME = 'user';
 
-insert into user set login = 'admin', password = md5('admin'), name = 'Anton', ROLE_ID = 1, points = 0, balance = 0;
-insert into user set login = 'nobody', password = md5('error01'), name = 'Someone', ROLE_ID = 2, points = 0, balance = 0;
-insert into user set login = 'aleeya', password = md5('alc'), name = 'Alexey', ROLE_ID = 2, points = 0, balance = 0;
-insert into user set login = 'nice', password = md5('12qw45f1'), name = 'Lera', ROLE_ID = 2, points = 0, balance = 0;
-insert into user set login = 'backupper', password = md5('1q2w43q'), name = 'Igor', ROLE_ID = 2, points = 0, balance = 0;
+insert into user set login = 'admin', password = md5('admin'), name = 'Anton', ROLE_ID = 1;
+insert into user set login = 'user1', password = md5('user1'), name = 'Someone';
+insert into user set login = 'user2', password = md5('user2'), name = 'Alexey';
+insert into user set login = 'user3', password = md5('user3'), name = 'Lera';
+insert into user set login = 'user', password = md5('user'), name = 'User';
 
+insert into news set caption = 'First news item', text = 'First news item text', time = '21/04/01 17:01:00';
+insert into news set caption = 'Second news item', text = 'First news item text', time = '21/04/02 16:01:00';
+insert into news set caption = 'Third news item', text = 'First news item text', time = '21/04/03 15:01:00';
+insert into news set caption = 'Fourth news item', text = 'First news item text', time = '21/04/04 14:01:00';
+insert into news set caption = 'Tournament starts soon!', text = 'New tournament starts in May 4th at 7p.m.', time = '21/04/11 22:01:00';

@@ -46,7 +46,8 @@ public class RegisterCommand implements Command{
                 nextPage.set(UNSUCCESSFUL_REGISTER);
             } else {
                 LOGGER.debug("New user created");
-                session.setAttribute("errormessage", "User created! Please login.");
+                userService.register(login, password, name);
+                session.setAttribute("errormessage", "User created!");
                 nextPage.set(SUCCESSFUL_REGISTER);
             }
         } catch (Exception e) {

@@ -1,0 +1,71 @@
+package com.epam.training.tasks.stoss.entities;
+
+public enum Cards {
+
+    ACE_OF_SPADES("\uD83C\uDCA1"),
+    KING_OF_SPADES("\uD83C\uDCAE"),
+    QUEEN_OF_SPADES("\uD83C\uDCAD"),
+    JACK_OF_SPADES("\uD83C\uDCAB"),
+    TEN_OF_SPADES("\uD83C\uDCAA"),
+    NINE_OF_SPADES("\uD83C\uDCA9"),
+    EIGHT_OF_SPADES("\uD83C\uDCA8"),
+    SEVEN_OF_SPADES("\uD83C\uDCA7"),
+    SIX_OF_SPADES("\uD83C\uDCA6"),
+    FIVE_OF_SPADES("\uD83C\uDCA5"),
+    FOUR_OF_SPADES("\uD83C\uDCA4"),
+    THREE_OF_SPADES("\uD83C\uDCA3"),
+    TWO_OF_SPADES("\uD83C\uDCA2"),
+
+    ACE_OF_CLUBS("\uD83C\uDCD1"),
+    KING_OF_CLUBS("\uD83C\uDCDE"),
+    QUEEN_OF_CLUBS("\uD83C\uDCDD"),
+    JACK_OF_CLUBS("\uD83C\uDCDB"),
+    TEN_OF_CLUBS("\uD83C\uDCDA"),
+    NINE_OF_CLUBS("\uD83C\uDCD9"),
+    EIGHT_OF_CLUBS("\uD83C\uDCD8"),
+    SEVEN_OF_CLUBS("\uD83C\uDCD7"),
+    SIX_OF_CLUBS("\uD83C\uDCD6"),
+    FIVE_OF_CLUBS("\uD83C\uDCD5"),
+    FOUR_OF_CLUBS("\uD83C\uDCD4"),
+    THREE_OF_CLUBS("\uD83C\uDCD3"),
+    TWO_OF_CLUBS("\uD83C\uDCD2"),
+
+    ACE_OF_HEARTS("\uD83C\uDCB1"),
+    KING_OF_HEARTS("\uD83C\uDCBE"),
+    QUEEN_OF_HEARTS("\uD83C\uDCBD"),
+    JACK_OF_HEARTS("\uD83C\uDCBB"),
+    TEN_OF_HEARTS("\uD83C\uDCBA"),
+    NINE_OF_HEARTS("\uD83C\uDCB9"),
+    EIGHT_OF_HEARTS("\uD83C\uDCB8"),
+    SEVEN_OF_HEARTS("\uD83C\uDCB7"),
+    SIX_OF_HEARTS("\uD83C\uDCB6"),
+    FIVE_OF_HEARTS("\uD83C\uDCB5"),
+    FOUR_OF_HEARTS("\uD83C\uDCB4"),
+    THREE_OF_HEARTS("\uD83C\uDCB3"),
+    TWO_OF_HEARTS("\uD83C\uDCB2"),
+
+    ACE_OF_DIAMONDS("\uD83C\uDCC1"),
+    KING_OF_DIAMONDS("\uD83C\uDCCE"),
+    QUEEN_OF_DIAMONDS("\uD83C\uDCCD"),
+    JACK_OF_DIAMONDS("\uD83C\uDCCB"),
+    TEN_OF_DIAMONDS("\uD83C\uDCCA"),
+    NINE_OF_DIAMONDS("\uD83C\uDCC9"),
+    EIGHT_OF_DIAMONDS("\uD83C\uDCC8"),
+    SEVEN_OF_DIAMONDS("\uD83C\uDCC7"),
+    SIX_OF_DIAMONDS("\uD83C\uDCC6"),
+    FIVE_OF_DIAMONDS("\uD83C\uDCC5"),
+    FOUR_OF_DIAMONDS("\uD83C\uDCC4"),
+    THREE_OF_DIAMONDS("\uD83C\uDCC3"),
+    TWO_OF_DIAMONDS("\uD83C\uDCC2");
+
+
+    private String code;
+
+    Cards(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+}

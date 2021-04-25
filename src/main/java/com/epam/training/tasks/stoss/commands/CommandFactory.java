@@ -14,8 +14,13 @@ public class CommandFactory {
     private static final String LOGIN_COMMAND = "login";
     private static final String MAIN_PAGE_COMMAND = "mainPage";
     private static final String INDEX_PAGE_COMMAND = "index";
+    private static final String USER_PAGE_COMMAND = "user";
+    private static final String USER_UPDATE_COMMAND = "updateUser";
+    private static final String USERPIC_UPDATE_COMMAND = "updateUserpic";
+    private static final String DEPOSIT_COMMAND = "deposit";
     private static final String REGISTER_PAGE_COMMAND = "registerPage";
     private static final String REGISTER_COMMAND = "register";
+    private static final String NEWS_PAGE_COMMAND = "news";
     private static final String LOCALE_RU_COMMAND = "localeRu";
     private static final String LOCALE_BY_COMMAND = "localeBy";
     private static final String LOCALE_EN_COMMAND = "localeEn";
@@ -24,6 +29,8 @@ public class CommandFactory {
     private static final String INDEX_PAGE = "/index.jsp";
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
     private static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
+    private static final String USER_PAGE = "WEB-INF/view/user.jsp";
+    private static final String NEWS_PAGE = "WEB-INF/view/news.jsp";
 
     private static final String EN_LANGUAGE_TAG = "en";
     private static final String RU_LANGUAGE_TAG = "ru";
@@ -51,6 +58,22 @@ public class CommandFactory {
             case REGISTER_COMMAND: {
                 return new RegisterCommand(new UserService());
             }
+            case USER_PAGE_COMMAND: {
+                return new ShowPageCommand(USER_PAGE);
+            }
+            case USER_UPDATE_COMMAND: {
+                return new UpdateCommand(new UserService());//TODO
+            }
+            case USERPIC_UPDATE_COMMAND: {
+                return new UserpicUpdateCommand(new UserService());
+            }
+            case DEPOSIT_COMMAND: {
+                return new DepositCommand(new UserService());
+            }
+            case NEWS_PAGE_COMMAND: {
+                return new ShowPageCommand(NEWS_PAGE);
+            }
+
             case LOCALE_RU_COMMAND: {
                 LOGGER.debug("locale changed to ru");
                 return new SetLocaleCommand(Locale.forLanguageTag(RU_LANGUAGE_TAG));

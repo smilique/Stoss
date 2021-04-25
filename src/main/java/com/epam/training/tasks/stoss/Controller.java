@@ -32,9 +32,7 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String commandType = request.getParameter("command");
         Command command = factory.create(commandType);
-
         LOGGER.debug( " COMMAND: " + commandType);
-
         String page;
         boolean isRedirect = false;
 

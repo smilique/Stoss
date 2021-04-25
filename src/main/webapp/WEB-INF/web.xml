@@ -15,5 +15,15 @@
     <url-pattern>/controller</url-pattern>
   </servlet-mapping>
 
+  <context-param>
+    <param-name>uploaded-resources</param-name>
+    <param-value>D:\dev\Tomcat8.5\webapps\resources\stoss\</param-value>
+  </context-param>
+<!--  <context-param>-->
+<!--    <description>Location to uploaded files</description>-->
+<!--    <param-name>file-upload</param-name>-->
+<!--    <param-value>D:\dev\Tomcat8.5\webapps\resources\stoss\</param-value>-->
+<!--  </context-param>-->
+
 </web-app>
 

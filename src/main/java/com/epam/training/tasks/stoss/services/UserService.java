@@ -8,8 +8,10 @@ import com.epam.training.tasks.stoss.dao.UserDao;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserService {
@@ -66,8 +68,62 @@ public class UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return (!user.isPresent());
+        return (user.isPresent());
     }
 
 
+    public Optional<User> deposit(Long userId, BigDecimal deposit) throws ServiceException {
+        Optional<User> updatedUser = null;
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            Optional<User> optionalUser = userDao.findById(userId);
+            User user = optionalUser.get();
+            BigDecimal balance = user.getBalance();
+            BigDecimal newBalance = balance.add(deposit);
+            LOGGER.debug("changing balance from: " + balance + " to: " + newBalance);
+            updatedUser = userDao.updateBalance(userId,newBalance);
+            helper.endTransaction();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updatedUser;
+    }
+
+    public void changePassword(Long userId, String password) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            userDao.updatePassword(userId, password);
+            helper.endTransaction();
+        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    public Optional<User> updateUserpic(Long id, String password) throws ServiceException {
+        Optional<User> user = null;
+        try (DaoHelper helper = daoHelperFactory.create()){
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            user = userDao.updateUserpic(id, password);
+            helper.endTransaction();
+        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return user;
+    }
+
+
+//    public void updateUserpic(Long id, File userpic) {
+//        try (DaoHelper helper = daoHelperFactory.create()) {
+//            helper.startTransaction();
+//            UserDao userDao = helper.createUserDao();
+//            userDao.updateUserpic(id, userpic);
+//        }
+//    }
 }
