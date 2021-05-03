@@ -30,7 +30,7 @@
 <main class="container">
     <c:if test="${sessionScope.username != null}">
         <div class="game">
-            <p class="game_cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>
+            <p class="game-cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>
             <a href="controller?startGame">%startNewGame</a>
         </div>
     </c:if>

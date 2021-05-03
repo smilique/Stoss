@@ -22,12 +22,12 @@ input {
     background-color: #555555;
     padding: 10px;
 }
-.header_wrapper {
+.header-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.header_logo_img {
+.header-logo-img {
     width: auto;
     height: auto;
     /*width: 192px;*/
@@ -40,22 +40,22 @@ input {
     box-shadow: none;
     list-style-type: none;
 }
-.header_caption {
+.header-caption {
     align-content: center;
     padding-left: 5%;
 }
 
-.logo_text {
+.logo-text {
     font-size: 60px;
     font-weight: bold;
 }
 
-.welcome_message {
+.welcome-message {
     font-weight: bold;
     font-size: 32px;
 }
 
-.user_wrapper {
+.user-wrapper {
     align: right;
 
     display: flex;
@@ -64,7 +64,7 @@ input {
 
 }
 
-.user_edit_wrapper {
+.user-edit-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -84,13 +84,13 @@ input {
     padding: 10px;
 }
 
-.user_edit_captions {
+.user-edit-captions {
     align: right;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.user_edit_fields {
+.user-edit-fields {
     align: left;
     display: flex;
     flex-wrap: wrap;
@@ -98,26 +98,69 @@ input {
 }
 
 
-.user_info {
+.user-info {
     text-align: right;
     align: right;
     margin: 10px;
+    line-height: 30px;
 }
 
-.user_pic {
+.userpic {
     margin: 10px;
 }
 
-.user_pic_img {
+.userpic-img {
     width: 120px;
     height: 120px;
+    border-radius: 10px;
 }
 
-.login_form {
+.login-form {
     text-align: right;
     list-style-type: none;
 }
+.news-wrapper {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+.news-caption {
+    margin: 10px;
+    font-size: 20px;
+    text-align: center;
+    text-transform: capitalize;
+}
 
+.news-date {
+    margin: 5px;
+    font-size: 12px;
+    text-align: right;
+}
+.news-text {
+    margin: 10px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.news-item {
+    margin: 20px;
+    padding: 10px;
+    border: #222222;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.pages-number select {
+    align-content: center;
+    align: left;
+    color: #fdfdfe;
+    border: #1f1f99;
+}
+
+.pages-number option {
+    color: #bc1f1f;
+}
 
 .menu {
     width: 20%;
@@ -155,8 +198,42 @@ input {
     text-align: center;
     height: 20%;
 }
+.pagination-wrapper {
+    margin: 20px;
+    /*box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);*/
+    border-radius: 10px;
+}
 
-.game_cards {
+.pagination {
+    padding: 10px;
+    margin: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+}
+
+.pagination li {
+    position: relative;
+    display: block;
+    letter-spacing: 7px;
+}
+
+.pagination a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #cccccc;
+    display: block;
+}
+
+.pagination a:hover {
+    color: cadetblue;
+}
+
+.pagination a:active {
+    color: #222222;
+}
+
+.game-cards {
     font-size: 70px;
 }
 
@@ -173,7 +250,7 @@ input {
     text-align: right;
 }
 
-    li {
+.nav li {
         position: relative;
         margin: 3.2em 0;
         border: solid #7F7F7F;
@@ -181,7 +258,7 @@ input {
         list-style-type: none;
     }
 
-    a {
+.nav a {
         line-height: 30px;
         text-transform: uppercase;
         text-decoration: none;
@@ -191,9 +268,10 @@ input {
         /*transition: all ease-out 300ms;*/
     }
 
-.active {
-    color: greenyellow;
+.active a{
+    color: #222222;
 }
+
 
 
 .language-select{
@@ -333,5 +411,6 @@ html {
 }
 *, *::before, *::after {
     box-sizing: inherit;
+    list-style-type: none;
 
 }

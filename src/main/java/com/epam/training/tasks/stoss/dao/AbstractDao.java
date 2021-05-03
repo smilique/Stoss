@@ -24,10 +24,6 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
         this.mapper = mapper;
     }
 
-//    protected AbstractDao(ProxyConnection connection) {
-//        this.connection = connection;
-//    }
-
 
     protected List<T> executeQuery(String query, Object... params) throws DaoException {
 

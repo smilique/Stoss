@@ -1,6 +1,8 @@
 package com.epam.training.tasks.stoss.commands;
 
 
+import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
+import com.epam.training.tasks.stoss.services.NewsService;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
 
@@ -30,7 +32,9 @@ public class CommandFactory {
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
     private static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
     private static final String USER_PAGE = "WEB-INF/view/user.jsp";
-    private static final String NEWS_PAGE = "WEB-INF/view/news.jsp";
+    private static final String RULES_PAGE = "";
+    private static final String RATING_PAGE = "";
+    private static final String ADMINISTRATION = "WEB-INF/view/admin.jsp";
 
     private static final String EN_LANGUAGE_TAG = "en";
     private static final String RU_LANGUAGE_TAG = "ru";
@@ -62,7 +66,7 @@ public class CommandFactory {
                 return new ShowPageCommand(USER_PAGE);
             }
             case USER_UPDATE_COMMAND: {
-                return new UpdateCommand(new UserService());//TODO
+                return new UpdateCommand(new UserService());
             }
             case USERPIC_UPDATE_COMMAND: {
                 return new UserpicUpdateCommand(new UserService());
@@ -71,7 +75,7 @@ public class CommandFactory {
                 return new DepositCommand(new UserService());
             }
             case NEWS_PAGE_COMMAND: {
-                return new ShowPageCommand(NEWS_PAGE);
+                return new ShowNewsCommand(new NewsService(new DaoHelperFactory())); //TODO news + pagination
             }
 
             case LOCALE_RU_COMMAND: {

@@ -28,14 +28,14 @@
 <main class="container">
     <c:if test="${sessionScope.user != null}">
         <%--        <fmt:message key="local.message.login" var="loginText" bundle="${loc}" scope="session"/>--%>
-        <h2 class="welcome_message">%updateUserText</h2>
+        <h2 class="welcome-message">%updateUserText</h2>
         <c:if test="${sessionScope.errormessage == 'Password must be longer than 3 symbols!'}">
             ${sessionScope.errormessage}
         </c:if>
         <c:if test="${sessionScope.errormessage == 'Please choose the file to upload!'}">
             ${sessionScope.errormessage}
         </c:if>
-        <li class="user_edit_wrapper">
+        <li class="user-edit-wrapper">
             <div class="user-edit-left">
                 <form action="${pageContext.request.contextPath}/controller?command=updateUser" method="post">
                     <input class="user_edit_form" type="hidden" name="local" value="en"/>
@@ -54,11 +54,11 @@
                 </form>
             </div>
         </li>
-        <h2 class="welcome_message">%depositOrWithdrawFunds</h2>
+        <h2 class="welcome-message">%depositOrWithdrawFunds</h2>
         <c:if test="${sessionScope.errormessage == 'Enter amount larger than 0!'}">
             ${sessionScope.errormessage}
         </c:if>
-        <li class="user_edit_wrapper">
+        <li class="user-edit-wrapper">
             <div class="user-edit-left">
                 <form action="${pageContext.request.contextPath}/controller?command=deposit" method="post">
                     <p>Enter amount to deposit</p>

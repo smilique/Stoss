@@ -18,7 +18,7 @@
 
     <c:if test="${sessionScope.user.name != null}">
         <h2>
-            Logged used detected. box for sending messages here.
+            <textarea>Logged used detected. box for sending messages here.</textarea>
             <label for="chatInput">Chat</label><textarea id="chatInput" rows="2" spellcheck="false" placeholder="Enter your message..." style="display: none;"></textarea>
             <a href="controller?command=sendMessage${chatInput.text}" class="send_button">
                 <span>Send</span>

@@ -34,10 +34,6 @@ public class NewsItem implements Entity {
         return date;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -53,6 +49,13 @@ public class NewsItem implements Entity {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+
 
 
 }

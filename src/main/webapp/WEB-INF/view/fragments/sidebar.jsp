@@ -29,8 +29,8 @@
                         <a href="controller?command=mainPage">${mainPage}</a>
                     </li>
                     <li class="inactive">
-                        <fmt:message key="local.menu.news" var="news" bundle="${loc}" scope="session"/>
-                        <a href="controller?command=news">${news}</a>
+                        <fmt:message key="local.menu.news" var="newsText" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=news&page=1&items=2">${newsText}</a>
                     </li>
                     <li class="inactive">
                         <fmt:message key="local.menu.rules" var="rules" bundle="${loc}" scope="session"/>

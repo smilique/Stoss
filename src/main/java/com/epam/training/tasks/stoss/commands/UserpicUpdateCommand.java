@@ -53,27 +53,34 @@ public class UserpicUpdateCommand implements Command {
         try {
             List<FileItem> fileItems = uploader.parseRequest(request);
             FileItem item = fileItems.get(0);
-            //String fileName = item.getName();
-            String filename = userHash + "_" + id + ".png";
-            String path = RESOURCES_PATH + PICTURES_PATH + filename;
-            File userpic = new File (path);
+            LOGGER.debug(item);
+            if (item.getSize() > 0) {
+                String filename = userHash + "_" + id + ".png";
+                String path = RESOURCES_PATH + PICTURES_PATH + filename;
+                File userpic = new File (path);
 
 //            if (userpic.exists()) {
 //                userpic.delete();
 //            }
 //            item.write(userpic);
 
-            try (InputStream inputStream = item.getInputStream()) {
-                Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }
+                try (InputStream inputStream = item.getInputStream()) {
+                    Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
 
-            Optional<User> optionalUser = userService.updateUserpic(id, USERPIC_PATH + filename);
-            User updatedUser = optionalUser.get();
-            session.setAttribute("user", updatedUser);
-        } catch (Exception e) {
-            LOGGER.error(e);
-            e.printStackTrace();
-        }
+                Optional<User> optionalUser = userService.updateUserpic(id, USERPIC_PATH + filename);
+                User updatedUser = optionalUser.get();
+                session.setAttribute("user", updatedUser);
+            } else {
+                session.setAttribute("errormessage", "Please choose the file to upload!");
+            }
+            //name=, StoreLocation=null, size=0 bytes, isFormField=false, FieldName=userpic
+            //String fileName = item.getName();
+
+            } catch (Exception e) {
+                LOGGER.error(e);
+                e.printStackTrace();
+            }
         return CommandResult.redirect(PAGE);
     }
 }

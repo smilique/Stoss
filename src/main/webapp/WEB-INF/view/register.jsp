@@ -37,7 +37,7 @@
     </c:if>
     <c:if test="${sessionScope.user == null}">
 <%--        <fmt:message key="local.message.login" var="loginText" bundle="${loc}" scope="session"/>--%>
-        <h2 class="welcome_message">%registerText</h2>
+        <h2 class="welcome-message">%registerText</h2>
         <li>
             <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
                 <input class="register_form" type="hidden" name="local" value="en"/>

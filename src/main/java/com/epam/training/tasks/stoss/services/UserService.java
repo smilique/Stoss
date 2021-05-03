@@ -8,7 +8,6 @@ import com.epam.training.tasks.stoss.dao.UserDao;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;

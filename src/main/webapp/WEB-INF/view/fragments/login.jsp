@@ -9,10 +9,10 @@
 <body>
 <c:if test="${sessionScope.user == null}">
     <fmt:message key="local.message.login" var="loginText" bundle="${loc}" scope="session"/>
-    <h2 class="welcome_message">${loginText}</h2>
+    <h2 class="welcome-message">${loginText}</h2>
     <li>
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
-            <input class="login_form" type="hidden" name="local" value="en"/>
+            <input class="login-form" type="hidden" name="local" value="en"/>
             <fmt:message key="local.message.username" var="usernameText" bundle="${loc}" scope="session"/>
             <p>${usernameText}<input type="text" name="username" placeholder="username"/></p>
             <fmt:message key="local.message.password" var="passwordText" bundle="${loc}" scope="session"/>
