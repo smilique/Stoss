@@ -41,8 +41,6 @@
     <jsp:include page="WEB-INF/view/fragments/login.jsp"/>
 </main>
 
-<div class="chatbox">
-    <jsp:include page="WEB-INF/view/fragments/chat.jsp"/>
-</div>
+
 </body>
 </html>

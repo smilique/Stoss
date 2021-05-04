@@ -44,11 +44,13 @@ public class UserService {
 
         try (DaoHelper helper = daoHelperFactory.create()) {
             LOGGER.debug("Helper: " + helper);
+            helper.startTransaction();
             UserDao userDao = helper.createUserDao();
             Optional<User> existingUser = userDao.findUserByLogin(login);
             if (!existingUser.isPresent()) {
                 userDao.addNewUser(login, password, name);
             }
+            helper.endTransaction();
             return existingUser;
         } catch (DaoException e) {
             LOGGER.debug("Exception " + e);

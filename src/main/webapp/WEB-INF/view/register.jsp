@@ -58,9 +58,5 @@
         </li>
     </c:if>
 </main>
-
-<div class="chatbox">
-    <jsp:include page="fragments/chat.jsp"/>
-</div>
 </body>
 </html>

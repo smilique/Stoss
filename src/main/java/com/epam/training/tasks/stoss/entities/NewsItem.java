@@ -1,6 +1,7 @@
 package com.epam.training.tasks.stoss.entities;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class NewsItem implements Entity {
 
@@ -14,12 +15,14 @@ public class NewsItem implements Entity {
     private String caption;
     private String text;
     private Date date;
+    private Time time;
 
-    public NewsItem(Long id, String caption, String text, Date date) {
+    public NewsItem(Long id, String caption, String text, Date date, Time time) {
         this.id = id;
         this.caption = caption;
         this.text = text;
         this.date = date;
+        this.time = time;
     }
 
     public String getCaption() {
@@ -28,6 +31,14 @@ public class NewsItem implements Entity {
 
     public String getText() {
         return text;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public Date getDate() {

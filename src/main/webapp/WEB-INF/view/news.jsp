@@ -58,6 +58,7 @@
                     <p class="news-caption">${newsItem.caption}</p>
                     <p class="news-text">${newsItem.text}</p>
                     <p class="news-date">${newsItem.date}</p>
+                    <p>${newsItem.time}</p>
             </div>
         </c:forEach>
 

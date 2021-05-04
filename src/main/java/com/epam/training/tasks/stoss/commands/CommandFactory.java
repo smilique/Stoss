@@ -2,6 +2,8 @@ package com.epam.training.tasks.stoss.commands;
 
 
 import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
+import com.epam.training.tasks.stoss.dao.MessageDao;
+import com.epam.training.tasks.stoss.services.MessageService;
 import com.epam.training.tasks.stoss.services.NewsService;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
@@ -15,6 +17,9 @@ public class CommandFactory {
 
     private static final String LOGIN_COMMAND = "login";
     private static final String MAIN_PAGE_COMMAND = "mainPage";
+    private static final String CHAT_PAGE_COMMAND = "chat";
+    private static final String CHAT_POST_COMMAND = "sendMessage";
+    private static final String CHAT_DELETE_COMMAND = "deleteMessage";
     private static final String INDEX_PAGE_COMMAND = "index";
     private static final String USER_PAGE_COMMAND = "user";
     private static final String USER_UPDATE_COMMAND = "updateUser";
@@ -23,6 +28,8 @@ public class CommandFactory {
     private static final String REGISTER_PAGE_COMMAND = "registerPage";
     private static final String REGISTER_COMMAND = "register";
     private static final String NEWS_PAGE_COMMAND = "news";
+    private static final String RULES_PAGE_COMMAND = "rules";
+    private static final String RATING_PAGE_COMMAND = "rating";
     private static final String LOCALE_RU_COMMAND = "localeRu";
     private static final String LOCALE_BY_COMMAND = "localeBy";
     private static final String LOCALE_EN_COMMAND = "localeEn";
@@ -32,8 +39,8 @@ public class CommandFactory {
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
     private static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
     private static final String USER_PAGE = "WEB-INF/view/user.jsp";
-    private static final String RULES_PAGE = "";
-    private static final String RATING_PAGE = "";
+    private static final String RULES_PAGE = "WEB-INF/view/rules.jsp";
+    private static final String RATING_PAGE = "WEB-INF/view/rating.jsp";
     private static final String ADMINISTRATION = "WEB-INF/view/admin.jsp";
 
     private static final String EN_LANGUAGE_TAG = "en";
@@ -58,6 +65,12 @@ public class CommandFactory {
             case REGISTER_PAGE_COMMAND: {
                 LOGGER.debug(" register page sent");
                 return new ShowPageCommand(REGISTER_PAGE);
+            }
+            case CHAT_PAGE_COMMAND: {
+                return new ShowChatCommand(new MessageService(new DaoHelperFactory()));
+            }
+            case CHAT_POST_COMMAND: {
+                return new SendMessageCommand(new MessageService(new DaoHelperFactory()));
             }
             case REGISTER_COMMAND: {
                 return new RegisterCommand(new UserService());

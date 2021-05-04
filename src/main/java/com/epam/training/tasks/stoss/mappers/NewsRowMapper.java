@@ -5,6 +5,7 @@ import com.epam.training.tasks.stoss.entities.NewsItem;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 
 public class NewsRowMapper implements RowMapper<NewsItem>{
     @Override
@@ -13,6 +14,7 @@ public class NewsRowMapper implements RowMapper<NewsItem>{
         String caption = resultSet.getString(NewsItem.CAPTION);
         String text = resultSet.getString(NewsItem.TEXT);
         Date date = resultSet.getDate(NewsItem.TIME);
-        return new NewsItem(id, caption, text, date);
+        Time time = resultSet.getTime(NewsItem.TIME);
+        return new NewsItem(id, caption, text, date, time);
     }
 }

@@ -203,6 +203,36 @@ input {
     /*box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);*/
     border-radius: 10px;
 }
+.message-container {
+    padding: 20px;
+    background-color: #969696;
+    border-radius: 10px;
+    height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.message {
+    margin: 10px;
+    padding: 10px;
+    background-color: #fdfdfe;
+    border-radius: 10px;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.message-left-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.message-right-info {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .pagination {
     padding: 10px;

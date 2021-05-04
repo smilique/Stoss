@@ -24,11 +24,10 @@ public class UserpicUpdateCommand implements Command {
     private static final String PAGE = "controller?command=user";
     private static final int MAX_FILE_SIZE = 1000000;
     private static final int MAX_MEM_SIZE = 4096;
-//    private static final String RESOURCES_PATH = "D:\\dev\\Tomcat8.5\\webapps\\resources\\stoss\\";
     private static final String RESOURCES_PATH = "D:/dev/Tomcat8.5/webapps/resources/stoss/";
     private static final String USERPIC_PATH = "../resources/stoss/pic/png/";
-//    private static final String PICTURES_PATH = "pic\\png\\";
     private static final String PICTURES_PATH = "pic/png/";
+    private static final String TEMP_PATH = RESOURCES_PATH + "temp/";
 
     private final UserService userService;
 
@@ -46,8 +45,7 @@ public class UserpicUpdateCommand implements Command {
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(MAX_MEM_SIZE);
-//        factory.setRepository(new File(RESOURCES_PATH + "temp\\"));
-        factory.setRepository(new File(RESOURCES_PATH + "temp/"));
+        factory.setRepository(new File(TEMP_PATH));
         ServletFileUpload uploader = new ServletFileUpload(factory);
         uploader.setFileSizeMax(MAX_FILE_SIZE);
         try {
@@ -59,11 +57,6 @@ public class UserpicUpdateCommand implements Command {
                 String path = RESOURCES_PATH + PICTURES_PATH + filename;
                 File userpic = new File (path);
 
-//            if (userpic.exists()) {
-//                userpic.delete();
-//            }
-//            item.write(userpic);
-
                 try (InputStream inputStream = item.getInputStream()) {
                     Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 }
@@ -74,8 +67,6 @@ public class UserpicUpdateCommand implements Command {
             } else {
                 session.setAttribute("errormessage", "Please choose the file to upload!");
             }
-            //name=, StoreLocation=null, size=0 bytes, isFormField=false, FieldName=userpic
-            //String fileName = item.getName();
 
             } catch (Exception e) {
                 LOGGER.error(e);

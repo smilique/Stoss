@@ -12,7 +12,7 @@ public class DaoHelper implements AutoCloseable {
     private final ProxyConnection connection;
     //private final RowMapper<User> mapper;
 
-    public  DaoHelper(ProxyConnection connection) {
+    public DaoHelper(ProxyConnection connection) {
         LOGGER.debug("Daohelper with connection: " + connection);
         this.connection = connection;
     }
@@ -27,6 +27,11 @@ public class DaoHelper implements AutoCloseable {
         NewsDao newsDao = new NewsDao(connection);
         LOGGER.debug("NewsDao created: " + newsDao);
         return newsDao;
+    }
+
+    public MessageDao createMessageDao() {
+        MessageDao messageDao = new MessageDao(connection);
+        return messageDao;
     }
 
     //create another dao
