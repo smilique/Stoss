@@ -30,8 +30,25 @@
 <main class="container">
     <c:if test="${sessionScope.user != null}">
         <div class="game">
-            <p class="game-cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>
-            <a href="controller?command=startGame">%startNewGame</a>
+            <h2>%Please choose card to bet</h2>
+            <c:set var="game" value="${sessionScope.game}"/>
+            <c:set var="punterCards" value="${game.punterDeck}"/>
+            <div class="cards-wrapper">
+                <c:forEach var="card" items="${punterCards.cards}">
+                    <c:if test="${card.suit == 'diamonds'}">
+                        <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                    </c:if>
+                    <c:if test="${card.suit == 'hearts'}">
+                        <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                    </c:if>
+                    <c:if test="${card.suit == 'clubs'}">
+                        <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                    </c:if>
+                    <c:if test="${card.suit == 'spades'}">
+                        <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
         </div>
     </c:if>
 

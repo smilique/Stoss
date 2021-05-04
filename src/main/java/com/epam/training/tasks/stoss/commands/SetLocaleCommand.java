@@ -23,10 +23,10 @@ public class SetLocaleCommand implements Command{
         HttpSession session = request.getSession();
         session.setAttribute(LOCALE_ATTRIBUTE, locale);
         response.setLocale(locale);
-        String page = request.getRequestURI();
-        StringBuffer requestBuffer = request.getRequestURL();
-        LOGGER.debug(requestBuffer.toString());
-        LOGGER.debug("page: " + page);
+//        String page = request.getRequestURI();
+//        StringBuffer requestBuffer = request.getRequestURL();
+////        LOGGER.debug(requestBuffer.toString());
+////        LOGGER.debug("page: " + page);
 
         return CommandResult.forward("controller?command=index");
     }

@@ -26,7 +26,7 @@ public class ShowChatCommand implements Command {
 
         try {
             List<Message> messages = messageService.getMessages();
-            Collections.reverse(messages);
+            //Collections.reverse(messages);
             request.setAttribute("messages", messages);
         } catch (Exception e) {
             LOGGER.error(e);

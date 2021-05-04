@@ -23,7 +23,7 @@
 <%--                </select>--%>
             </div>
             <ul>
-                <c:if test="${sessionScope.username != null}">
+                <c:if test="${sessionScope.user != null}">
                     <li class="active">
                         <fmt:message key="local.menu.mainPage" var="mainPage" bundle="${loc}" scope="session"/>
                         <a href="controller?command=mainPage">${mainPage}</a>
@@ -49,7 +49,7 @@
                         <a href="controller?command=rating">${rating}</a>
                     </li>
                 </c:if>
-                <c:if test="${sessionScope.username == null}">
+                <c:if test="${sessionScope.user == null}">
                     <li class="inactive">
                         <fmt:message key="menu.loginPage" var="loginPage" bundle="${loc}" scope="session"/>
                         <a href="controller?command=index">${loginPage}</a>

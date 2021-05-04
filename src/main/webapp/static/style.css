@@ -206,7 +206,6 @@ input {
 .message-container {
     padding: 20px;
     background-color: #969696;
-    border-radius: 10px;
     height: 80%;
     overflow-y: scroll;
     display: flex;
@@ -214,7 +213,7 @@ input {
 }
 
 .message {
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
     background-color: #fdfdfe;
     border-radius: 10px;
@@ -232,6 +231,28 @@ input {
 .message-right-info {
     display: flex;
     flex-wrap: wrap;
+}
+
+.card-black {
+    text-decoration: none;
+    color: black;
+    font-size: 100px;
+}
+
+.card-black:hover {
+    /*color: darkred;*/
+    border: #525253;
+}
+
+.card-red {
+    text-decoration: none;
+    color: darkred;
+    font-size: 100px;
+}
+
+.card-red:hover {
+    /*color: black;*/
+    border: #525253;
 }
 
 .pagination {
@@ -343,6 +364,10 @@ input {
 .language-select:hover::before {
     color: #1f1f99;
     background-color: #bc1f1f;
+}
+
+.language-select a:hover {
+    color: black;
 }
 
 .language-select select option {

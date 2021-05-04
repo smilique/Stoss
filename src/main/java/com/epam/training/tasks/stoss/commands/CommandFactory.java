@@ -30,6 +30,8 @@ public class CommandFactory {
     private static final String NEWS_PAGE_COMMAND = "news";
     private static final String RULES_PAGE_COMMAND = "rules";
     private static final String RATING_PAGE_COMMAND = "rating";
+    private static final String START_GAME_COMMAND = "startGame";
+    private static final String CHOOSE_CARD_COMMAND = "chooseCard";
     private static final String LOCALE_RU_COMMAND = "localeRu";
     private static final String LOCALE_BY_COMMAND = "localeBy";
     private static final String LOCALE_EN_COMMAND = "localeEn";
@@ -42,6 +44,7 @@ public class CommandFactory {
     private static final String RULES_PAGE = "WEB-INF/view/rules.jsp";
     private static final String RATING_PAGE = "WEB-INF/view/rating.jsp";
     private static final String ADMINISTRATION = "WEB-INF/view/admin.jsp";
+
 
     private static final String EN_LANGUAGE_TAG = "en";
     private static final String RU_LANGUAGE_TAG = "ru";
@@ -66,6 +69,13 @@ public class CommandFactory {
                 LOGGER.debug(" register page sent");
                 return new ShowPageCommand(REGISTER_PAGE);
             }
+            case START_GAME_COMMAND: {
+                LOGGER.debug("The game started!");
+                return new StartGameCommand();
+            }
+            case CHOOSE_CARD_COMMAND: {
+                return new ChooseCardCommand();
+            }
             case CHAT_PAGE_COMMAND: {
                 return new ShowChatCommand(new MessageService(new DaoHelperFactory()));
             }
@@ -88,7 +98,7 @@ public class CommandFactory {
                 return new DepositCommand(new UserService());
             }
             case NEWS_PAGE_COMMAND: {
-                return new ShowNewsCommand(new NewsService(new DaoHelperFactory())); //TODO news + pagination
+                return new ShowNewsCommand(new NewsService(new DaoHelperFactory()));
             }
 
             case LOCALE_RU_COMMAND: {

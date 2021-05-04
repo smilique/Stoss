@@ -1,20 +1,34 @@
 package com.epam.training.tasks.stoss.entities;
 
 public class Card {
-    private String name;
-    private String suit;
-    private String code;
+    private final String name;
+    private final String suit;
+    private final String code;
 
-    private Card() {
-        this.code = ""; //not implemented, needs to be random card from enum
+    public Card(Cards cardElement) {
+        this.code = cardElement.getCode();
+        this.suit = cardElement.getSuit();
+        this.name = cardElement.getName();
     }
 
-    public Card getCard(Deck deck) {
-        Card card = new Card();
-        //It might be dangerous to use while in such case
-        while (deck.getCards().contains(card)) {
-            card = new Card();
-        }
-        return card;
+    public String getCode() {
+        return code;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    //    public Card getCard(Deck deck) {
+//        Card card = new Card();
+//        //It might be dangerous to use while in such case
+//        while (deck.getCards().contains(card)) {
+//            card = new Card();
+//        }
+//        return card;
+//    }
 }

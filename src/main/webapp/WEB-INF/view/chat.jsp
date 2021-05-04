@@ -43,21 +43,15 @@
             </div>
         </div>
     </c:forEach>
-    <p>Hello</p>
-    <span class="time">11:00</span>
 </div>
 
-
-    <c:if test="${sessionScope.user.name != null}">
+    <c:if test="${sessionScope.user != null}">
         <div class="message-send">
             <form  action="${pageContext.request.contextPath}/controller?command=sendMessage" method="post">
-                <input type="text" name="text" placeholder="%yourMessageHere"/>
-                <input type="submit" name="sendMessage" value="%sendMessage"/>
-<%--                <input type="number" name="userId" hidden="hidden" value="${sessionScope.user.id}">--%>
+                <input class="message-text" type="text" name="text" placeholder="%yourMessageHere"/>
+                <input class="message-submit" type="submit" name="sendMessage" value="%sendMessage"/>
             </form>
         </div>
-<%--            <label for="chatInput">Chat</label>--%>
-<%--        <textarea id="chatInput" rows="2" spellcheck="false" placeholder="Enter your message..." maxlength="255"></textarea>--%>
     </c:if>
 </body>
 </html>

@@ -45,7 +45,8 @@ public class MessageService {
             messageDao.post(messageText, userId);
             helper.endTransaction();
         } catch (ConnectionException | IOException | SQLException | DaoException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
+            throw new ServiceException(e);
         }
     }
 }

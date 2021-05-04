@@ -16,7 +16,7 @@
         <h1 class="logo-text">${caption}</h1>
     </div>
     <div class="user-wrapper">
-        <c:if test="${sessionScope.username != null}">
+        <c:if test="${sessionScope.user != null}">
             <div class="user-info">
                 <fmt:message key="local.message.welcome" var="hello" bundle="${loc}" scope="session"/>
                 <p>${hello}, <a href="controller?command=user" class="user_profile_link">${sessionScope.user.name}</a></p>

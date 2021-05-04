@@ -49,7 +49,9 @@ public class LoginCommand implements Command {
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             LOGGER.debug(" current user: " + user.getName());
-            session.setAttribute("username", user.getName());
+//            session.setAttribute("username", user.getName());
+            String userLocale = user.getLocale();
+            session.setAttribute("locale", userLocale);
             session.setAttribute("user", user);
             session.removeAttribute("errormessage");
             nextPage.set(SUCCESSFUL_LOGIN);
