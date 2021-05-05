@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class RegisterCommand implements Command{
+public class RegisterCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(RegisterCommand.class);
 
@@ -23,7 +23,7 @@ public class RegisterCommand implements Command{
 
     private final UserService userService;
 
-    public RegisterCommand (UserService userService) {
+    public RegisterCommand(UserService userService) {
         this.userService = userService;
     }
 

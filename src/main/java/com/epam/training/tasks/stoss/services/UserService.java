@@ -1,13 +1,11 @@
 package com.epam.training.tasks.stoss.services;
 
 import com.epam.training.tasks.stoss.connections.ConnectionException;
-import com.epam.training.tasks.stoss.dao.DaoException;
-import com.epam.training.tasks.stoss.dao.DaoHelper;
-import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
-import com.epam.training.tasks.stoss.dao.UserDao;
+import com.epam.training.tasks.stoss.dao.*;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -83,7 +81,8 @@ public class UserService {
             BigDecimal balance = user.getBalance();
             BigDecimal newBalance = balance.add(deposit);
             LOGGER.debug("changing balance from: " + balance + " to: " + newBalance);
-            updatedUser = userDao.updateBalance(userId,newBalance);
+            userDao.updateBalance(userId, newBalance);
+            updatedUser = userDao.findById(userId);
             helper.endTransaction();
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -105,18 +104,50 @@ public class UserService {
         }
     }
 
-    public Optional<User> updateUserpic(Long id, String password) throws ServiceException {
+    public Optional<User> updateUserpic(Long userId, String password) throws ServiceException {
         Optional<User> user = null;
-        try (DaoHelper helper = daoHelperFactory.create()){
+        try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
-            user = userDao.updateUserpic(id, password);
+            userDao.updateUserpic(userId, password);
+            user = userDao.findById(userId);
             helper.endTransaction();
         } catch (ConnectionException | IOException | SQLException | DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
         return user;
+    }
+
+    public Optional<User> updatePoints(Long userId, Long points) throws ServiceException {
+        Optional<User> user = null;
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            userDao.updatePoints(userId,points);
+            user = userDao.findById(userId);
+            helper.endTransaction();
+        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+           LOGGER.error(e);
+           throw new ServiceException(e);
+        }
+        return user;
+    }
+
+    public Optional<User> changeLocale(Long userId, String languageTag) throws ServiceException {
+        Optional<User> optionalUser = null;
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            userDao.updateLocale(userId,languageTag);
+            optionalUser = userDao.findById(userId);
+            helper.endTransaction();
+
+        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+            e.printStackTrace();
+        }
+
+        return optionalUser;
     }
 
 

@@ -2,13 +2,10 @@ package com.epam.training.tasks.stoss.commands;
 
 
 import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
-import com.epam.training.tasks.stoss.dao.MessageDao;
 import com.epam.training.tasks.stoss.services.MessageService;
 import com.epam.training.tasks.stoss.services.NewsService;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
-
-import java.util.Locale;
 
 
 public class CommandFactory {
@@ -30,51 +27,45 @@ public class CommandFactory {
     private static final String NEWS_PAGE_COMMAND = "news";
     private static final String RULES_PAGE_COMMAND = "rules";
     private static final String RATING_PAGE_COMMAND = "rating";
+    private static final String ADMINISTRATION_PAGE_COMMAND = "userAdministration";
     private static final String START_GAME_COMMAND = "startGame";
     private static final String CHOOSE_CARD_COMMAND = "chooseCard";
-    private static final String LOCALE_RU_COMMAND = "localeRu";
-    private static final String LOCALE_BY_COMMAND = "localeBy";
-    private static final String LOCALE_EN_COMMAND = "localeEn";
+    private static final String BET_COMMAND = "bet";
+    private static final String CHANGE_LOCALE_COMMAND = "changeLocale";
     private static final String LOGOUT_COMMAND = "logout";
 
     private static final String INDEX_PAGE = "/index.jsp";
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
     private static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
     private static final String USER_PAGE = "WEB-INF/view/user.jsp";
+    private static final String NOT_IMPLEMENTED_PAGE = "WEB-INF/view/notImplemented.jsp";
     private static final String RULES_PAGE = "WEB-INF/view/rules.jsp";
     private static final String RATING_PAGE = "WEB-INF/view/rating.jsp";
     private static final String ADMINISTRATION = "WEB-INF/view/admin.jsp";
-
-
-    private static final String EN_LANGUAGE_TAG = "en";
-    private static final String RU_LANGUAGE_TAG = "ru";
-    private static final String BY_LANGUAGE_TAG = "by";
 
     public Command create(String type) {
         LOGGER.debug(" type = " + type);
         switch (type) {
             case LOGIN_COMMAND: {
-                LOGGER.debug(" login command sent");
                 return new LoginCommand(new UserService());
             }
             case MAIN_PAGE_COMMAND: {
-                LOGGER.debug(" main page sent");
                 return new ShowPageCommand(MAIN_PAGE);
             }
             case INDEX_PAGE_COMMAND: {
-                LOGGER.debug(" index page sent");
                 return new ShowPageCommand(INDEX_PAGE);
             }
             case REGISTER_PAGE_COMMAND: {
-                LOGGER.debug(" register page sent");
                 return new ShowPageCommand(REGISTER_PAGE);
             }
             case START_GAME_COMMAND: {
-                LOGGER.debug("The game started!");
                 return new StartGameCommand();
             }
             case CHOOSE_CARD_COMMAND: {
                 return new ChooseCardCommand();
+            }
+            case BET_COMMAND: {
+                return new BetCommand(new UserService());
             }
             case CHAT_PAGE_COMMAND: {
                 return new ShowChatCommand(new MessageService(new DaoHelperFactory()));
@@ -84,6 +75,11 @@ public class CommandFactory {
             }
             case REGISTER_COMMAND: {
                 return new RegisterCommand(new UserService());
+            }
+            case RULES_PAGE_COMMAND:
+            case ADMINISTRATION_PAGE_COMMAND:
+            case RATING_PAGE_COMMAND: {
+                return new ShowPageCommand(NOT_IMPLEMENTED_PAGE);
             }
             case USER_PAGE_COMMAND: {
                 return new ShowPageCommand(USER_PAGE);
@@ -101,20 +97,11 @@ public class CommandFactory {
                 return new ShowNewsCommand(new NewsService(new DaoHelperFactory()));
             }
 
-            case LOCALE_RU_COMMAND: {
-                LOGGER.debug("locale changed to ru");
-                return new SetLocaleCommand(Locale.forLanguageTag(RU_LANGUAGE_TAG));
+            case CHANGE_LOCALE_COMMAND: {
+                return new SetLocaleCommand(new UserService());
             }
-            case LOCALE_BY_COMMAND: {
-                LOGGER.debug("locale changed to by");
-                return new SetLocaleCommand(Locale.forLanguageTag(BY_LANGUAGE_TAG));
-            }
-            case LOCALE_EN_COMMAND: {
-                LOGGER.debug("locale changed to en");
-                return new SetLocaleCommand(Locale.forLanguageTag(EN_LANGUAGE_TAG));
-            }
+
             case LOGOUT_COMMAND: {
-                LOGGER.debug("logout command sent");
                 return new LogoutCommand();
             }
             default: {

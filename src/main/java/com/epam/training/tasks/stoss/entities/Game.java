@@ -5,6 +5,15 @@ public class Game {
     private Deck punterDeck;
     private Deck bankerDeck;
     private Long userId;
+    private Long bet;
+
+    public Long getBet() {
+        return bet;
+    }
+
+    public void setBet(Long bet) {
+        this.bet = bet;
+    }
 
     public Game(Long userId) {
         punterDeck = new Deck();
@@ -18,6 +27,10 @@ public class Game {
 
     public Deck getBankerDeck() {
         return bankerDeck;
+    }
+
+    public void setBankerDeck(Deck bankerDeck) {
+        this.bankerDeck = bankerDeck;
     }
 
     public Long getUserId() {

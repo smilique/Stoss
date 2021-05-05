@@ -27,8 +27,10 @@ public class UserDao extends AbstractDao<User>{
     private static final String VALIDATE_QUERY = "select " + USER_READ_COLUMNS + "where login = ?";
     private static final String LOGIN_QUERY = VALIDATE_QUERY + " and password = MD5(?)";
     private static final String UPDATE_BALANCE_QUERY = "update user set balance = ? where id = ?";
+    private static final String UPDATE_POINTS_QUERY = "update user set points = ? where id = ?";
     private static final String UPDATE_USERPIC_QUERY = "update user set userpic = ? where id = ?";
     private static final String UPDATE_PASSWORD_QUERY = "update user set password = md5(?) where id = ?";
+    private static final String UPDATE_LOCALE_QUERY = "update user set locale = ? where id = ?";
     private static final String GET_BY_ID_QUERY = SELECT + USER_READ_COLUMNS + WHERE + USER_ID;
 
     protected UserDao(ProxyConnection connection) {
@@ -51,10 +53,14 @@ public class UserDao extends AbstractDao<User>{
             executeUpdate(ADD_NEW_QUERY, login, password, name);
     }
 
-    public Optional<User> updateBalance(Long id, BigDecimal deposit) throws DaoException {
+    public void updateBalance(Long id, BigDecimal deposit) throws DaoException {
         LOGGER.debug("updating balance");
         executeUpdate(UPDATE_BALANCE_QUERY, deposit, id);
-        return findById(id);
+    }
+
+    public void updatePoints(Long id, Long points) throws DaoException {
+        LOGGER.debug("updating points");
+        executeUpdate(UPDATE_POINTS_QUERY, points, id);
     }
 
     public void updatePassword(Long id, String password) throws DaoException {
@@ -62,9 +68,8 @@ public class UserDao extends AbstractDao<User>{
         executeUpdate(UPDATE_PASSWORD_QUERY, password, id);
     }
 
-    public Optional<User> updateUserpic(Long id, String path) throws DaoException {
+    public void updateUserpic(Long id, String path) throws DaoException {
         executeUpdate(UPDATE_USERPIC_QUERY, path, id);
-        return findById(id);
     }
 
 
@@ -104,4 +109,7 @@ public class UserDao extends AbstractDao<User>{
         //remove user from db
     }
 
+    public void updateLocale(Long userId, String languageTag) throws DaoException {
+        executeUpdate(UPDATE_LOCALE_QUERY, languageTag, userId);
+    }
 }

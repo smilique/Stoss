@@ -28,16 +28,7 @@
 </nav>
 
 <main class="container">
-    <c:if test="${sessionScope.user != null}">
-        <div class="game">
-<%--            <p class="game-cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>--%>
-            <fmt:message key="local.game.startNewGame" var="startButtonText" bundle="${loc}" scope="session"/>
-            <a class="start-button" href="controller?command=startGame">${startButtonText}</a>
-        </div>
-    </c:if>
-
-
-
+    <title>Not implemented yet</title>
 </main>
 
 </body>

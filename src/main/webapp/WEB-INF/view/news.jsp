@@ -31,34 +31,13 @@
 
     <div class="news-wrapper">
         <c:set var="itemsPerPage" value="2"/>
-        <%--    <select id="news-per-page-select" onchange="${itemsPerPage} = this.options[this.selectedIndex].value" class="pages-number">--%>
-        <%--        <c:if test="${itemsPerPage == 2}">--%>
-        <%--            <option value="2" selected="selected">2</option>--%>
-        <%--        </c:if>--%>
-        <%--        <c:if test="${itemsPerPage != 2}">--%>
-        <%--            <option value="2">2</option>--%>
-        <%--        </c:if>--%>
-        <%--        <c:if test="${itemsPerPage == 5}">--%>
-        <%--            <option value="5" selected="selected">5</option>--%>
-        <%--        </c:if>--%>
-        <%--        <c:if test="${itemsPerPage != 5}">--%>
-        <%--            <option value="5">5</option>--%>
-        <%--        </c:if>--%>
-        <%--        <c:if test="${itemsPerPage == 10}">--%>
-        <%--            <option value="10" selected="selected">10</option>--%>
-        <%--        </c:if>--%>
-        <%--        <c:if test="${itemsPerPage != 10}">--%>
-        <%--            <option value="10">10</option>--%>
-        <%--        </c:if>--%>
-        <%--    </select>--%>
-
         <c:set var="newsList" value="${requestScope.get('news')}"/>
         <c:forEach items="${newsList}" var="newsItem">
             <div class="news-item">
                     <p class="news-caption">${newsItem.caption}</p>
                     <p class="news-text">${newsItem.text}</p>
                     <p class="news-date">${newsItem.date}</p>
-                    <p>${newsItem.time}</p>
+                    <p class="news-date">${newsItem.time}</p>
             </div>
         </c:forEach>
 

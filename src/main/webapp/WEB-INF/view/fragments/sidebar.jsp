@@ -9,18 +9,9 @@
     <aside class="sidebar">
         <nav class="nav">
             <div class="language-select">
-                <a href="controller?command=localeEn">English</a>
-                <a href="controller?command=localeRu">Русский</a>
-                <a href="controller?command=localeBy">Беларуская</a>
-<%--                <select id="standard-select" onchange="window.location.href=this.options[this.selectedIndex].value">--%>
-<%--                    <option>Change Language</option>--%>
-<%--                    <fmt:message key="locale.en" var="en" bundle="${loc}" scope="session"/>--%>
-<%--                    <option value="controller?command=localeEn">${en}</option>--%>
-<%--                    <fmt:message key="locale.ru" var="ru" bundle="${loc}" scope="session"/>--%>
-<%--                    <option value="controller?command=localeRu">${ru}</option>--%>
-<%--                    <fmt:message key="locale.by" var="by" bundle="${loc}" scope="session"/>--%>
-<%--                    <option value="controller?command=localeBy">${by}</option>--%>
-<%--                </select>--%>
+                    <a class="active" href="controller?command=changeLocale&languageTag=en">English</a>
+                    <a href="controller?command=changeLocale&languageTag=ru">Русский</a>
+                    <a href="controller?command=changeLocale&languageTag=by">Беларуская</a>
             </div>
             <ul>
                 <c:if test="${sessionScope.user != null}">
@@ -30,7 +21,8 @@
                     </li>
                     <c:if test="${sessionScope.user.role == 'admin'}">
                         <li>
-                            <a href="">%userAdministration</a>
+                            <fmt:message key="local.menu.userAdmin" var="userAdminText" bundle="${loc}" scope="session"/>
+                            <a href="controller?command=userAdministration">${userAdminText}</a>
                         </li>
                     </c:if>
                     <li class="inactive">
@@ -38,7 +30,8 @@
                         <a href="controller?command=news&page=1&items=2">${newsText}</a>
                     </li>
                     <li class="inactive">
-                        <a href="controller?command=chat">%chat</a>
+                        <fmt:message key="local.menu.chat" var="chatText" bundle="${loc}" scope="session"/>
+                        <a href="controller?command=chat">${chatText}</a>
                     </li>
                     <li class="inactive">
                         <fmt:message key="local.menu.rules" var="rules" bundle="${loc}" scope="session"/>
@@ -51,7 +44,7 @@
                 </c:if>
                 <c:if test="${sessionScope.user == null}">
                     <li class="inactive">
-                        <fmt:message key="menu.loginPage" var="loginPage" bundle="${loc}" scope="session"/>
+                        <fmt:message key="local.menu.loginPage" var="loginPage" bundle="${loc}" scope="session"/>
                         <a href="controller?command=index">${loginPage}</a>
                     </li>
                 </c:if>

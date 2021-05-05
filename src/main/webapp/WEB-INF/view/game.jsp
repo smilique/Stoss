@@ -30,21 +30,16 @@
 <main class="container">
     <c:if test="${sessionScope.user != null}">
         <div class="game">
-            <h2>%Please choose card to bet</h2>
+            <fmt:message key="local.game.chooseCard" var="chooseCardText" bundle="${loc}" scope="session"/>
+            <h2>${chooseCardText}</h2>
             <c:set var="game" value="${sessionScope.game}"/>
             <c:set var="punterCards" value="${game.punterDeck}"/>
             <div class="cards-wrapper">
                 <c:forEach var="card" items="${punterCards.cards}">
-                    <c:if test="${card.suit == 'diamonds'}">
+                    <c:if test="${card.suit == 'diamonds' || card.suit == 'hearts'}">
                         <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
                     </c:if>
-                    <c:if test="${card.suit == 'hearts'}">
-                        <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
-                    </c:if>
-                    <c:if test="${card.suit == 'clubs'}">
-                        <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
-                    </c:if>
-                    <c:if test="${card.suit == 'spades'}">
+                    <c:if test="${card.suit == 'clubs' || card.suit == 'spades'}">
                         <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
                     </c:if>
                 </c:forEach>

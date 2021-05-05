@@ -7,10 +7,10 @@ public class Deck {
     private Stack<Card> cards = new Stack<>();
 
     public Deck() {
-        getDeck();
+        getShuffledDeck();
     }
 
-    private void getDeck() {
+    private void getShuffledDeck() {
         //sets Deck of 52 cards
         for (Cards cardElement: Cards.values()) {
             cards.add(new Card(cardElement));
@@ -29,6 +29,10 @@ public class Deck {
         return result;
     }
 
+    public Card getCard() {
+        return cards.pop();
+    }
+
 
     public Stack<Card> getCards() {
         return cards;
@@ -39,7 +43,7 @@ public class Deck {
     }
 
     public void split(int cardNumber) {
-        //splits the deck into two subdecks and reorder
+        //TODO split the deck into two subdecks and reorder
 
     }
 }

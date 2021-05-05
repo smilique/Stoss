@@ -72,16 +72,16 @@ input {
 
 .user-edit-left {
     text-align: center;
-    box-shadow: inherit;
     margin: 10px;
     padding: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
 .user-edit-right {
     text-align: center;
-    box-shadow: inherit;
     margin: 10px;
     padding: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
 .user-edit-captions {
@@ -105,6 +105,14 @@ input {
     line-height: 30px;
 }
 
+.user-info a {
+    text-decoration: none;
+    color: #cccccc;
+}
+.user-info a:hover {
+    color: black;
+}
+
 .userpic {
     margin: 10px;
 }
@@ -113,6 +121,13 @@ input {
     width: 120px;
     height: 120px;
     border-radius: 10px;
+}
+
+.start-button {
+    text-decoration: none;
+    color: #cccccc;
+    border: #cccccc;
+    border-radius: 5px;
 }
 
 .login-form {
@@ -237,23 +252,48 @@ input {
     text-decoration: none;
     color: black;
     font-size: 100px;
+    transition: font-size 1s;
+}
+
+.chosen-card-black {
+    font-size: 150px;
+    color: black;
 }
 
 .card-black:hover {
     /*color: darkred;*/
-    border: #525253;
+    /*border: #525253;*/
+    font-size: 150px;
 }
 
 .card-red {
     text-decoration: none;
     color: darkred;
     font-size: 100px;
+    transition: font-size 1s;
+}
+
+.chosen-card-red {
+    font-size: 150px;
+    color: darkred;
 }
 
 .card-red:hover {
-    /*color: black;*/
-    border: #525253;
+    font-size: 150px;
 }
+
+.card {
+    margin: 20px;
+    padding: 10px;
+}
+
+.banker-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
 
 .pagination {
     padding: 10px;
@@ -318,6 +358,7 @@ input {
         display: block;
         /*transition: all ease-out 300ms;*/
     }
+
 
 .active a{
     color: #222222;

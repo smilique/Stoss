@@ -35,7 +35,7 @@ public class SendMessageCommand implements Command {
             Long userId = currentUser.getId();
             LOGGER.debug("user id: " + userId);
             LOGGER.debug("message: " + message);
-            messageService.postMessage(message,userId);
+            messageService.postMessage(message, userId);
 
             List<Message> messages = messageService.getMessages();
             request.setAttribute("messages", messages);

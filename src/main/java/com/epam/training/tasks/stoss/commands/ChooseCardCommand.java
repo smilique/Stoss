@@ -13,15 +13,15 @@ public class ChooseCardCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ChooseCardCommand.class);
 
-    private static final String PAGE = "WEB-INF/view/game.jsp";
+    private static final String PAGE = "WEB-INF/view/bet.jsp";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Game game = (Game) session.getAttribute("game");
         Deck punterCards = game.getPunterDeck();
-        String cardCode = request.getParameter("card");
-        Card punterCard = punterCards.getByCode(cardCode);
+        String punterCardCode = request.getParameter("card");
+        Card punterCard = punterCards.getByCode(punterCardCode);
         session.setAttribute("punterCard", punterCard);
 
         return CommandResult.forward(PAGE);

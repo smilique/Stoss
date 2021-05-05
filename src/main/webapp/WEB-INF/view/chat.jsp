@@ -48,8 +48,10 @@
     <c:if test="${sessionScope.user != null}">
         <div class="message-send">
             <form  action="${pageContext.request.contextPath}/controller?command=sendMessage" method="post">
-                <input class="message-text" type="text" name="text" placeholder="%yourMessageHere"/>
-                <input class="message-submit" type="submit" name="sendMessage" value="%sendMessage"/>
+                <fmt:message key="local.chat.enterMessage" var="enterMessageText" bundle="${loc}" scope="session"/>
+                <input class="message-text" type="text" name="text" placeholder="${enterMessageText}"/>
+                <fmt:message key="local.chat.sendMessage" var="sendButtonText" bundle="${loc}" scope="session"/>
+                <input class="message-submit" type="submit" name="sendMessage" value="${sendButtonText}"/>
             </form>
         </div>
     </c:if>

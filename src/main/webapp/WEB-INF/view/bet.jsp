@@ -30,25 +30,29 @@
 <main class="container">
     <c:if test="${sessionScope.user != null}">
         <div class="game">
-
-            <c:set var="game" value="${sessionScope.game}"/>
-            <c:set var="punterCards" value="${game.punterDeck}"/>
+<%--            <c:set var="game" value="${sessionScope.game}"/>--%>
+<%--            <c:set var="punterCards" value="${game.punterDeck}"/>--%>
             <div class="cards-wrapper">
-                <c:set var="card" value="${sessionScope.punterCard}">
-                    <c:if test="${card.suit == 'diamonds'}">
-                        <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                <c:set var="card" value="${sessionScope.punterCard}"/>
+                <c:set var="suit" value="${card.suit}"/>
+                    <c:if test="${suit == 'hearts' || suit == 'diamonds'}">
+                        <p class="chosen-card-red">${card.code}</p>
                     </c:if>
-                    <c:if test="${card.suit == 'hearts'}">
-                        <a class="card-red" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
+                    <c:if test="${suit == 'clubs' || suit == 'spades'}">
+                        <p class="chosen-card-black">${card.code}</p>
                     </c:if>
-                    <c:if test="${card.suit == 'clubs'}">
-                        <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
-                    </c:if>
-                    <c:if test="${card.suit == 'spades'}">
-                        <a class="card-black" href="controller?command=chooseCard&card=${card.code}">${card.code}</a>
-                    </c:if>
-                    <form action=""
-                </c:set>
+                <label>
+                    <p>${card.name} of ${card.suit} is chosen.</p>
+                    <div class="bet-form">
+                        <form action="${pageContext.request.contextPath}/controller?command=bet" method="post">
+                            <fmt:message key="local.game.placeBetText" var="placeBetText" bundle="${loc}" scope="session"/>
+                            <p>${placeBetText}</p>
+                            <input type="number" name="betValue" value="10" min="5" max="30">
+                            <fmt:message key="local.game.placeBetButton" var="placeBetButtonText" bundle="${loc}" scope="session"/>
+                            <input type="submit" class="place-bet" value="${placeBetButtonText}">
+                        </form>
+                    </div>
+                </label>
             </div>
         </div>
     </c:if>
