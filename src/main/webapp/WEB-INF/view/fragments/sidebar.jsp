@@ -8,11 +8,6 @@
 
     <aside class="sidebar">
         <nav class="nav">
-            <div class="language-select">
-                    <a class="active" href="controller?command=changeLocale&languageTag=en">English</a>
-                    <a href="controller?command=changeLocale&languageTag=ru">Русский</a>
-                    <a href="controller?command=changeLocale&languageTag=by">Беларуская</a>
-            </div>
             <ul>
                 <c:if test="${sessionScope.user != null}">
                     <li class="active">
@@ -22,7 +17,7 @@
                     <c:if test="${sessionScope.user.role == 'admin'}">
                         <li>
                             <fmt:message key="local.menu.userAdmin" var="userAdminText" bundle="${loc}" scope="session"/>
-                            <a href="controller?command=userAdministration">${userAdminText}</a>
+                            <a href="controller?command=users">${userAdminText}</a>
                         </li>
                     </c:if>
                     <li class="inactive">

@@ -19,7 +19,9 @@ public class CommandFactory {
     private static final String CHAT_DELETE_COMMAND = "deleteMessage";
     private static final String INDEX_PAGE_COMMAND = "index";
     private static final String USER_PAGE_COMMAND = "user";
+    private static final String USERS_PAGE_COMMAND = "users";
     private static final String USER_UPDATE_COMMAND = "updateUser";
+    private static final String USER_DELETE_COMMAND = "deleteUser";
     private static final String USERPIC_UPDATE_COMMAND = "updateUserpic";
     private static final String DEPOSIT_COMMAND = "deposit";
     private static final String REGISTER_PAGE_COMMAND = "registerPage";
@@ -33,11 +35,13 @@ public class CommandFactory {
     private static final String BET_COMMAND = "bet";
     private static final String CHANGE_LOCALE_COMMAND = "changeLocale";
     private static final String LOGOUT_COMMAND = "logout";
+    private static final String DELETE_USER_CONFIRM_COMMAND = "confirmUserDelete";
 
     private static final String INDEX_PAGE = "/index.jsp";
     private static final String MAIN_PAGE = "/WEB-INF/view/main.jsp";
     private static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
     private static final String USER_PAGE = "WEB-INF/view/user.jsp";
+    private static final String USER_DELETE_CONFIRM_PAGE = "WEB-INF/view/userDeleteConfirm.jsp";
     private static final String NOT_IMPLEMENTED_PAGE = "WEB-INF/view/notImplemented.jsp";
     private static final String RULES_PAGE = "WEB-INF/view/rules.jsp";
     private static final String RATING_PAGE = "WEB-INF/view/rating.jsp";
@@ -87,6 +91,19 @@ public class CommandFactory {
             case USER_UPDATE_COMMAND: {
                 return new UpdateCommand(new UserService());
             }
+            case USER_DELETE_COMMAND: {
+                return new DeleteUserCommand(new UserService());
+            }
+            case DELETE_USER_CONFIRM_COMMAND: {
+                return new DeleteUserConfirmCommand();
+            }
+            case USER_DELETE_CONFIRM_PAGE: {
+                return new ShowPageCommand(USER_DELETE_CONFIRM_PAGE);
+            }
+            case USERS_PAGE_COMMAND: {
+                return new ShowUsersCommand(new UserService());
+            }
+
             case USERPIC_UPDATE_COMMAND: {
                 return new UserpicUpdateCommand(new UserService());
             }

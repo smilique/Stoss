@@ -21,8 +21,7 @@ public class User implements Entity{
     private final Long id;
     private BigDecimal balance;
     private Long points;
-//    private String login;
-//    private String password;
+    private String login;
     private String role;
     private String userpic;
     private String locale;
@@ -57,11 +56,17 @@ public class User implements Entity{
         return userpic;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
     public String getLocale() {
         return locale;
     }
 
-    public User(Long id, String name, BigDecimal balance, Long points, String role, String locale, String userpic) {
+    public User(String login, Long id, String name, BigDecimal balance,
+                Long points, String role, String locale, String userpic) {
+        this.login = login;
         this.id = id;
         this.name = name;
         this.balance = balance;

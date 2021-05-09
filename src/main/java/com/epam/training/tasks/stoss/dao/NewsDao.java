@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class NewsDao extends AbstractDao<NewsItem> {
 
+    private static final String TABLE = NewsItem.TABLE;
     private static final String READ_QUERY = "select * from " + NewsItem.TABLE +" where id = ?";
 
     protected NewsDao(ProxyConnection connection) {

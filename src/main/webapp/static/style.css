@@ -55,6 +55,29 @@ input {
     font-size: 32px;
 }
 
+.language-element a {
+    /*font-family: monospace;*/
+    width: 2ch;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.language-element a:hover {
+    width: 100%;
+
+}
+
+/*.language-element {*/
+/*    !*font-family: monospace;*!*/
+/*    width: 2ch;*/
+/*    overflow: hidden;*/
+/*    white-space: nowrap;*/
+/*}*/
+
+/*.language-element:hover {*/
+/*    width: 100%;*/
+/*}*/
+
 .user-wrapper {
     align: right;
 
@@ -97,6 +120,25 @@ input {
     justify-content: space-between;
 }
 
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.user-item-wrapper {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: contents;
+}
+.open-delete-popup-button {
+
+}
+
+.user-item-wrapper img{
+    height: 50px;
+    width: 50px;
+}
 
 .user-info {
     text-align: right;

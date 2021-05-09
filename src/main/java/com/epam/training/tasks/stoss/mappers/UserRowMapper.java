@@ -13,6 +13,7 @@ public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User map(ResultSet resultSet) throws SQLException {
+        String login = resultSet.getString(User.LOGIN);
         Long id = resultSet.getLong(User.ID);
         String name = resultSet.getString(User.NAME);
         Long points = resultSet.getLong(User.POINTS);
@@ -23,6 +24,6 @@ public class UserRowMapper implements RowMapper<User> {
 
         LOGGER.debug("user id: " + id);
 
-        return new User(id, name, balance, points, role, locale, userpic);
+        return new User(login, id, name, balance, points, role, locale, userpic);
     }
 }

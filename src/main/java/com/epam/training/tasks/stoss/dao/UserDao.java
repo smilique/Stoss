@@ -6,6 +6,7 @@ import com.epam.training.tasks.stoss.mappers.UserRowMapper;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDao extends AbstractDao<User>{
@@ -20,7 +21,8 @@ public class UserDao extends AbstractDao<User>{
 
     private static final String USER_ID = "user.id = ?";
 
-    private static final String USER_READ_COLUMNS = "user.id, user.balance, user.name, user.points, user.locale, user.userpic, r.name " +
+    private static final String USER_READ_COLUMNS = "user.login, user.id, user.balance, " +
+            "user.name, user.points, user.locale, user.userpic, r.name " +
             "from user inner join role r on user.ROLE_ID = r.ID ";
 
     private static final String ADD_NEW_QUERY = INSERT + " user set login = ?, password = md5(?), name = ?";
@@ -32,6 +34,8 @@ public class UserDao extends AbstractDao<User>{
     private static final String UPDATE_PASSWORD_QUERY = "update user set password = md5(?) where id = ?";
     private static final String UPDATE_LOCALE_QUERY = "update user set locale = ? where id = ?";
     private static final String GET_BY_ID_QUERY = SELECT + USER_READ_COLUMNS + WHERE + USER_ID;
+    private static final String GET_ALL_QUERY = SELECT + USER_READ_COLUMNS;
+    private static final String DELETE_USER_QUERY = "delete from user where login = ?";
 
     protected UserDao(ProxyConnection connection) {
         super(connection, new UserRowMapper());
@@ -72,6 +76,14 @@ public class UserDao extends AbstractDao<User>{
         executeUpdate(UPDATE_USERPIC_QUERY, path, id);
     }
 
+    public void deleteUser(String login) throws DaoException {
+        executeUpdate(DELETE_USER_QUERY, login);
+    }
+
+    @Override
+    public List<User> getAll() throws DaoException {
+        return super.getAll(GET_ALL_QUERY);
+    }
 
     @Override
     protected String getTableName() {

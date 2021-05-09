@@ -9,6 +9,8 @@ import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -21,7 +23,7 @@ public class UserService {
         daoHelperFactory = new DaoHelperFactory();
     }
 
-    public Optional<User> login(String login, String password) throws Exception {
+    public Optional<User> login(String login, String password) throws ServiceException {
 
         try (DaoHelper helper = daoHelperFactory.create()) {
             LOGGER.debug("Helper: " + helper);
@@ -31,14 +33,13 @@ public class UserService {
             helper.endTransaction();
             LOGGER.debug("Returning user: " + user);
             return user;
-        } catch (DaoException e) {
+        } catch (DaoException | ConnectionException | SQLException | IOException e) {
             LOGGER.debug("Exception " + e);
-//            e.printStackTrace();
             throw new ServiceException(e);
         }
     }
 
-    public Optional<User> register(String login, String password, String name) throws Exception {
+    public Optional<User> register(String login, String password, String name) throws ServiceException {
 
         try (DaoHelper helper = daoHelperFactory.create()) {
             LOGGER.debug("Helper: " + helper);
@@ -50,13 +51,13 @@ public class UserService {
             }
             helper.endTransaction();
             return existingUser;
-        } catch (DaoException e) {
+        } catch (DaoException | ConnectionException | SQLException | IOException e) {
             LOGGER.debug("Exception " + e);
             throw new ServiceException(e);
         }
     }
 
-    public boolean validateLogin(String login) throws Exception {
+    public boolean validateLogin(String login) throws ServiceException {
         Optional<User> user = null;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
@@ -66,8 +67,31 @@ public class UserService {
             LOGGER.debug("user exists? " + user.isPresent());
         } catch (DaoException e) {
             throw new ServiceException(e);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return (user.isPresent());
+    }
+
+    public void deleteUser(String login) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            userDao.deleteUser(login);
+            helper.endTransaction();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 
@@ -148,6 +172,22 @@ public class UserService {
         }
 
         return optionalUser;
+    }
+
+    public List<User> getAllUsers() throws ServiceException {
+        List<User> users = new ArrayList<>();
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            users = userDao.getAll();
+            helper.endTransaction();
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        } catch (ConnectionException | IOException | SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
 

@@ -66,6 +66,10 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
         return executeQuery("select * from " + table);
     }
 
+    public List<T> getAll(String query) throws DaoException { //TODO rewrite to single method
+        return executeQuery(query);
+    }
+
     protected Optional<T> executeForSingleResult (String query, Object... params) throws DaoException {
         List<T> items = executeQuery(query, params);
         LOGGER.debug("Execute Query " + items);
