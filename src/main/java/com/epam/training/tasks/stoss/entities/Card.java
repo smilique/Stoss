@@ -23,12 +23,8 @@ public class Card {
         return suit;
     }
 
-    //    public Card getCard(Deck deck) {
-//        Card card = new Card();
-//        //It might be dangerous to use while in such case
-//        while (deck.getCards().contains(card)) {
-//            card = new Card();
-//        }
-//        return card;
-//    }
+    @Override
+    public String toString() {
+        return "Card{" + "name='" + name + " of " + suit + '\'' + ", code=" + code + '}';
+    }
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -6,17 +6,19 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
 </c:if>
 <fmt:setBundle basename="localization" var="loc" scope="session"/>
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <fmt:message key="local.header.caption" var="caption" bundle="${loc}" scope="session"/>
-    <title>${caption}</title>
+    <title>${caption} | Rules</title>
     <link rel="stylesheet" href="static/reset.css">
     <link rel="stylesheet" href="static/style.css">
     <link href='<c:url value="static/favicon.ico"/>' rel="icon" type="image/x-icon" />
 </head>
 <body>
+
 <header class="header">
     <jsp:include page="fragments/header.jsp"/>
 </header>
@@ -26,19 +28,15 @@
 </nav>
 
 <main class="container">
-    <c:set var="login" value="${param.get('login')}"/>
-    <div class="delete-confirmation">
-        <p>Are you sure want to delete user <strong>${login}</strong>?</p>
-        <div class="confirmation-buttons">
-            <div class="delete-yes">
-                <a href="controller?command=deleteUser&login=${login}">DELETE</a>
-            </div>
-            <div class="delete-no">
-                <a href="controller?command=users">BACK</a>
-            </div>
-        </div>
-    </div>
+        <p>
+            The game starts with choosing the card and the bet by punter (player).
+            After the card has been chosen and the bet has been placed, the banker (AI) takes two cards from his deck and campares them with the punter's card.
+            If the first card of the banker matches the punters card by it's name - banker wins.
+            If the second banker's card matches the punter's card - punter wins.
+            If no one wins the game continues and the banker pulls another pair of cards from his deck until the winner will be found.
+        </p>
 </main>
 
 </body>
+
 </html>

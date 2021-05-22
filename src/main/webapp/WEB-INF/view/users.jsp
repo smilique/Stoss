@@ -28,25 +28,23 @@
 </nav>
 
 <main class="container">
-
-    <table class="users-wrapper">
+    <p>${requestScope.errormessage}</p>
+    <table class="users-table">
         <c:set var="itemsPerPage" value="10"/>
         <c:set var="usersList" value="${requestScope.get('users')}"/>
+        <tr class="table-caption"><th>LOGIN</th><th>USERNAME</th><th>BALANCE</th><th>POINTS</th><th>USERPIC</th><th>ACTION</th></tr>
         <c:forEach items="${usersList}" var="user">
-            <table-row class="user-item">
-                <div class="user-item-wrapper">
-                    <p class="user-name">${user.name}</p>
-                    <p class="user-balance">${user.balance}</p>
-                </div>
-                <div class="user-item-wrapper">
-                    <p class="user-points">${user.points}</p>
-                    <img src="${user.userpic}"/>
-                </div>
-                <div class="user-item-wrapper">
-                    <a href="controller?command=confirmUserDelete&login=${user.login}">DELETE USER</a>
-                    <a href="controller?command=editUser&login=${user.login}">EDIT USER</a>
-                </div>
-            </table-row>
+                <tr class="user-item">
+                    <td><p class="user-login">${user.login}</p></td>
+                    <td><p class="user-name">${user.name}</p></td>
+                    <td><p class="user-balance">${user.balance}</p></td>
+                    <td><p class="user-points">${user.points}</p></td>
+                    <td><img src="${user.userpic}" alt="${user.name}"/></td>
+                    <td>
+                        <a href="controller?command=confirmUserDelete&login=${user.login}">DELETE USER</a>
+                        <a href="controller?command=editUser&login=${user.login}">EDIT USER</a>
+                    </td>
+                </tr>
         </c:forEach>
 
         <jsp:include page="fragments/pagination.jsp">

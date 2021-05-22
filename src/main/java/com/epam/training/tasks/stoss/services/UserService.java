@@ -158,6 +158,25 @@ public class UserService {
         return user;
     }
 
+    public Optional<User> getInfo(String login) throws ServiceException {
+        Optional<User> optionalUser = null;
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            optionalUser = userDao.findUserByLogin(login);
+            helper.endTransaction();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return optionalUser;
+    }
+
     public Optional<User> changeLocale(Long userId, String languageTag) throws ServiceException {
         Optional<User> optionalUser = null;
         try (DaoHelper helper = daoHelperFactory.create()) {
@@ -186,6 +205,26 @@ public class UserService {
             throw new ServiceException(e);
         } catch (ConnectionException | IOException | SQLException e) {
             e.printStackTrace();
+        }
+        return users;
+    }
+
+    public List<User> getRating() throws ServiceException {
+        List<User> users = new ArrayList<>();
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao userDao = helper.createUserDao();
+            users = userDao.getByPoints();
+            helper.endTransaction();
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return users;
     }

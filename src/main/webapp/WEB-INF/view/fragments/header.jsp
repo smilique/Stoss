@@ -21,7 +21,7 @@
                 <fmt:message key="local.message.welcome" var="hello" bundle="${loc}" scope="session"/>
                 <p>${hello}, <a href="controller?command=user" class="user_profile_link">${sessionScope.user.name}</a></p>
                 <fmt:message key="local.message.balance" var="balanceText" bundle="${loc}" scope="session"/>
-                <p>${balanceText}: ${sessionScope.user.balance}</p>
+                <p>${balanceText}: <a href="controller?command=balance">${sessionScope.user.balance}</a></p>
                 <fmt:message key="local.message.place" var="placeText" bundle="${loc}" scope="session"/>
                 <fmt:message key="local.message.points" var="pointsText" bundle="${loc}" scope="session"/>
                 <p>${placeText} ${sessionScope.user.points} ${pointsText}</p>

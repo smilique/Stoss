@@ -26,7 +26,9 @@
 </nav>
 
 <main class="container">
-    <c:if test="${sessionScope.user != null}">
+    <c:set value="${requestScope.editedUser}" var="editedUser"/>
+    <c:if test="${editedUser != null}">
+        <h2>${editedUser.login}  ${editedUser.name}</h2>
         <fmt:message key="local.user.userData" var="welcomeMessage" bundle="${loc}" scope="session"/>
         <h2 class="welcome-message">${welcomeMessage}</h2>
         <c:if test="${sessionScope.errormessage == 'Password must be longer than 3 symbols!'}">
@@ -43,28 +45,24 @@
         </c:if>
         <li class="user-edit-wrapper">
             <div class="user-edit-left">
-                <form action="${pageContext.request.contextPath}/controller?command=updateUser" method="post">
+                <form action="${pageContext.request.contextPath}/controller?command=updateSpecifiedUser" method="post">
                     <input class="user_edit_form" type="hidden" name="local" value="en"/>
                     <fmt:message key="local.user.changePassword" var="passwordText" bundle="${loc}" scope="session"/>
                     <p>${passwordText}</p>
                     <fmt:message key="local.user.enterNewPassword" var="passwordFieldText" bundle="${loc}" scope="session"/>
                     <input type="password" name="password" placeholder="${passwordFieldText}"/>
-                    <input type="hidden" name="userLogin" value="${requestScope.login}">
-<%--                    added user login submit--%>
                     <input type="submit" class="update-user" value="${passwordText}"/>
+                    <input type="hidden" name="editedUserId" value="${editedUser.id}">
                 </form>
             </div>
             <div class="user-edit-right">
-                <form action="${pageContext.request.contextPath}/controller?command=updateUserpic" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/controller?command=updateSpecifiedUserpic" method="post" enctype="multipart/form-data">
                     <fmt:message key="local.user.changeUserpic" var="userpicText" bundle="${loc}" scope="session"/>
                     <p>${userpicText}</p>
                     <input type="file" name="userpic" formenctype="multipart/form-data" accept="image/jpeg,image/png" size="1000000"/>
                     <fmt:message key="local.user.upload" var="uploadButtonText" bundle="${loc}" scope="session"/>
                     <input type="submit" class="update_user" value="${uploadButtonText}"/>
                 </form>
-            </div>
-            <div class="user-edit-right">
-
             </div>
         </li>
     </c:if>

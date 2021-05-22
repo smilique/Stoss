@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.epam.training.tasks.stoss.entities.Attributes.*;
+
 
 public class BetCommand implements Command {
 
@@ -23,15 +25,7 @@ public class BetCommand implements Command {
     private static final String WIN_STATUS = "win";
     private static final String LOSE_STATUS = "lose";
     private static final String CONTINUE_STATUS = "continue";
-    private static final String BET_VALUE_PARAMETER = "betValue";
-    private static final String GAME_ATTRIBUTE = "game";
-    private static final String GAME_STATUS_ATTRIBUTE = "gameStatus";
-    private static final String PUNTER_CARD_ATTRIBUTE = "punterCard";
-    private static final String FIRST_CARD_ATTRIBUTE = "firstCard";
-    private static final String SECOND_CARD_ATTRIBUTE = "secondCard";
-    private static final String POINTS_CHANGE_ATTRIBUTE = "pointsChange";
     private static final Long POINTS_MULTIPLIER = 3L;
-//    private static final Long LOSE_POINTS_MULTIPLIER = -3L;
     private static final Long NEGATE = -1L;
 
 
@@ -46,7 +40,7 @@ public class BetCommand implements Command {
         LOGGER.debug(session);
         Game game = (Game) session.getAttribute(GAME_ATTRIBUTE);
         LOGGER.debug(game);
-        String betString = request.getParameter(BET_VALUE_PARAMETER);
+        String betString = request.getParameter(BET_VALUE_ATTRIBUTE);
         LOGGER.debug(betString);
         Long betValue = Long.valueOf(betString);
         if (betValue != null) {
@@ -79,7 +73,7 @@ public class BetCommand implements Command {
         } else {
             //next round
             LOGGER.debug("continue");
-            request.setAttribute("betValue", betValue);
+            request.setAttribute(BET_VALUE_ATTRIBUTE, betValue);
             game.setBankerDeck(bankerDeck);
             session.setAttribute(GAME_ATTRIBUTE, game);
             request.setAttribute(GAME_STATUS_ATTRIBUTE,CONTINUE_STATUS);
@@ -92,7 +86,7 @@ public class BetCommand implements Command {
         session.removeAttribute(GAME_ATTRIBUTE);
         session.removeAttribute(PUNTER_CARD_ATTRIBUTE);
         request.setAttribute (GAME_STATUS_ATTRIBUTE, winStatus);
-        User currentUser = (User) session.getAttribute("user");
+        User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
         Long pointsChange = betValue * POINTS_MULTIPLIER;
         request.setAttribute(POINTS_CHANGE_ATTRIBUTE, pointsChange);
         Long points = currentUser.getPoints() + pointsChange;
@@ -102,7 +96,7 @@ public class BetCommand implements Command {
             userService.updatePoints(userId, points);
             Optional<User> optionalUser = userService.deposit(userId, bet);
             User user = optionalUser.get();
-            session.setAttribute("user", user);
+            session.setAttribute(USER_ATTRIBUTE, user);
         } catch (ServiceException e) {
             LOGGER.error(e);
             e.printStackTrace();

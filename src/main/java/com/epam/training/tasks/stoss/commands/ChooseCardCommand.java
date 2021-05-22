@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.entities.Pages.BET_PAGE;
+
 public class ChooseCardCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ChooseCardCommand.class);
 
-    private static final String PAGE = "WEB-INF/view/bet.jsp";
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        Game game = (Game) session.getAttribute("game");
+        Game game = (Game) session.getAttribute(GAME_ATTRIBUTE);
         Deck punterCards = game.getPunterDeck();
-        String punterCardCode = request.getParameter("card");
+        String punterCardCode = request.getParameter(CARD_ATTRIBUTE);
         Card punterCard = punterCards.getByCode(punterCardCode);
-        session.setAttribute("punterCard", punterCard);
-
-        return CommandResult.forward(PAGE);
+        session.setAttribute(PUNTER_CARD_ATTRIBUTE, punterCard);
+        LOGGER.info("Punter's card: " + punterCard);
+        return CommandResult.forward(BET_PAGE);
     }
 }

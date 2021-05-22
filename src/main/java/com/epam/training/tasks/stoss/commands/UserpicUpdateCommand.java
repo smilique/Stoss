@@ -17,6 +17,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
+import static com.epam.training.tasks.stoss.entities.Attributes.ERROR_MESSAGE_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.entities.Attributes.USER_ATTRIBUTE;
+
 public class UserpicUpdateCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(UserpicUpdateCommand.class);
@@ -24,7 +27,7 @@ public class UserpicUpdateCommand implements Command {
     private static final String PAGE = "controller?command=user";
     private static final int MAX_FILE_SIZE = 1000000;
     private static final int MAX_MEM_SIZE = 4096;
-    private static final String RESOURCES_PATH = "D:/dev/Tomcat8.5/webapps/resources/stoss/";
+    private static final String RESOURCES_PATH = "C:/dev/Tomcat8.5/webapps/resources/stoss/"; //TODO rewrite path
     private static final String USERPIC_PATH = "../resources/stoss/pic/png/";
     private static final String PICTURES_PATH = "pic/png/";
     private static final String TEMP_PATH = RESOURCES_PATH + "temp/";
@@ -39,7 +42,7 @@ public class UserpicUpdateCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
         int userHash = user.hashCode();
         Long id = user.getId();
 
@@ -57,15 +60,14 @@ public class UserpicUpdateCommand implements Command {
                 String path = RESOURCES_PATH + PICTURES_PATH + filename;
                 File userpic = new File (path);
 
-                try (InputStream inputStream = item.getInputStream()) {
-                    Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }
+                InputStream inputStream = item.getInputStream();
+                Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                 Optional<User> optionalUser = userService.updateUserpic(id, USERPIC_PATH + filename);
                 User updatedUser = optionalUser.get();
-                session.setAttribute("user", updatedUser);
+                session.setAttribute(USER_ATTRIBUTE, updatedUser);
             } else {
-                session.setAttribute("errormessage", "Please choose the file to upload!");
+                session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Please choose the file to upload!");
             }
 
             } catch (Exception e) {

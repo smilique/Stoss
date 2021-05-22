@@ -10,11 +10,16 @@ import java.sql.Time;
 public class MessageRowMapper implements RowMapper<Message>{
     @Override
     public Message map(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong(Message.ID);
-        String message = resultSet.getString(Message.MESSAGE);
-        String username = resultSet.getString(Message.USER_NAME);
-        Date date = resultSet.getDate(Message.TIME);
-        Time time = resultSet.getTime(Message.TIME);
+        String messageId = Message.ID;
+        Long id = resultSet.getLong(messageId);
+        String messageText = Message.MESSAGE;
+        String message = resultSet.getString(messageText);
+        String messageUser = Message.USER_NAME;
+        String username = resultSet.getString(messageUser);
+        String messageDate = Message.TIME;
+        Date date = resultSet.getDate(messageDate);
+        String messageTime = Message.TIME;
+        Time time = resultSet.getTime(messageTime);
 
         return new Message(id, message, username, time, date);
     }

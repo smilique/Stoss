@@ -38,9 +38,18 @@
                 <p>${message.text}</p>
             </div>
             <div class="message-right-info">
+<%--                TODO time and date format according to the language chosen--%>
                 <p>${message.time} </p>
                 <p>${message.date}</p>
             </div>
+                <c:if test="${sessionScope.user.role == 'admin'}">
+                    <div class="message-moderation">
+                        <form action="${pageContext.request.contextPath}/controller?command=deleteMessage" method="post">
+                            <input type="hidden" name="messageId" value="${message.id}">
+                            <input type="submit" value="DELETE">
+                        </form>
+                    </div>
+                </c:if>
         </div>
     </c:forEach>
 </div>

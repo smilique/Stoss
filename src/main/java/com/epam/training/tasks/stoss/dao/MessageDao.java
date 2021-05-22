@@ -21,6 +21,7 @@ public class MessageDao extends AbstractDao<Message> {
 
     public void post(String message, Long userId) throws DaoException {
         Date date = new Date(System.currentTimeMillis());
+
         executeUpdate(POST_QUERY, message, userId, date);
     }
 

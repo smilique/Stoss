@@ -7,35 +7,34 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Optional;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.USERS_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.USERS_PAGE;
+import static com.epam.training.tasks.stoss.entities.Pages.USER_EDIT_PAGE;
 
-public class ShowUsersCommand implements Command {
+public class EditAnotherUserCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowUsersCommand.class);
-
-//    private static final String PAGE = "WEB-INF/view/users.jsp";
+    private static final Logger LOGGER = Logger.getLogger(EditAnotherUserCommand.class);
 
     private final UserService userService;
 
-    public ShowUsersCommand(UserService userService) {
+    public EditAnotherUserCommand(UserService userService) {
         this.userService = userService;
     }
 
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        List<User> users = null;
+
+
+        String editedUserLogin = request.getParameter("login");
         try {
-            users = userService.getAllUsers();
+            Optional<User> optionalUser = userService.getInfo(editedUserLogin);
+            User editedUser = optionalUser.get();
+            request.setAttribute("editedUser", editedUser);
         } catch (ServiceException e) {
-            LOGGER.error(e);
             e.printStackTrace();
         }
-        request.setAttribute(USERS_ATTRIBUTE,users);
 
-        return CommandResult.forward(USERS_PAGE);
+
+        return CommandResult.forward(USER_EDIT_PAGE);
     }
 }

@@ -36,6 +36,7 @@ public class UserDao extends AbstractDao<User>{
     private static final String GET_BY_ID_QUERY = SELECT + USER_READ_COLUMNS + WHERE + USER_ID;
     private static final String GET_ALL_QUERY = SELECT + USER_READ_COLUMNS;
     private static final String DELETE_USER_QUERY = "delete from user where login = ?";
+    private static final String GET_BY_POINTS_QUERY = SELECT + USER_READ_COLUMNS + "order by user.points desc";
 
     protected UserDao(ProxyConnection connection) {
         super(connection, new UserRowMapper());
@@ -78,6 +79,10 @@ public class UserDao extends AbstractDao<User>{
 
     public void deleteUser(String login) throws DaoException {
         executeUpdate(DELETE_USER_QUERY, login);
+    }
+
+    public List<User> getByPoints() throws DaoException {
+        return super.getAll(GET_BY_POINTS_QUERY);
     }
 
     @Override

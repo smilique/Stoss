@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.epam.training.tasks.stoss.entities.Attributes.*;
+
 public class SendMessageCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(SendMessageCommand.class);
@@ -29,16 +31,16 @@ public class SendMessageCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            String message = request.getParameter("text");
+            String message = request.getParameter(TEXT_ATTRIBUTE);
             HttpSession session = request.getSession();
-            User currentUser = (User) session.getAttribute("user");
+            User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
             Long userId = currentUser.getId();
             LOGGER.debug("user id: " + userId);
             LOGGER.debug("message: " + message);
             messageService.postMessage(message, userId);
 
             List<Message> messages = messageService.getMessages();
-            request.setAttribute("messages", messages);
+            request.setAttribute(MESSAGES_ATTRIBUTE, messages);
         } catch (ServiceException e) {
             LOGGER.error(e);
             e.printStackTrace();

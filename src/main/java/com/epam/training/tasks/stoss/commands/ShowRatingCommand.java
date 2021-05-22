@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static com.epam.training.tasks.stoss.entities.Attributes.USERS_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.USERS_PAGE;
+import static com.epam.training.tasks.stoss.entities.Pages.RATING_PAGE;
 
-public class ShowUsersCommand implements Command {
+public class ShowRatingCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(ShowUsersCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(ShowRatingCommand.class);
 
 //    private static final String PAGE = "WEB-INF/view/users.jsp";
 
     private final UserService userService;
 
-    public ShowUsersCommand(UserService userService) {
+    public ShowRatingCommand(UserService userService) {
         this.userService = userService;
     }
 
@@ -29,13 +29,14 @@ public class ShowUsersCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         List<User> users = null;
         try {
-            users = userService.getAllUsers();
+            users = userService.getRating();
+//TODO add place column to users (in jsp, I think)
         } catch (ServiceException e) {
             LOGGER.error(e);
             e.printStackTrace();
         }
         request.setAttribute(USERS_ATTRIBUTE,users);
 
-        return CommandResult.forward(USERS_PAGE);
+        return CommandResult.forward(RATING_PAGE);
     }
 }

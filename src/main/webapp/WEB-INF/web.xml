@@ -3,7 +3,27 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
 
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Stoss game</display-name>
+
+  <filter>
+    <filter-name>AuthorizationFilter</filter-name>
+    <filter-class>com.epam.training.tasks.stoss.filters.AuthorizationFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AuthorizationFilter</filter-name>
+    <url-pattern>/controller</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>com.epam.training.tasks.stoss.filters.AdminFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/controller</url-pattern>
+  </filter-mapping>
 
   <servlet>
     <servlet-name>main</servlet-name>

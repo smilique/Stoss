@@ -12,17 +12,15 @@ import javax.servlet.http.HttpSession;
 import static com.epam.training.tasks.stoss.entities.Attributes.*;
 
 
-public class UpdateCommand implements Command {
+public class UpdateSpecifiedCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(UpdateCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(UpdateSpecifiedCommand.class);
 
-    private static final String PAGE = "controller?command=user";
-
+    private static final String PAGE = "controller?command=users";
 
     private final UserService userService;
 
-
-    public UpdateCommand(UserService userService) {
+    public UpdateSpecifiedCommand(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,14 +28,14 @@ public class UpdateCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
 
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
-        Long id = currentUser.getId();
+        String userIdText = request.getParameter(EDITED_USER_ID_ATTRIBUTE);
+        Long userId = Long.valueOf(userIdText);
         try {
             if (password.length() > 3) {
-                LOGGER.debug("updating password for user id: " + id);
-                userService.changePassword(id, password);
+                LOGGER.debug("updating password for user id: " + userId);
+                userService.changePassword(userId, password);
             } else {
+                HttpSession session = request.getSession();
                 session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Password must be longer than 3 symbols!");
             }
         } catch (ServiceException e) {

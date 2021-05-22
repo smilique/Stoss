@@ -10,7 +10,8 @@ import java.sql.Time;
 public class NewsRowMapper implements RowMapper<NewsItem>{
     @Override
     public NewsItem map(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong(NewsItem.ID);
+        String newsItemId = NewsItem.ID;
+        Long id = resultSet.getLong(newsItemId);
         String caption = resultSet.getString(NewsItem.CAPTION);
         String text = resultSet.getString(NewsItem.TEXT);
         Date date = resultSet.getDate(NewsItem.TIME);

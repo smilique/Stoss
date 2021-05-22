@@ -19,8 +19,8 @@ public class MessageService {
 
     private final DaoHelperFactory daoHelperFactory;
 
-    public MessageService(DaoHelperFactory daoHelperFactory) {
-        this.daoHelperFactory = daoHelperFactory;
+    public MessageService() {
+        this.daoHelperFactory = new DaoHelperFactory();
     }
 
     public List<Message> getMessages() throws ServiceException {
