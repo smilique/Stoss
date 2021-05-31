@@ -7,20 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
+import static com.epam.training.tasks.stoss.entities.Message.*;
+
 public class MessageRowMapper implements RowMapper<Message>{
     @Override
     public Message map(ResultSet resultSet) throws SQLException {
-        String messageId = Message.ID;
-        Long id = resultSet.getLong(messageId);
-        String messageText = Message.MESSAGE;
-        String message = resultSet.getString(messageText);
-        String messageUser = Message.USER_NAME;
-        String username = resultSet.getString(messageUser);
-        String messageDate = Message.TIME;
-        Date date = resultSet.getDate(messageDate);
-        String messageTime = Message.TIME;
-        Time time = resultSet.getTime(messageTime);
+        Long id = resultSet.getLong(ID);
+        Long userId = resultSet.getLong(USER_ID);
+        String text = resultSet.getString(MESSAGE);
+        String username = resultSet.getString(USER_NAME);
+        Date date = resultSet.getDate(TIME);
+        Time time = resultSet.getTime(TIME);
 
-        return new Message(id, message, username, time, date);
+        return new Message(id, text, userId, username, time, date);
     }
 }

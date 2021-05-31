@@ -63,9 +63,6 @@
                     <input type="submit" class="update_user" value="${uploadButtonText}"/>
                 </form>
             </div>
-            <div class="user-edit-right">
-
-            </div>
         </li>
     </c:if>
 </main>

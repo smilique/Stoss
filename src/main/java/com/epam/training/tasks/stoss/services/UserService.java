@@ -1,14 +1,10 @@
 package com.epam.training.tasks.stoss.services;
 
-import com.epam.training.tasks.stoss.connections.ConnectionException;
 import com.epam.training.tasks.stoss.dao.*;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,17 +20,14 @@ public class UserService {
     }
 
     public Optional<User> login(String login, String password) throws ServiceException {
-
         try (DaoHelper helper = daoHelperFactory.create()) {
-            LOGGER.debug("Helper: " + helper);
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
             Optional<User> user = userDao.findUserByLoginAndPassword(login, password);
             helper.endTransaction();
-            LOGGER.debug("Returning user: " + user);
             return user;
-        } catch (DaoException | ConnectionException | SQLException | IOException e) {
-            LOGGER.debug("Exception " + e);
+        } catch (DaoException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -42,17 +35,17 @@ public class UserService {
     public Optional<User> register(String login, String password, String name) throws ServiceException {
 
         try (DaoHelper helper = daoHelperFactory.create()) {
-            LOGGER.debug("Helper: " + helper);
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
             Optional<User> existingUser = userDao.findUserByLogin(login);
             if (!existingUser.isPresent()) {
-                userDao.addNewUser(login, password, name);
+                User user = new User(login, name, password);
+                userDao.save(user);
             }
             helper.endTransaction();
             return existingUser;
-        } catch (DaoException | ConnectionException | SQLException | IOException e) {
-            LOGGER.debug("Exception " + e);
+        } catch (DaoException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -66,15 +59,10 @@ public class UserService {
             helper.endTransaction();
             LOGGER.debug("user exists? " + user.isPresent());
         } catch (DaoException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
-        return (user.isPresent());
+        return user.isPresent();
     }
 
     public void deleteUser(String login) throws ServiceException {
@@ -84,16 +72,10 @@ public class UserService {
             userDao.deleteUser(login);
             helper.endTransaction();
         } catch (DaoException e) {
-            e.printStackTrace();
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error(e);
+            throw new ServiceException(e);
         }
     }
-
 
     public Optional<User> deposit(Long userId, BigDecimal deposit) throws ServiceException {
         Optional<User> updatedUser = null;
@@ -109,9 +91,8 @@ public class UserService {
             updatedUser = userDao.findById(userId);
             helper.endTransaction();
         } catch (DaoException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return updatedUser;
     }
@@ -122,21 +103,21 @@ public class UserService {
             UserDao userDao = helper.createUserDao();
             userDao.updatePassword(userId, password);
             helper.endTransaction();
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+        } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
 
-    public Optional<User> updateUserpic(Long userId, String password) throws ServiceException {
+    public Optional<User> updateUserpic(Long userId, String path) throws ServiceException {
         Optional<User> user = null;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
-            userDao.updateUserpic(userId, password);
+            userDao.updateUserpic(userId, path);
             user = userDao.findById(userId);
             helper.endTransaction();
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+        } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
@@ -151,7 +132,7 @@ public class UserService {
             userDao.updatePoints(userId,points);
             user = userDao.findById(userId);
             helper.endTransaction();
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+        } catch (DaoException e) {
            LOGGER.error(e);
            throw new ServiceException(e);
         }
@@ -166,13 +147,8 @@ public class UserService {
             optionalUser = userDao.findUserByLogin(login);
             helper.endTransaction();
         } catch (DaoException e) {
-            e.printStackTrace();
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error(e);
+            throw new ServiceException(e);
         }
         return optionalUser;
     }
@@ -185,11 +161,10 @@ public class UserService {
             userDao.updateLocale(userId,languageTag);
             optionalUser = userDao.findById(userId);
             helper.endTransaction();
-
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
-            e.printStackTrace();
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
         }
-
         return optionalUser;
     }
 
@@ -203,8 +178,6 @@ public class UserService {
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
-        } catch (ConnectionException | IOException | SQLException e) {
-            e.printStackTrace();
         }
         return users;
     }
@@ -219,22 +192,8 @@ public class UserService {
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return users;
     }
 
-
-//    public void updateUserpic(Long id, File userpic) {
-//        try (DaoHelper helper = daoHelperFactory.create()) {
-//            helper.startTransaction();
-//            UserDao userDao = helper.createUserDao();
-//            userDao.updateUserpic(id, userpic);
-//        }
-//    }
 }

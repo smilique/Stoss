@@ -18,14 +18,13 @@ public class UserDao extends AbstractDao<User>{
     private static final String INSERT = "insert into ";
     private static final String WHERE = "where ";
     private static final String TABLE = User.TABLE;
-
     private static final String USER_ID = "user.id = ?";
-
     private static final String USER_READ_COLUMNS = "user.login, user.id, user.balance, " +
-            "user.name, user.points, user.locale, user.userpic, r.name " +
+            "user.name, user.points, user.locale, user.userpic, user.password, r.name " +
             "from user inner join role r on user.ROLE_ID = r.ID ";
-
     private static final String ADD_NEW_QUERY = INSERT + " user set login = ?, password = md5(?), name = ?";
+    private static final String UPDATE_USER_QUERY = UPDATE + " user set password = md5(?), name = ?, " +
+            "balance = ?, points = ?, userpic = ?, locale = ?";
     private static final String VALIDATE_QUERY = "select " + USER_READ_COLUMNS + "where login = ?";
     private static final String LOGIN_QUERY = VALIDATE_QUERY + " and password = MD5(?)";
     private static final String UPDATE_BALANCE_QUERY = "update user set balance = ? where id = ?";
@@ -36,6 +35,7 @@ public class UserDao extends AbstractDao<User>{
     private static final String GET_BY_ID_QUERY = SELECT + USER_READ_COLUMNS + WHERE + USER_ID;
     private static final String GET_ALL_QUERY = SELECT + USER_READ_COLUMNS;
     private static final String DELETE_USER_QUERY = "delete from user where login = ?";
+    private static final String DELETE_USER_BY_ID_QUERY = "delete from user where id = ?";
     private static final String GET_BY_POINTS_QUERY = SELECT + USER_READ_COLUMNS + "order by user.points desc";
 
     protected UserDao(ProxyConnection connection) {
@@ -49,13 +49,8 @@ public class UserDao extends AbstractDao<User>{
     }
 
     public Optional<User> findUserByLogin(String login) throws DaoException {
-        LOGGER.debug("finging user with login: " + login);
+        LOGGER.debug("finding user with login: " + login);
         return executeForSingleResult(VALIDATE_QUERY, login);
-    }
-
-    public void addNewUser(String login, String password, String name) throws DaoException {
-            LOGGER.debug("adding new user");
-            executeUpdate(ADD_NEW_QUERY, login, password, name);
     }
 
     public void updateBalance(Long id, BigDecimal deposit) throws DaoException {
@@ -97,33 +92,38 @@ public class UserDao extends AbstractDao<User>{
 
     @Override
     public Optional<User> findById(Long id) throws DaoException {
-        //return user by id
         LOGGER.debug("getting user by id: " + id);
         return executeForSingleResult(GET_BY_ID_QUERY, id);
     }
 
     @Override
     public void save(User user) throws DaoException {
-        //save user into db
         if (user.getId() == null) {
+            LOGGER.debug("user not found");
             create(user);
         } else {
+            LOGGER.debug("user found");
             update(user);
         }
     }
 
     private void create(User user) throws DaoException {
-        executeUpdate(ADD_NEW_QUERY,user);
+        LOGGER.debug("adding to db user: " + user);
+        String login = user.getLogin();
+        String password = user.getPassword();
+        String name = user.getName();
+        executeUpdate(ADD_NEW_QUERY, login, password, name);
     }
 
     private void update(User user) throws DaoException {
+        LOGGER.debug("updating user");
         Optional<User> optionalUser = findById(user.getId());
         executeUpdate(UPDATE, optionalUser);
     }
 
     @Override
-    public void removeById(Long id) {
-        //remove user from db
+    public void removeById(Long id) throws DaoException {
+        executeUpdate(DELETE_USER_BY_ID_QUERY, id);
     }
 
     public void updateLocale(Long userId, String languageTag) throws DaoException {

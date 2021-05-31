@@ -3,6 +3,7 @@ package com.epam.training.tasks.stoss.commands;
 import com.epam.training.tasks.stoss.entities.News;
 import com.epam.training.tasks.stoss.entities.NewsItem;
 import com.epam.training.tasks.stoss.services.NewsService;
+import com.epam.training.tasks.stoss.services.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class ShowNewsCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         int currentPage = Integer.parseInt(request.getParameter(PAGE_ATTRIBUTE));
         int numberOfItems = Integer.parseInt(request.getParameter(ITEMS_ATTRIBUTE));
 
@@ -40,8 +41,9 @@ public class ShowNewsCommand implements Command {
             LOGGER.debug("pages count: " + pagesCount);
             request.setAttribute(PAGES_ATTRIBUTE, pagesCount);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            LOGGER.error(e);
+            throw new CommandException(e);
         }
 
         return CommandResult.forward(NEWS_PAGE);

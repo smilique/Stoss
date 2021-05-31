@@ -10,10 +10,14 @@ public class DaoHelperFactory {
 
     private static final Logger LOGGER = Logger.getLogger(DaoHelperFactory.class);
 
-    public DaoHelper create() throws ConnectionException, IOException {
-        LOGGER.debug("trying to get connectionPool");
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        LOGGER.debug("Got connectionPool: " + connectionPool);
-        return new DaoHelper(connectionPool.getConnection());
+    public DaoHelper create() throws DaoException {
+        try {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            LOGGER.debug("Got connectionPool: " + connectionPool);
+            return new DaoHelper(connectionPool.getConnection());
+        } catch (ConnectionException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
     }
 }

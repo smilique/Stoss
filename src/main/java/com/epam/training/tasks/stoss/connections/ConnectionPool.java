@@ -36,7 +36,7 @@ public class ConnectionPool {
 
     private int poolSize;
 
-    private ConnectionPool() throws IOException {
+    private ConnectionPool() throws ConnectionException {
         LOGGER.debug("creating ConnectionPool instance");
         availableConnections = new ArrayDeque<>();
         connectionsInUse = new ArrayDeque<>();
@@ -44,20 +44,17 @@ public class ConnectionPool {
         initializeProperties();
         initializeConnections();
         connectionSemaphore = new Semaphore(poolSize);
-
     }
 
-    public static ConnectionPool getInstance() throws IOException {
-        LOGGER.debug("ConnectionPool getInstance");
+    public static ConnectionPool getInstance() throws ConnectionException {
         ConnectionPool localInstance = INSTANCE.get();
         if (localInstance == null) {
             try {
                 INSTANCE_LOCK.lock();
                 localInstance = INSTANCE.get();
                 if (localInstance == null) {
-                    LOGGER.debug("New instance created");
-                    //ConnectionFactory factory = new ConnectionFactory();
                     INSTANCE.getAndSet(new ConnectionPool());
+                    LOGGER.debug("New instance created");
                 }
             } finally {
                 INSTANCE_LOCK.unlock();
@@ -66,26 +63,27 @@ public class ConnectionPool {
         return INSTANCE.get();
     }
 
-    private void initializeProperties() throws IOException {
-        LOGGER.debug("initializing connection properties");
-        Properties properties = propertyLoader.load(DB_PROPERTIES);
-        String connectionPoolSize = properties.getProperty(POOL_SIZE_KEY);
-        poolSize = Integer.parseInt(connectionPoolSize);
-        LOGGER.info("Properties loaded");
+    private void initializeProperties() throws ConnectionException {
+        try {
+            LOGGER.debug("initializing connection properties");
+            Properties properties = null;
+            properties = propertyLoader.load(DB_PROPERTIES);
+            String connectionPoolSize = properties.getProperty(POOL_SIZE_KEY);
+            poolSize = Integer.parseInt(connectionPoolSize);
+            LOGGER.info("Properties loaded");
+        } catch (IOException e) {
+            throw new ConnectionException(e);
+        }
+
     }
 
-    private void initializeConnections() {
-        try {
-            for (int i = 0; i < poolSize; i++) {
-                LOGGER.debug("initializing connections");
-                //Class.forName(dbDriver);
-                Connection connection = factory.create();
-                ProxyConnection proxyConnection = new ProxyConnection(this,connection);
-                availableConnections.add(proxyConnection);
-                LOGGER.debug("added connection #" + i + " | " + proxyConnection);
-            }
-        } catch (SQLException | ClassNotFoundException | ConnectionException e) {
-            LOGGER.error(e);
+    private void initializeConnections() throws ConnectionException {
+        for (int i = 0; i < poolSize; i++) {
+            LOGGER.debug("initializing connections");
+            Connection connection = factory.create();
+            ProxyConnection proxyConnection = new ProxyConnection(this,connection);
+            availableConnections.add(proxyConnection);
+            LOGGER.debug("added connection #" + i + " | " + proxyConnection);
         }
     }
 
@@ -97,7 +95,6 @@ public class ConnectionPool {
             if (connectionsInUse.contains(proxyConnection)) {
                 connectionsInUse.remove(proxyConnection);
                 availableConnections.add(proxyConnection);
-
                 connectionSemaphore.release();
             }
         } finally {
@@ -109,15 +106,10 @@ public class ConnectionPool {
         try {
             connectionSemaphore.acquire();
             connectionsLock.lock();
-            LOGGER.debug("locked");
-
             ProxyConnection proxyConnection = availableConnections.poll();
             LOGGER.debug("polled connection " + proxyConnection);
             connectionsInUse.add(proxyConnection);
-            LOGGER.debug("getConnection " + proxyConnection);
-
             return proxyConnection;
-
         } catch (InterruptedException e) {
             LOGGER.error(e);
             throw new ConnectionException(e);

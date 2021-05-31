@@ -12,13 +12,19 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.entities.Pages.*;
 
 public class SetLocaleCommand implements Command{
 
     private static final Logger LOGGER = Logger.getLogger(SetLocaleCommand.class);
 
     private static final String INDEX_PAGE = "controller?command=index";
-    private static final String MAIN_PAGE = "controller?command=mainPage";
+
+    private static final String MAIN_CONTROLLER_PAGE = "controller?command=mainPage";
+    private static final String MESSAGE_BOARD_CONTROLLER_PAGE = "controller?command=chat";
+    private static final String RATING_CONTROLLER_PAGE = "controller?command=rating";
+    private static final String USERS_CONTROLLER_PAGE = "controller?command=users";
+    private static final String NEWS_CONTROLLER_PAGE = "controller?command=news&page=1&items=2";
 
     private final UserService userService;
 
@@ -28,7 +34,7 @@ public class SetLocaleCommand implements Command{
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         String languageTag = request.getParameter(LANGUAGE_TAG_ATTRIBUTE);
         Locale locale = Locale.forLanguageTag(languageTag);
@@ -42,10 +48,36 @@ public class SetLocaleCommand implements Command{
             try {
                 Optional<User> updatedUser = userService.changeLocale(user.getId(), languageTag);
                 session.setAttribute(USER_ATTRIBUTE, updatedUser.get());
-                page = MAIN_PAGE;
+                String currentPage = (String) session.getAttribute(CURRENT_PAGE_ATTRIBUTE);
+                switch (currentPage) {
+                    case MAIN_PAGE: {
+                        page = MAIN_CONTROLLER_PAGE;
+                        break;
+                    }
+                    case MESSAGE_BOARD_PAGE: {
+                        page = MESSAGE_BOARD_CONTROLLER_PAGE;
+                        break;
+                    }
+                    case RATING_PAGE: {
+                        page = RATING_CONTROLLER_PAGE;
+                        break;
+                    }
+                    case USERS_PAGE: {
+                        page = USERS_CONTROLLER_PAGE;
+                        break;
+                    }
+                    case NEWS_PAGE: {
+                        page = NEWS_CONTROLLER_PAGE;
+                        break;
+                    }
+                    default: {
+                        page = currentPage;
+                        break;
+                    }
+                }
             } catch (ServiceException e) {
                 LOGGER.error(e);
-                e.printStackTrace();
+                throw new CommandException(e);
             }
         }
 

@@ -42,20 +42,19 @@
             <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
                 <input class="register_form" type="hidden" name="local" value="en"/>
                 <fmt:message key="local.message.username" var="usernameText" bundle="${loc}" scope="session"/>
-                <p>${usernameText}<input type="text" name="username" placeholder="${usernameText}"/></p>
+                <p><input type="text" name="username" placeholder="${usernameText}"/></p>
                 <fmt:message key="local.message.password" var="passwordText" bundle="${loc}" scope="session"/>
-                <p>${passwordText}<input type="password" name="password" placeholder="${passwordText}"/></p>
+                <p><input type="password" name="password" placeholder="${passwordText}"/></p>
                 <fmt:message key="local.register.name" var="nameText" bundle="${loc}" scope="session"/>
-                <p>${nameText}<input type="text" name="name" placeholder="${nameText}"></p>
+                <p><input type="text" name="name" placeholder="${nameText}"></p>
 <%--                <p>%userPicHere<input type="file" accept="image/jpeg,image/png" size="1000000"/></p>--%>
                 <fmt:message key="local.register.button" var="registerButtonText" bundle="${loc}" scope="session"/>
                 <input type="submit" value="${registerButtonText}"/>
-                <fmt:message key="local.button.register" var="registerButtonText" bundle="${loc}" scope="session"/>
-                <fmt:message key="local.message.or" var="orText" bundle="${loc}" scope="session"/>
             </form>
         </li>
         <li>
             <fmt:message key="local.register.login" var="loginButtonText" bundle="${loc}" scope="session"/>
+            <fmt:message key="local.message.or" var="orText" bundle="${loc}" scope="session"/>
             <h3>${orText} </h3><a href="controller?command=index">${loginButtonText}</a>
         </li>
     </c:if>

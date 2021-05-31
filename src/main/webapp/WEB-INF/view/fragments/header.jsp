@@ -7,9 +7,16 @@
 
 <div class="header-wrapper">
     <div class="header_logo">
-        <a href="controller?command=index" class="header_logo_link">
-            <img src="static/img/png/small_logo.png" alt="Stoss game" class="header-logo-img">
-        </a>
+        <c:if test="${sessionScope.user == null}">
+            <a href="controller?command=index" class="header_logo_link">
+                <img src="static/img/png/small_logo.png" alt="Stoss game" class="header-logo-img">
+            </a>
+        </c:if>
+        <c:if test="${sessionScope.user != null}">
+            <a href="controller?command=mainPage" class="header_logo_link">
+                <img src="static/img/png/small_logo.png" alt="Stoss game" class="header-logo-img">
+            </a>
+        </c:if>
     </div>
     <div class="header-caption">
         <fmt:message key="local.header.caption" var="caption" bundle="${loc}" scope="session"/>
@@ -34,17 +41,6 @@
                 <a href="controller?command=user" class="user_profile_link">
                     <img src="${sessionScope.user.userpic}" alt="${sessionScope.user.name}" class="userpic-img">
                 </a>
-            </div>
-            <div class="language-select">
-                <div class="language-element">
-                    <a class="active" href="controller?command=changeLocale&languageTag=en">English</a>
-                </div>
-                <div class="language-element">
-                    <a href="controller?command=changeLocale&languageTag=ru">Русский</a>
-                </div>
-                <div class="language-element">
-                    <a href="controller?command=changeLocale&languageTag=by">Беларуская</a>
-                </div>
             </div>
         </c:if>
     </div>

@@ -22,12 +22,13 @@ public class DeleteUserCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String login = request.getParameter(LOGIN_ATTRIBUTE);
         try {
             userService.deleteUser(login);
         } catch (ServiceException e) {
             LOGGER.error(e);
+            throw new CommandException(e);
         }
         return CommandResult.forward(PAGE);
     }

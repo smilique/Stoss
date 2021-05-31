@@ -2,6 +2,7 @@ package com.epam.training.tasks.stoss.commands;
 
 import com.epam.training.tasks.stoss.entities.Message;
 import com.epam.training.tasks.stoss.services.MessageService;
+import com.epam.training.tasks.stoss.services.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,6 @@ public class ShowMessageBoardCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ShowMessageBoardCommand.class);
 
-//    private static final String CHAT_PAGE = "WEB-INF/view/messageBoard.jsp";
-
     private final MessageService messageService;
 
     public ShowMessageBoardCommand(MessageService messageService) {
@@ -24,15 +23,13 @@ public class ShowMessageBoardCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
             List<Message> messages = messageService.getMessages();
-            //Collections.reverse(messages);
             request.setAttribute(MESSAGES_ATTRIBUTE, messages);
-        } catch (Exception e) {
+        } catch (ServiceException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            throw new CommandException(e);
         }
 
         return CommandResult.forward(MESSAGE_BOARD_PAGE);

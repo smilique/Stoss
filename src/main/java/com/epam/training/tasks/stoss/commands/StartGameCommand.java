@@ -13,9 +13,9 @@ import static com.epam.training.tasks.stoss.entities.Attributes.USER_ATTRIBUTE;
 import static com.epam.training.tasks.stoss.entities.Pages.GAME_PAGE;
 
 public class StartGameCommand implements Command {
+
     private static final Logger LOGGER = Logger.getLogger(StartGameCommand.class);
 
-//    private static final String PAGE = "WEB-INF/view/game.jsp";
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("Starting the game");

@@ -29,11 +29,18 @@
 
 <main class="container">
     <p>${requestScope.errormessage}</p>
-    <table class="users-table">
-        <c:set var="itemsPerPage" value="10"/>
-        <c:set var="usersList" value="${requestScope.get('users')}"/>
-        <tr class="table-caption"><th>LOGIN</th><th>USERNAME</th><th>BALANCE</th><th>POINTS</th><th>USERPIC</th><th>ACTION</th></tr>
-        <c:forEach items="${usersList}" var="user">
+    <div class="users-wrapper">
+        <table class="users-table">
+            <c:set var="itemsPerPage" value="10"/>
+            <c:set var="usersList" value="${requestScope.get('users')}"/>
+            <fmt:message key="local.users.login" var="login" scope="session" bundle="${loc}"/>
+            <fmt:message key="local.users.name" var="username" scope="session" bundle="${loc}"/>
+            <fmt:message key="local.users.balance" var="balance" scope="session" bundle="${loc}"/>
+            <fmt:message key="local.users.points" var="points" scope="session" bundle="${loc}"/>
+            <fmt:message key="local.users.userpic" var="avatar" scope="session" bundle="${loc}"/>
+            <fmt:message key="local.users.action" var="actions" scope="session" bundle="${loc}"/>
+            <tr class="table-caption"><th>${login}</th><th>${username}</th><th>${balance}</th><th>${points}</th><th>${avatar}</th><th>${actions}</th></tr>
+            <c:forEach items="${usersList}" var="user">
                 <tr class="user-item">
                     <td><p class="user-login">${user.login}</p></td>
                     <td><p class="user-name">${user.name}</p></td>
@@ -41,18 +48,19 @@
                     <td><p class="user-points">${user.points}</p></td>
                     <td><img src="${user.userpic}" alt="${user.name}"/></td>
                     <td>
-                        <a href="controller?command=confirmUserDelete&login=${user.login}">DELETE USER</a>
-                        <a href="controller?command=editUser&login=${user.login}">EDIT USER</a>
+                        <fmt:message key="local.users.delete" var="delete" scope="session" bundle="${loc}"/>
+                        <a href="controller?command=confirmUserDelete&login=${user.login}">${delete}</a>
+                        <fmt:message key="local.users.edit" var="edit" scope="session" bundle="${loc}"/>
+                        <a href="controller?command=editUser&login=${user.login}">${edit}</a>
                     </td>
                 </tr>
-        </c:forEach>
+            </c:forEach>
 
-        <jsp:include page="fragments/pagination.jsp">
-            <jsp:param name="itemsPerPage" value="${itemsPerPage}"/>
-        </jsp:include>
-    </table>
-
-
+            <jsp:include page="fragments/pagination.jsp">
+                <jsp:param name="itemsPerPage" value="${itemsPerPage}"/>
+            </jsp:include>
+        </table>
+    </div>
 
 </main>
 

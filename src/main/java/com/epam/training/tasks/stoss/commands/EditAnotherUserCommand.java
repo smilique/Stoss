@@ -22,7 +22,7 @@ public class EditAnotherUserCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
 
         String editedUserLogin = request.getParameter("login");
@@ -31,7 +31,8 @@ public class EditAnotherUserCommand implements Command {
             User editedUser = optionalUser.get();
             request.setAttribute("editedUser", editedUser);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
+            throw new CommandException(e);
         }
 
 

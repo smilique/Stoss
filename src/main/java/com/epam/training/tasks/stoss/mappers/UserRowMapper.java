@@ -7,23 +7,22 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserRowMapper implements RowMapper<User> {
+import static com.epam.training.tasks.stoss.entities.User.*;
 
-    private final static Logger LOGGER = Logger.getLogger(UserRowMapper.class);
+public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User map(ResultSet resultSet) throws SQLException {
-        String login = resultSet.getString(User.LOGIN);
-        Long id = resultSet.getLong(User.ID);
-        String name = resultSet.getString(User.NAME);
-        Long points = resultSet.getLong(User.POINTS);
-        BigDecimal balance = BigDecimal.valueOf(resultSet.getLong(User.BALANCE));
-        String role = resultSet.getString(User.ROLE);
-        String locale = resultSet.getString(User.LOCALE);
-        String userpic = resultSet.getString(User.PICTURE);
+        String login = resultSet.getString(LOGIN);
+        Long id = resultSet.getLong(ID);
+        String name = resultSet.getString(NAME);
+        Long points = resultSet.getLong(POINTS);
+        BigDecimal balance = resultSet.getBigDecimal(BALANCE);
+        String role = resultSet.getString(ROLE);
+        String locale = resultSet.getString(LOCALE);
+        String userpic = resultSet.getString(PICTURE);
+        String password = resultSet.getString(PASSWORD);
 
-        LOGGER.debug("user id: " + id);
-
-        return new User(login, id, name, balance, points, role, locale, userpic);
+        return new User(login, id, name, balance, points, role, locale, userpic, password);
     }
 }

@@ -2,6 +2,7 @@ package com.epam.training.tasks.stoss.entities;
 
 public class Pages {
     public static final String INDEX_PAGE = "/index.jsp";
+    public static final String ERROR_PAGE = "/error.jsp";
     public static final String MAIN_PAGE = "WEB-INF/view/main.jsp";
     public static final String REGISTER_PAGE = "WEB-INF/view/register.jsp";
     public static final String USER_PAGE = "WEB-INF/view/user.jsp";

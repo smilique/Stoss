@@ -2,6 +2,7 @@ package com.epam.training.tasks.stoss.commands;
 
 
 import com.epam.training.tasks.stoss.entities.User;
+import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class DepositCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         LOGGER.debug("executing deposit command");
         String depositParameter = request.getParameter(DEPOSIT_ATTRIBUTE);
         HttpSession session = request.getSession();
@@ -41,8 +42,9 @@ public class DepositCommand implements Command {
                 updatedUser = userService.deposit(userId, deposit);
                 User currentUser = updatedUser.get();
                 session.setAttribute(USER_ATTRIBUTE, currentUser);
-            } catch (Exception e) {
+            } catch (ServiceException e) {
                 LOGGER.error(e);
+                throw new CommandException(e);
             }
         } else {
             session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Enter amount larger than 0!");

@@ -28,7 +28,7 @@ public class SendMessageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         try {
             String message = request.getParameter(TEXT_ATTRIBUTE);
@@ -43,7 +43,7 @@ public class SendMessageCommand implements Command {
             request.setAttribute(MESSAGES_ATTRIBUTE, messages);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            throw new CommandException(e);
         }
 
         return CommandResult.redirect(CHAT_PAGE);

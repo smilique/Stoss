@@ -35,7 +35,7 @@ public class BetCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         LOGGER.debug(session);
         Game game = (Game) session.getAttribute(GAME_ATTRIBUTE);
@@ -82,7 +82,7 @@ public class BetCommand implements Command {
         return CommandResult.forward(PAGE);
     }
 
-    private void process(HttpServletRequest request, HttpSession session, Long betValue, String winStatus) {
+    private void process(HttpServletRequest request, HttpSession session, Long betValue, String winStatus) throws CommandException {
         session.removeAttribute(GAME_ATTRIBUTE);
         session.removeAttribute(PUNTER_CARD_ATTRIBUTE);
         request.setAttribute (GAME_STATUS_ATTRIBUTE, winStatus);
@@ -99,7 +99,7 @@ public class BetCommand implements Command {
             session.setAttribute(USER_ATTRIBUTE, user);
         } catch (ServiceException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            throw new CommandException(e);
         }
     }
 

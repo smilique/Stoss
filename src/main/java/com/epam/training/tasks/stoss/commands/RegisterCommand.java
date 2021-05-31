@@ -2,12 +2,14 @@ package com.epam.training.tasks.stoss.commands;
 
 
 import com.epam.training.tasks.stoss.entities.User;
+import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Service;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -27,7 +29,7 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         String login = request.getParameter(USERNAME_ATTRIBUTE);
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
@@ -37,20 +39,27 @@ public class RegisterCommand implements Command {
 
         AtomicReference<String> nextPage = new AtomicReference<>();
         HttpSession session = request.getSession();
-
-        try {
-            if (userService.validateLogin(login)) {
-                LOGGER.debug("User already exists");
-                session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User already exists, please try another login.");
-                nextPage.set(UNSUCCESSFUL_REGISTER);
-            } else {
-                LOGGER.debug("New user created");
-                userService.register(login, password, name);
-                session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User created!");
-                nextPage.set(SUCCESSFUL_REGISTER);
+        if (!login.equals("") &&
+                !password.equals("") &&
+                !name.equals("")) {
+            try {
+                if (userService.validateLogin(login)) {
+                    LOGGER.debug("User already exists");
+                    session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User already exists, please try another login.");
+                    nextPage.set(UNSUCCESSFUL_REGISTER);
+                } else {
+                    LOGGER.debug("New user created");
+                    userService.register(login, password, name);
+                    session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User created!");
+                    nextPage.set(SUCCESSFUL_REGISTER);
+                }
+            } catch (ServiceException e) {
+                LOGGER.error(e);
+                throw new CommandException(e);
             }
-        } catch (Exception e) {
-            LOGGER.error(e);
+        } else {
+            session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Please fill in every form");
+            nextPage.set(UNSUCCESSFUL_REGISTER);
         }
 
         String page = nextPage.get();

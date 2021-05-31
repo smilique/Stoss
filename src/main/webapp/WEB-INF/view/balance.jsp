@@ -31,42 +31,69 @@
         <fmt:message key="local.user.userData" var="welcomeMessage" bundle="${loc}" scope="session"/>
         <h2 class="welcome-message">${welcomeMessage}</h2>
 
-        <fmt:message key="local.user.funds" var="fundsText" bundle="${loc}" scope="session"/>
+        <fmt:message key="local.balance.funds" var="fundsText" bundle="${loc}" scope="session"/>
         <h2 class="welcome-message">${fundsText}</h2>
-        <fmt:message key="local.user.zeroError" var="zeroErrorMessage" bundle="${loc}" scope="session"/>
+        <fmt:message key="local.balance.zeroError" var="zeroErrorMessage" bundle="${loc}" scope="session"/>
         <c:if test="${sessionScope.errormessage == 'Enter amount larger than 0!'}">
             ${zeroErrorMessage}
         </c:if>
         <li class="user-edit-wrapper">
             <div class="user-edit-left">
-                <form action="${pageContext.request.contextPath}/controller?command=deposit" method="post">
+                <form class="deposit-left" action="${pageContext.request.contextPath}/controller?command=deposit" method="post">
+                    <fmt:message key="local.balance.depositButton" var="depositButtonText" bundle="${loc}" scope="session"/>
+                    <h2>${depositButtonText}</h2>
                     <label>
-                        Card number:
+                        <fmt:message key="local.balance.number" var="cardNumberText" bundle="${loc}" scope="session"/>
+                        ${cardNumberText}
                         <input type="text" name="cardNumber" placeholder="1111 2222 3333 4444"/>
                     </label>
                     <label>
-                        Card owner:
+                        <fmt:message key="local.balance.owner" var="cardOwnerText" bundle="${loc}" scope="session"/>
+                        ${cardOwnerText}
                         <input class="card-owner" type="text" name="cardOwner" placeholder="NAME SURNAME"/>
                     </label>
                     <label>
-                        Valid till:
+                        <fmt:message key="local.balance.valid" var="cardValidText" bundle="${loc}" scope="session"/>
+                        ${cardValidText}
                         <input type="text" name="expires" placeholder="MM/YY"/>
                     </label>
                     <label>
-                        CVV code:
+                        <fmt:message key="local.balance.cvv" var="cardCvvText" bundle="${loc}" scope="session"/>
+                        ${cardCvvText}
                         <input type="number" name="cvv" placeholder="CVV" min="100" max="999"/>
                     </label>
-                    <fmt:message key="local.user.depositText" var="depositText" bundle="${loc}" scope="session"/>
+                    <fmt:message key="local.balance.depositText" var="depositText" bundle="${loc}" scope="session"/>
                     <input type="number" name="deposit" placeholder="${depositText}" min="50" step="5">
-                    <fmt:message key="local.user.depositButton" var="depositButtonText" bundle="${loc}" scope="session"/>
+
                     <input type="submit" class="update_balance" value="${depositButtonText}">
                 </form>
             </div>
             <div class="user-edit-right">
-                <form action="${pageContext.request.contextPath}/controller?command=withdraw" method="post">
-                    <fmt:message key="local.user.withdrawText" var="withdrawText" bundle="${loc}" scope="session"/>
+                <form class="deposit-left" action="${pageContext.request.contextPath}/controller?command=withdraw" method="post">
+                    <fmt:message key="local.balance.withdrawButton" var="withdrawButtonText" bundle="${loc}" scope="session"/>
+                    <h2>${withdrawButtonText}</h2>
+                    <label>
+                        <fmt:message key="local.balance.number" var="cardNumberText" bundle="${loc}" scope="session"/>
+                            ${cardNumberText}
+                        <input type="text" name="cardNumber" placeholder="1111 2222 3333 4444"/>
+                    </label>
+                    <label>
+                        <fmt:message key="local.balance.owner" var="cardOwnerText" bundle="${loc}" scope="session"/>
+                            ${cardOwnerText}
+                        <input class="card-owner" type="text" name="cardOwner" placeholder="NAME SURNAME"/>
+                    </label>
+                    <label>
+                        <fmt:message key="local.balance.valid" var="cardValidText" bundle="${loc}" scope="session"/>
+                            ${cardValidText}
+                        <input type="text" name="expires" placeholder="MM/YY"/>
+                    </label>
+                    <label>
+                        <fmt:message key="local.balance.cvv" var="cardCvvText" bundle="${loc}" scope="session"/>
+                            ${cardCvvText}
+                        <input type="number" name="cvv" placeholder="CVV" min="100" max="999"/>
+                    </label>
+                    <fmt:message key="local.balance.withdrawText" var="withdrawText" bundle="${loc}" scope="session"/>
                     <input type="number" name="withdraw" placeholder="${withdrawText}" min="100">
-                    <fmt:message key="local.user.withdrawButton" var="withdrawButtonText" bundle="${loc}" scope="session"/>
                     <input type="submit" class="update_balance" value="${withdrawButtonText}">
                 </form>
             </div>

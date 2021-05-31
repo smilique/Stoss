@@ -16,6 +16,8 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
 
     private final static Logger LOGGER = Logger.getLogger(AbstractDao.class);
 
+    private static final String GET_ALL_QUERY = "select * from ";
+
     private final ProxyConnection connection;
     private final RowMapper<T> mapper;
 
@@ -48,13 +50,8 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
         LOGGER.debug("Creating statement with " + query + " | " + params);
         PreparedStatement statement = connection.prepareStatement(query);
-        LOGGER.debug(statement);
-
-        LOGGER.debug("params number :" + params.length);
-
         for (int i = 0; i < params.length; i++) {
             statement.setObject(i+1,params[i]);
-            LOGGER.debug("current param : " + params[i]);
         }
         LOGGER.debug("Statement " + statement);
         return statement;
@@ -63,7 +60,7 @@ public abstract class AbstractDao <T extends Entity> implements Dao<T> {
     public List<T> getAll() throws DaoException {
         String table = getTableName();
 
-        return executeQuery("select * from " + table);
+        return executeQuery(GET_ALL_QUERY + table);
     }
 
     public List<T> getAll(String query) throws DaoException { //TODO rewrite to single method

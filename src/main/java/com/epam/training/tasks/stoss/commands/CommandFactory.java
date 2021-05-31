@@ -14,7 +14,7 @@ public class CommandFactory {
     private static final Logger LOGGER = Logger.getLogger(CommandFactory.class);
 
     public Command create(String type) {
-        LOGGER.debug(" type = " + type);
+        LOGGER.debug("Command: " + type);
         switch (type) {
             case LOGIN_COMMAND: {
                 return new LoginCommand(new UserService());
@@ -40,7 +40,7 @@ public class CommandFactory {
             case BET_COMMAND: {
                 return new BetCommand(new UserService());
             }
-            case CHAT_PAGE_COMMAND: {
+            case MESSAGE_BOARD_PAGE_COMMAND: {
                 return new ShowMessageBoardCommand(new MessageService());
             }
             case MESSAGE_POST_COMMAND: {
@@ -68,7 +68,7 @@ public class CommandFactory {
                 return new UpdateCommand(new UserService());
             }
             case USER_SPECIFIED_UPDATE_COMMAND: {
-                return new UpdateSpecifiedCommand(new UserService());
+                return new UpdateSpecifiedUserCommand(new UserService());
             }
             case USER_DELETE_COMMAND: {
                 return new DeleteUserCommand(new UserService());
@@ -79,7 +79,6 @@ public class CommandFactory {
             case USERS_PAGE_COMMAND: {
                 return new ShowUsersCommand(new UserService());
             }
-
             case USERPIC_UPDATE_COMMAND: {
                 return new UserpicUpdateCommand(new UserService());
             }
@@ -89,16 +88,14 @@ public class CommandFactory {
             case NEWS_PAGE_COMMAND: {
                 return new ShowNewsCommand(new NewsService(new DaoHelperFactory()));
             }
-
             case CHANGE_LOCALE_COMMAND: {
                 return new SetLocaleCommand(new UserService());
             }
-
             case LOGOUT_COMMAND: {
                 return new LogoutCommand();
             }
             default: {
-                LOGGER.error(" unexpected command!");
+                LOGGER.error("Unexpected command: " + type);
                 throw new IllegalArgumentException("Unknown command: " + type);
             }
         }

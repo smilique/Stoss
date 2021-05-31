@@ -7,15 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
+import static com.epam.training.tasks.stoss.entities.NewsItem.*;
+
 public class NewsRowMapper implements RowMapper<NewsItem>{
     @Override
     public NewsItem map(ResultSet resultSet) throws SQLException {
-        String newsItemId = NewsItem.ID;
-        Long id = resultSet.getLong(newsItemId);
-        String caption = resultSet.getString(NewsItem.CAPTION);
-        String text = resultSet.getString(NewsItem.TEXT);
-        Date date = resultSet.getDate(NewsItem.TIME);
-        Time time = resultSet.getTime(NewsItem.TIME);
+        Long id = resultSet.getLong(ID);
+        String caption = resultSet.getString(CAPTION);
+        String text = resultSet.getString(TEXT);
+        Date date = resultSet.getDate(TIME);
+        Time time = resultSet.getTime(TIME);
         return new NewsItem(id, caption, text, date, time);
     }
 }

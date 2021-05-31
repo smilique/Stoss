@@ -16,24 +16,21 @@ public class ShowRatingCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(ShowRatingCommand.class);
 
-//    private static final String PAGE = "WEB-INF/view/users.jsp";
-
     private final UserService userService;
 
     public ShowRatingCommand(UserService userService) {
         this.userService = userService;
     }
 
-
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         List<User> users = null;
         try {
             users = userService.getRating();
 //TODO add place column to users (in jsp, I think)
         } catch (ServiceException e) {
             LOGGER.error(e);
-            e.printStackTrace();
+            throw new CommandException(e);
         }
         request.setAttribute(USERS_ATTRIBUTE,users);
 

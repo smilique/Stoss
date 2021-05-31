@@ -1,6 +1,5 @@
 package com.epam.training.tasks.stoss.services;
 
-import com.epam.training.tasks.stoss.connections.ConnectionException;
 import com.epam.training.tasks.stoss.dao.DaoException;
 import com.epam.training.tasks.stoss.dao.DaoHelper;
 import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
@@ -8,8 +7,6 @@ import com.epam.training.tasks.stoss.dao.MessageDao;
 import com.epam.training.tasks.stoss.entities.Message;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +27,10 @@ public class MessageService {
             MessageDao messageDao = helper.createMessageDao();
             messages = messageDao.getAll();
             helper.endTransaction();
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+        } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
-
         return messages;
     }
 
@@ -42,9 +38,22 @@ public class MessageService {
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             MessageDao messageDao = helper.createMessageDao();
-            messageDao.post(messageText, userId);
+            Message message = new Message(messageText, userId);
+            messageDao.save(message);
             helper.endTransaction();
-        } catch (ConnectionException | IOException | SQLException | DaoException e) {
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+    }
+
+    public void deleteMessage(Long messageId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            MessageDao messageDao = helper.createMessageDao();
+            messageDao.removeById(messageId);
+            helper.endTransaction();
+        } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }

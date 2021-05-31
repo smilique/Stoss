@@ -34,13 +34,15 @@ public class ConnectionFactory {
     }
 
 
-    public Connection create() throws ConnectionException, ClassNotFoundException, SQLException {
-
-
-            Class.forName(dbDriver);
-            Connection connection = DriverManager.getConnection(dbUrl,dbUser,dbPassword);
-
-        return connection;
+    public Connection create() throws ConnectionException {
+            try {
+                Class.forName(dbDriver);
+                Connection connection = DriverManager.getConnection(dbUrl,dbUser,dbPassword);
+                return connection;
+            } catch (ClassNotFoundException | SQLException e) {
+                LOGGER.error(e);
+                throw new ConnectionException(e);
+            }
     }
 
     private void initializeProperties() throws ConnectionException{
@@ -51,7 +53,7 @@ public class ConnectionFactory {
             dbPassword = properties.getProperty(PASSWORD_KEY);
             dbUrl = properties.getProperty(URL_KEY);
         } catch (IOException e) {
-            LOGGER.debug("connection error " + e);
+            LOGGER.error(e);
             throw new ConnectionException(e);
         }
 

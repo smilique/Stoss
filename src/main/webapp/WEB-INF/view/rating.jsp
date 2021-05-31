@@ -29,25 +29,36 @@
 
 <main class="container">
 
+    <c:set var="currentUser" value="${sessionScope.user}"/>
+
     <table class="users-wrapper">
         <c:set var="itemsPerPage" value="10"/>
         <c:set var="usersList" value="${requestScope.get('users')}"/>
-        <c:forEach items="${usersList}" var="user">
-            <table-row class="user-item">
-                <div class="user-item-wrapper">
-                    <p class="user-name">${user.name}</p>
-                    <p class="user-balance">${user.balance}</p>
-                </div>
-                <div class="user-item-wrapper">
-                    <p class="user-points">${user.points}</p>
-                    <img src="${user.userpic}"/>
-                </div>
-                <div class="user-item-wrapper">
-                    <a href="controller?command=confirmUserDelete&login=${user.login}">DELETE USER</a>
-                    <a href="controller?command=editUser&login=${user.login}">EDIT USER</a>
-                </div>
-            </table-row>
-        </c:forEach>
+        <fmt:message key="local.users.name" var="username" scope="session" bundle="${loc}"/>
+        <fmt:message key="local.users.points" var="points" scope="session" bundle="${loc}"/>
+        <fmt:message key="local.users.userpic" var="avatar" scope="session" bundle="${loc}"/>
+            <tr class="table-caption"><th>№</th><th>${username}</th><th>${points}</th><th>${avatar}</th></tr>
+            <c:set var="place" value="0"/>
+            <c:forEach items="${usersList}" var="user">
+                <c:choose>
+                    <c:when test="${user.name == currentUser.name}">
+                        <tr class="current-user-item">
+                            <td>${place = place + 1}</td>
+                            <td><p class="user-name">${user.name}</p></td>
+                            <td><p class="user-points">${user.points}</p></td>
+                            <td><img src="${user.userpic}" alt="${user.name}"/></td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr class="user-item">
+                            <td>${place = place + 1}</td>
+                            <td><p class="user-name">${user.name}</p></td>
+                            <td><p class="user-points">${user.points}</p></td>
+                            <td><img src="${user.userpic}" alt="${user.name}"/></td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
 
         <jsp:include page="fragments/pagination.jsp">
             <jsp:param name="itemsPerPage" value="${itemsPerPage}"/>

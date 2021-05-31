@@ -8,7 +8,6 @@ import com.epam.training.tasks.stoss.entities.News;
 import com.epam.training.tasks.stoss.entities.NewsItem;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,15 +19,11 @@ public class NewsService {
 
     private final DaoHelperFactory daoHelperFactory;
 
-//    public NewsService() {
-//        daoHelperFactory = new DaoHelperFactory();
-//    }
-
     public NewsService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public News findNews(int currentPage, int recordsPerPage) throws Exception {
+    public News findNews(int currentPage, int recordsPerPage) throws ServiceException {
 
         int startIndex = currentPage * recordsPerPage - recordsPerPage;
 
@@ -41,9 +36,9 @@ public class NewsService {
             if (newsItems.size() < recordsPerPage) {
                 news.setAll(newsItems);
                 news.setPagesCount(SINGLE_PAGE);
-                return news;
             } else {
-                int pagesCount = (int) Math.ceil((double) newsItems.size()/recordsPerPage);
+                int itemsNumber = newsItems.size();
+                int pagesCount = (int) Math.ceil((double) itemsNumber/recordsPerPage);
                 news.setPagesCount(pagesCount);
                 if (startIndex + recordsPerPage < newsItems.size()) {
                     for (int i = startIndex; i < startIndex + recordsPerPage; i++) {
@@ -58,14 +53,24 @@ public class NewsService {
                             LOGGER.debug("selected news item #" + i);
                         }
                     }
-                return news;
-                }
-
-            } catch (DaoException e) {
+            }
+            return news;
+        } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
+    }
 
+    public void deleteItem(Long id) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            NewsDao newsDao = helper.createNewsDao();
+            newsDao.removeById(id);
+            helper.endTransaction();
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
     }
 
 }

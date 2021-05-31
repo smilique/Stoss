@@ -10,7 +10,6 @@ public class DaoHelper implements AutoCloseable {
     private final static Logger LOGGER = Logger.getLogger(DaoHelper.class);
 
     private final ProxyConnection connection;
-    //private final RowMapper<User> mapper;
 
     public DaoHelper(ProxyConnection connection) {
         LOGGER.debug("Daohelper with connection: " + connection);
@@ -31,16 +30,16 @@ public class DaoHelper implements AutoCloseable {
 
     public MessageDao createMessageDao() {
         MessageDao messageDao = new MessageDao(connection);
+        LOGGER.debug("MessageDao created: " + messageDao);
         return messageDao;
     }
-
-    //create another dao
 
     public void startTransaction() throws DaoException {
         try {
             connection.setAutoCommit(false);
             LOGGER.debug("Transaction started");
         } catch (SQLException e) {
+            LOGGER.error(e);
             throw new DaoException(e);
         }
     }
@@ -51,14 +50,22 @@ public class DaoHelper implements AutoCloseable {
             connection.setAutoCommit(true);
             LOGGER.debug("Transaction ended");
         } catch (SQLException e) {
+            LOGGER.error(e);
             throw new DaoException(e);
         }
     }
 
     @Override
-    public void close() throws SQLException {
-        LOGGER.debug("Closing connection " + connection);
-        connection.close();
+    public void close() throws DaoException {
+        try {
+            LOGGER.debug("Closing connection " + connection);
+            connection.close();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+
+
     }
 
 

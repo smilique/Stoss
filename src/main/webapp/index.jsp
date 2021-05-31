@@ -34,6 +34,8 @@
                 ${loginMessage}
             </c:if>
             <c:if test="${sessionScope.errormessage == 'User created!'}">
+                <fmt:message key="local.message.userCreated" var="userCreatedMessage" bundle="${loc}" scope="session"/>
+                ${userCreatedMessage}
                 %userCreated
             </c:if>
         </div>

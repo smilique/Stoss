@@ -30,9 +30,13 @@
 <main class="container">
         <p>
             The game starts with choosing the card and the bet by punter (player).
+            <br>
             After the card has been chosen and the bet has been placed, the banker (AI) takes two cards from his deck and campares them with the punter's card.
+            <br>
             If the first card of the banker matches the punters card by it's name - banker wins.
+            <br>
             If the second banker's card matches the punter's card - punter wins.
+            <br>
             If no one wins the game continues and the banker pulls another pair of cards from his deck until the winner will be found.
         </p>
 </main>

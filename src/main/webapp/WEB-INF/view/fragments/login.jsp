@@ -14,16 +14,16 @@
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
             <input class="login-form" type="hidden" name="local" value="en"/>
             <fmt:message key="local.message.username" var="usernameText" bundle="${loc}" scope="session"/>
-            <p>${usernameText}<input type="text" name="username" placeholder="username"/></p>
+            <p><input type="text" name="username" placeholder="${usernameText}"/></p>
             <fmt:message key="local.message.password" var="passwordText" bundle="${loc}" scope="session"/>
-            <p>${passwordText}<input type="password" name="password" placeholder="password"/></p>
+            <p><input type="password" name="password" placeholder="${passwordText}"/></p>
             <fmt:message key="local.button.login" var="loginButtonText" bundle="${loc}" scope="session"/>
             <input type="submit" value="${loginButtonText}"/>
-            <fmt:message key="local.button.register" var="registerButtonText" bundle="${loc}" scope="session"/>
-            <fmt:message key="local.message.or" var="orText" bundle="${loc}" scope="session"/>
         </form>
     </li>
     <li>
+        <fmt:message key="local.button.register" var="registerButtonText" bundle="${loc}" scope="session"/>
+        <fmt:message key="local.message.or" var="orText" bundle="${loc}" scope="session"/>
         <h3>${orText} </h3><a href="controller?command=registerPage">${registerButtonText}</a>
     </li>
 </c:if>

@@ -18,54 +18,68 @@ public class User implements Entity{
     public static final String ROLE = "r.name";
 
     private String name;
-    private final Long id;
+    private Long id;
     private BigDecimal balance;
     private Long points;
     private String login;
     private String role;
     private String userpic;
     private String locale;
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getPoints() {
-        return points;
-    }
-
-    public String getRole() {
-        return role;
-    }
+    private String password;
 
     @Override
     public Long getId() {
         return id;
     }
-
-    public User(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getUserpic() {
-        return userpic;
-    }
-
     public String getLogin() {
         return login;
     }
-
+    public String getPassword() {
+        return password;
+    }
+    public String getUserpic() {
+        return userpic;
+    }
     public String getLocale() {
         return locale;
     }
+    public BigDecimal getBalance() {
+        return balance;
+    }
+    public String getName() {
+        return name;
+    }
+    public Long getPoints() {
+        return points;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+    public void setPoints(Long points) {
+        this.points = points;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public void setUserpic(String userpic) {
+        this.userpic = userpic;
+    }
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public User(String login, Long id, String name, BigDecimal balance,
-                Long points, String role, String locale, String userpic) {
+                Long points, String role, String locale, String userpic, String password) {
         this.login = login;
         this.id = id;
         this.name = name;
@@ -74,6 +88,13 @@ public class User implements Entity{
         this.role = role;
         this.userpic = userpic;
         this.locale = locale;
+        this.password = password;
+    }
+
+    public User(String login, String name, String password) {
+        this.login = login;
+        this.name = name;
+        this.password = password;
     }
 
     @Override

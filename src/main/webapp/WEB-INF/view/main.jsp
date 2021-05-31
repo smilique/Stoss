@@ -28,7 +28,7 @@
 </nav>
 
 <main class="container">
-    <c:if test="${sessionScope.user != null}">
+    <c:if test="${sessionScope.user != null && sessionScope.user.role != 'admin'}">
         <div class="game">
 <%--            <p class="game-cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>--%>
             <fmt:message key="local.game.startNewGame" var="startButtonText" bundle="${loc}" scope="session"/>

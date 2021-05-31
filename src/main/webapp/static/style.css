@@ -50,6 +50,7 @@ input {
 .logo-text {
     font-size: 60px;
     font-weight: bold;
+    color: silver;
 }
 
 .welcome-message {
@@ -58,9 +59,14 @@ input {
 }
 
 .language-element a {
-    width: 2ch;
+    display: block;
+    /*width: 2ch;*/
     overflow: hidden;
     white-space: nowrap;
+    text-decoration: none;
+    text-transform: none;
+    color: white;
+    font-size: 14px;
 }
 
 .language-element a:hover {
@@ -68,8 +74,21 @@ input {
 
 }
 
+.message-user {
+    font-weight: 600;
+}
+
+.deposit-left {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
 table {
     width: 100%;
+    background: whitesmoke;
 }
 
 th {
@@ -137,23 +156,33 @@ td {
     text-align: center;
 }
 
-.user-item img {
+.current-user-item {
+    background: #969696ab;
+    text-align: center;
+}
+
+.users-wrapper img {
     width: 50px;
     border-radius: 3px;
 }
 
-.user-item a {
+/*.user-item img {*/
+/*    width: 50px;*/
+/*    border-radius: 3px;*/
+/*}*/
+
+.users-wrapper a {
     text-transform: none;
     text-decoration: none;
     border-radius: 3px;
-    color: black;
+    color: #fdfdfe;
     border: 2px black;
     padding: 5px;
-    background: azure;
+    background: #525253;
 }
 
-.user-item a:hover {
-    background: white;
+.users-wrapper a:hover {
+    background: black;
 }
 
 strong {
@@ -215,6 +244,7 @@ strong {
     align: right;
     margin: 10px;
     line-height: 30px;
+    color: white;
 }
 
 .user-info a {
@@ -243,8 +273,14 @@ strong {
 .start-button {
     text-decoration: none;
     color: #cccccc;
-    border: #cccccc;
     border-radius: 5px;
+    background: #222222;
+    padding: 5px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: stretch;
+    align-items: baseline;
+    justify-content: center;
 }
 
 .login-form {
@@ -264,6 +300,8 @@ strong {
     font-size: 20px;
     text-align: center;
     text-transform: capitalize;
+    background: gainsboro;
+    border-radius: 5px;
 }
 
 .news-date {
@@ -279,6 +317,7 @@ strong {
 }
 
 .news-item {
+    background: white;
     margin: 20px;
     padding: 10px;
     border: #222222;
@@ -298,19 +337,18 @@ strong {
 }
 
 .menu {
-    width: 20%;
     top: 160px;
     position: fixed;
     display: block;
-    height: 100%;
     background-color: #555555;
 }
 
 .sidebar {
     position: fixed;
     width: 20%;
+    height: 100%;
     background: #555555;
-    font-size: 1em;
+    font-size: 13px;
 }
 
 .container {
@@ -345,6 +383,7 @@ strong {
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+    border-radius: 5px;
 }
 
 .message {
@@ -361,11 +400,20 @@ strong {
 .message-left-info {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .message-right-info {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
 }
 
 .card-black {
@@ -428,7 +476,7 @@ strong {
 .pagination a {
     text-transform: uppercase;
     text-decoration: none;
-    color: #cccccc;
+    color: white;
     display: block;
 }
 
@@ -446,8 +494,7 @@ strong {
 
 .nav {
     position: relative;
-    margin: 0 15%;
-    top: 10%;
+    margin: 0 5%;
     font-weight: bold;
     color: #555555;
 }
@@ -459,7 +506,8 @@ strong {
 
 .nav li {
     position: relative;
-    margin: 3.2em 0;
+    margin: 5px 0;
+    padding: 5px;
     border: solid #7F7F7F;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     list-style-type: none;
@@ -470,12 +518,17 @@ strong {
     text-transform: uppercase;
     text-decoration: none;
     letter-spacing: 1px;
-    color: #cccccc;
+    color: white;
     display: block;
+}
+
+.nav a:hover {
+    color: black;
 }
 
 .active a {
     color: #222222;
+    background: silver;
 }
 
 .language-select {

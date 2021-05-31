@@ -4,7 +4,7 @@ public class Commands {
 
     public static final String LOGIN_COMMAND = "login";
     public static final String MAIN_PAGE_COMMAND = "mainPage";
-    public static final String CHAT_PAGE_COMMAND = "chat";
+    public static final String MESSAGE_BOARD_PAGE_COMMAND = "chat";
     public static final String MESSAGE_POST_COMMAND = "sendMessage";
     public static final String MESSAGE_DELETE_COMMAND = "deleteMessage";
     public static final String INDEX_PAGE_COMMAND = "index";
@@ -20,7 +20,6 @@ public class Commands {
     public static final String NEWS_PAGE_COMMAND = "news";
     public static final String RULES_PAGE_COMMAND = "rules";
     public static final String RATING_PAGE_COMMAND = "rating";
-    public static final String ADMINISTRATION_PAGE_COMMAND = "userAdministration";
     public static final String START_GAME_COMMAND = "startGame";
     public static final String CHOOSE_CARD_COMMAND = "chooseCard";
     public static final String BET_COMMAND = "bet";

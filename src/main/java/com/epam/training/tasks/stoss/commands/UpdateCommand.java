@@ -18,16 +18,14 @@ public class UpdateCommand implements Command {
 
     private static final String PAGE = "controller?command=user";
 
-
     private final UserService userService;
-
 
     public UpdateCommand(UserService userService) {
         this.userService = userService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         HttpSession session = request.getSession();
@@ -42,6 +40,7 @@ public class UpdateCommand implements Command {
             }
         } catch (ServiceException e) {
             LOGGER.error(e);
+            throw new CommandException(e);
         }
         return CommandResult.redirect(PAGE);
     }

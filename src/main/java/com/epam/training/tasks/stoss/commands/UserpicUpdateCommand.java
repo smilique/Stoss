@@ -1,8 +1,10 @@
 package com.epam.training.tasks.stoss.commands;
 
 import com.epam.training.tasks.stoss.entities.User;
+import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -27,7 +30,7 @@ public class UserpicUpdateCommand implements Command {
     private static final String PAGE = "controller?command=user";
     private static final int MAX_FILE_SIZE = 1000000;
     private static final int MAX_MEM_SIZE = 4096;
-    private static final String RESOURCES_PATH = "C:/dev/Tomcat8.5/webapps/resources/stoss/"; //TODO rewrite path
+    private static final String RESOURCES_PATH = "D:/dev/Tomcat8.5/webapps/resources/stoss/"; //TODO rewrite path
     private static final String USERPIC_PATH = "../resources/stoss/pic/png/";
     private static final String PICTURES_PATH = "pic/png/";
     private static final String TEMP_PATH = RESOURCES_PATH + "temp/";
@@ -39,7 +42,7 @@ public class UserpicUpdateCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_ATTRIBUTE);
@@ -70,9 +73,9 @@ public class UserpicUpdateCommand implements Command {
                 session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Please choose the file to upload!");
             }
 
-            } catch (Exception e) {
+            } catch (ServiceException | IOException | FileUploadException e) {
                 LOGGER.error(e);
-                e.printStackTrace();
+                throw new CommandException(e);
             }
         return CommandResult.redirect(PAGE);
     }

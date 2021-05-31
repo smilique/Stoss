@@ -36,8 +36,24 @@
             <div class="news-item">
                     <p class="news-caption">${newsItem.caption}</p>
                     <p class="news-text">${newsItem.text}</p>
-                    <p class="news-date">${newsItem.date}</p>
-                    <p class="news-date">${newsItem.time}</p>
+                <c:choose>
+                    <c:when test="${sessionScope.locale == 'en'}">
+                        <div class="news-date">
+                            <p><fmt:formatDate value="${newsItem.date}" pattern="yyyy-MM-dd"/></p>
+                        </div>
+                        <div class="news-date">
+                            <p><fmt:formatDate value="${newsItem.time}" pattern="hh:mm:ss aa"/> </p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="news-date">
+                            <p><fmt:formatDate value="${newsItem.date}" pattern="dd.MM.yyyy"/></p>
+                        </div>
+                        <div class="news-date">
+                            <p><fmt:formatDate value="${newsItem.time}" pattern="HH:mm:ss"/> </p>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </c:forEach>
 

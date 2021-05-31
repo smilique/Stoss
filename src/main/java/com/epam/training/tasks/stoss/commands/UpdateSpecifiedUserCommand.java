@@ -1,6 +1,5 @@
 package com.epam.training.tasks.stoss.commands;
 
-import com.epam.training.tasks.stoss.entities.User;
 import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
@@ -12,20 +11,20 @@ import javax.servlet.http.HttpSession;
 import static com.epam.training.tasks.stoss.entities.Attributes.*;
 
 
-public class UpdateSpecifiedCommand implements Command {
+public class UpdateSpecifiedUserCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(UpdateSpecifiedCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(UpdateSpecifiedUserCommand.class);
 
     private static final String PAGE = "controller?command=users";
 
     private final UserService userService;
 
-    public UpdateSpecifiedCommand(UserService userService) {
+    public UpdateSpecifiedUserCommand(UserService userService) {
         this.userService = userService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         String userIdText = request.getParameter(EDITED_USER_ID_ATTRIBUTE);
@@ -40,6 +39,7 @@ public class UpdateSpecifiedCommand implements Command {
             }
         } catch (ServiceException e) {
             LOGGER.error(e);
+            throw new CommandException(e);
         }
         return CommandResult.redirect(PAGE);
     }

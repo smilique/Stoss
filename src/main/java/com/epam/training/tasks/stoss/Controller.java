@@ -10,18 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.epam.training.tasks.stoss.entities.Attributes.*;
 import static com.epam.training.tasks.stoss.entities.Pages.*;
-
 
 public class Controller extends HttpServlet {
 
     private final static Logger LOGGER = Logger.getLogger(Controller.class);
-
-    private static final String ERROR_PAGE = "/error.jsp";
-    private static final String COMMAND_PARAMETER = "command";
-    private static final String ERROR_MESSAGE_ATTRIBUTE = "errormessage";
 
     private final CommandFactory factory = new CommandFactory();
 
@@ -36,12 +33,11 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String commandType = request.getParameter(COMMAND_PARAMETER);
+        String commandType = request.getParameter(COMMAND_ATTRIBUTE);
         Command command = factory.create(commandType);
-        LOGGER.debug( " COMMAND: " + commandType);
+        LOGGER.debug( "COMMAND: " + commandType);
         String page;
         boolean isRedirect = false;
-
         try {
             CommandResult result = command.execute(request, response);
             LOGGER.debug("CommandResult " + result);
@@ -52,6 +48,8 @@ public class Controller extends HttpServlet {
             request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e.getMessage());
             page = ERROR_PAGE;
         }
+        HttpSession session = request.getSession();
+        session.setAttribute(CURRENT_PAGE_ATTRIBUTE, page);
         if (!isRedirect) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(page);
             dispatcher.forward(request, response);
