@@ -23,14 +23,10 @@ public class ShowMessageBoardCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        try {
-            List<Message> messages = messageService.getMessages();
-            request.setAttribute(MESSAGES_ATTRIBUTE, messages);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        List<Message> messages = messageService.getMessages();
+        request.setAttribute(MESSAGES_ATTRIBUTE, messages);
 
         return CommandResult.forward(MESSAGE_BOARD_PAGE);
     }

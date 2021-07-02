@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Service;
 
 import static com.epam.training.tasks.stoss.entities.Attributes.*;
 
@@ -25,22 +26,17 @@ public class UpdateCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
         Long id = currentUser.getId();
-        try {
-            if (password.length() > 3) {
-                LOGGER.debug("updating password for user id: " + id);
-                userService.changePassword(id, password);
-            } else {
-                session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Password must be longer than 3 symbols!");
-            }
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
+        if (password.length() > 3) {
+            LOGGER.debug("updating password for user id: " + id);
+            userService.changePassword(id, password);
+        } else {
+            session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Password must be longer than 3 symbols!");
         }
         return CommandResult.redirect(PAGE);
     }

@@ -65,13 +65,70 @@ input {
     white-space: nowrap;
     text-decoration: none;
     text-transform: none;
-    color: white;
+    /*color: white;*/
     font-size: 14px;
 }
 
 .language-element a:hover {
     width: 100%;
 
+}
+
+.language {
+    color: white;
+}
+
+.current-language {
+    background: silver;
+    color: black;
+    /*border: solid 1px silver;*/
+}
+
+.language-select {
+    align: left;
+    text-align: left;
+    position: relative;
+    padding: 10px;
+}
+
+.language-select select {
+    background-color: #555555;
+    color: #7f7f7f;
+    width: 70px;
+    border: solid;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
+.language-select::before {
+    align: left;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: #fdfdfe;
+    background-color: #525253;
+    pointer-events: none;
+}
+
+.language-select:hover::before {
+    color: #1f1f99;
+    background-color: #bc1f1f;
+}
+
+.language-select a:hover {
+    color: black;
+}
+
+.language-select select option {
+    padding: 30px;
 }
 
 .message-user {
@@ -531,52 +588,7 @@ strong {
     background: silver;
 }
 
-.language-select {
-    align: left;
-    text-align: left;
-    position: relative;
-    padding: 10px;
-}
 
-.language-select select {
-    background-color: #555555;
-    color: #7f7f7f;
-    width: 70px;
-    border: solid;
-    font-size: 20px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-    -webkit-appearance: button;
-    appearance: button;
-    outline: none;
-}
-
-.language-select::before {
-    align: left;
-    position: relative;
-    top: 0;
-    right: 0;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    font-size: 28px;
-    line-height: 45px;
-    color: #fdfdfe;
-    background-color: #525253;
-    pointer-events: none;
-}
-
-.language-select:hover::before {
-    color: #1f1f99;
-    background-color: #bc1f1f;
-}
-
-.language-select a:hover {
-    color: black;
-}
-
-.language-select select option {
-    padding: 30px;
-}
 
 .marque {
     display: inline;

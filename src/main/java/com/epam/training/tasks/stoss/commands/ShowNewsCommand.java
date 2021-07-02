@@ -25,26 +25,21 @@ public class ShowNewsCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         int currentPage = Integer.parseInt(request.getParameter(PAGE_ATTRIBUTE));
         int numberOfItems = Integer.parseInt(request.getParameter(ITEMS_ATTRIBUTE));
 
         LOGGER.debug("currentPage: " + currentPage);
 
-        try {
-            News news = newsService.findNews(currentPage,numberOfItems);
-            List<NewsItem> items = news.getAll();
-            request.setAttribute(NEWS_ATTRIBUTE, items);
-            request.setAttribute(CURRENT_PAGE_ATTRIBUTE, currentPage);
+        News news = newsService.findNews(currentPage,numberOfItems);
+        List<NewsItem> items = news.getAll();
+        request.setAttribute(NEWS_ATTRIBUTE, items);
+        request.setAttribute(CURRENT_PAGE_ATTRIBUTE, currentPage);
 
-            int pagesCount = news.getPagesCount();
-            LOGGER.debug("pages count: " + pagesCount);
-            request.setAttribute(PAGES_ATTRIBUTE, pagesCount);
+        int pagesCount = news.getPagesCount();
+        LOGGER.debug("pages count: " + pagesCount);
+        request.setAttribute(PAGES_ATTRIBUTE, pagesCount);
 
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
 
         return CommandResult.forward(NEWS_PAGE);
     }

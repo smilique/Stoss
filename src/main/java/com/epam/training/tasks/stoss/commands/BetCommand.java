@@ -35,7 +35,7 @@ public class BetCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         LOGGER.debug(session);
         Game game = (Game) session.getAttribute(GAME_ATTRIBUTE);
@@ -82,7 +82,7 @@ public class BetCommand implements Command {
         return CommandResult.forward(PAGE);
     }
 
-    private void process(HttpServletRequest request, HttpSession session, Long betValue, String winStatus) throws CommandException {
+    private void process(HttpServletRequest request, HttpSession session, Long betValue, String winStatus) throws ServiceException {
         session.removeAttribute(GAME_ATTRIBUTE);
         session.removeAttribute(PUNTER_CARD_ATTRIBUTE);
         request.setAttribute (GAME_STATUS_ATTRIBUTE, winStatus);
@@ -92,15 +92,13 @@ public class BetCommand implements Command {
         Long points = currentUser.getPoints() + pointsChange;
         Long userId = currentUser.getId();
         BigDecimal bet = BigDecimal.valueOf(betValue);
-        try {
-            userService.updatePoints(userId, points);
-            Optional<User> optionalUser = userService.deposit(userId, bet);
-            User user = optionalUser.get();
-            session.setAttribute(USER_ATTRIBUTE, user);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+
+        userService.updatePoints(userId, points);
+        Optional<User> optionalUser = userService.deposit(userId, bet);
+        User user = optionalUser.get();
+        session.setAttribute(USER_ATTRIBUTE, user);
+
+
     }
 
 

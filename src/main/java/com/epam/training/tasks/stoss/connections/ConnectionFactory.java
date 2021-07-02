@@ -24,7 +24,6 @@ public class ConnectionFactory {
     private String dbUser;
     private String dbPassword;
 
-
     public ConnectionFactory()  {
         try {
             initializeProperties();
@@ -32,7 +31,6 @@ public class ConnectionFactory {
             LOGGER.error(e);
         }
     }
-
 
     public Connection create() throws ConnectionException {
             try {

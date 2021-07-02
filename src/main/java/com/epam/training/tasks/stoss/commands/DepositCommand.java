@@ -26,7 +26,7 @@ public class DepositCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         LOGGER.debug("executing deposit command");
         String depositParameter = request.getParameter(DEPOSIT_ATTRIBUTE);
         HttpSession session = request.getSession();
@@ -38,14 +38,11 @@ public class DepositCommand implements Command {
             Long userId = user.getId();
             LOGGER.debug("user.id: " + userId);
             Optional<User> updatedUser = null;
-            try {
-                updatedUser = userService.deposit(userId, deposit);
-                User currentUser = updatedUser.get();
-                session.setAttribute(USER_ATTRIBUTE, currentUser);
-            } catch (ServiceException e) {
-                LOGGER.error(e);
-                throw new CommandException(e);
-            }
+
+            updatedUser = userService.deposit(userId, deposit);
+            User currentUser = updatedUser.get();
+            session.setAttribute(USER_ATTRIBUTE, currentUser);
+
         } else {
             session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Enter amount larger than 0!");
         }

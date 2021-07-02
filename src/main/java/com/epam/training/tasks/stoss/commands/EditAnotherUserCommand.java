@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Service;
 import java.util.Optional;
 
 import static com.epam.training.tasks.stoss.entities.Pages.USER_EDIT_PAGE;
@@ -22,18 +23,15 @@ public class EditAnotherUserCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
 
         String editedUserLogin = request.getParameter("login");
-        try {
-            Optional<User> optionalUser = userService.getInfo(editedUserLogin);
-            User editedUser = optionalUser.get();
-            request.setAttribute("editedUser", editedUser);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+
+        Optional<User> optionalUser = userService.getInfo(editedUserLogin);
+        User editedUser = optionalUser.get();
+        request.setAttribute("editedUser", editedUser);
+
 
 
         return CommandResult.forward(USER_EDIT_PAGE);

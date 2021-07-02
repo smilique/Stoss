@@ -28,16 +28,13 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(USERNAME_ATTRIBUTE);
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         Optional<User> optionalUser = null;
-        try {
-            optionalUser = userService.login(login,password);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+
+        optionalUser = userService.login(login,password);
+
         AtomicReference<String> nextPage = new AtomicReference<>();
         HttpSession session = request.getSession();
         if (optionalUser.isPresent()){

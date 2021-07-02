@@ -48,10 +48,10 @@
                     <td><p class="user-points">${user.points}</p></td>
                     <td><img src="${user.userpic}" alt="${user.name}"/></td>
                     <td>
-                        <fmt:message key="local.users.delete" var="delete" scope="session" bundle="${loc}"/>
-                        <a href="controller?command=confirmUserDelete&login=${user.login}">${delete}</a>
                         <fmt:message key="local.users.edit" var="edit" scope="session" bundle="${loc}"/>
                         <a href="controller?command=editUser&login=${user.login}">${edit}</a>
+                        <fmt:message key="local.users.delete" var="delete" scope="session" bundle="${loc}"/>
+                        <a href="controller?command=confirmUserDelete&login=${user.login}">${delete}</a>
                     </td>
                 </tr>
             </c:forEach>

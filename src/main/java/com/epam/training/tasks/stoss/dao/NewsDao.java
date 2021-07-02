@@ -5,6 +5,7 @@ import com.epam.training.tasks.stoss.entities.NewsItem;
 import com.epam.training.tasks.stoss.mappers.NewsRowMapper;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class NewsDao extends AbstractDao<NewsItem> {
@@ -35,6 +36,11 @@ public class NewsDao extends AbstractDao<NewsItem> {
         String text = item.getText();
         Date date = item.getDate();
         executeUpdate(POST_QUERY, caption, text, date);
+    }
+
+    @Override
+    public List<NewsItem> getAll() throws DaoException {
+        return super.getAll();
     }
 
     @Override

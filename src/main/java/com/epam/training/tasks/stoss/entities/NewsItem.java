@@ -2,6 +2,7 @@ package com.epam.training.tasks.stoss.entities;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Objects;
 
 public class NewsItem implements Entity {
 
@@ -71,7 +72,27 @@ public class NewsItem implements Entity {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "NewsItem{" +
+                "id=" + id +
+                ", caption='" + caption + '\'' +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewsItem item = (NewsItem) o;
+        return Objects.equals(id, item.id) && Objects.equals(caption, item.caption) && Objects.equals(text, item.text) && Objects.equals(date, item.date) && Objects.equals(time, item.time);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, caption, text, date, time);
+    }
 }

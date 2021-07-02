@@ -23,15 +23,11 @@ public class ShowRatingCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<User> users = null;
-        try {
-            users = userService.getRating();
+        users = userService.getRating();
 //TODO add place column to users (in jsp, I think)
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+
         request.setAttribute(USERS_ATTRIBUTE,users);
 
         return CommandResult.forward(RATING_PAGE);

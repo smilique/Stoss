@@ -25,12 +25,14 @@ public class NewsService {
 
     public News findNews(int currentPage, int recordsPerPage) throws ServiceException {
 
+        if (currentPage < 1 || recordsPerPage < 1) {
+            throw new ServiceException("Page index and number of records must be greater than 1");
+        }
         int startIndex = currentPage * recordsPerPage - recordsPerPage;
 
         try (DaoHelper helper = daoHelperFactory.create()) {
             NewsDao newsDao = helper.createNewsDao();
             List<NewsItem> newsItems = newsDao.getAll();
-
             Collections.reverse(newsItems);
             News news = new News();
             if (newsItems.size() < recordsPerPage) {

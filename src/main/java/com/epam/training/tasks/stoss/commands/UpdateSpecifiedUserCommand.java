@@ -24,22 +24,17 @@ public class UpdateSpecifiedUserCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         String userIdText = request.getParameter(EDITED_USER_ID_ATTRIBUTE);
         Long userId = Long.valueOf(userIdText);
-        try {
-            if (password.length() > 3) {
-                LOGGER.debug("updating password for user id: " + userId);
-                userService.changePassword(userId, password);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Password must be longer than 3 symbols!");
-            }
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
+        if (password.length() > 3) {
+            LOGGER.debug("updating password for user id: " + userId);
+            userService.changePassword(userId, password);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Password must be longer than 3 symbols!");
         }
         return CommandResult.redirect(PAGE);
     }

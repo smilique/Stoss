@@ -4,6 +4,7 @@ import com.epam.training.tasks.stoss.dao.*;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
+import javax.jws.soap.SOAPBinding;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,10 @@ public class UserService {
 
     public UserService() {
         daoHelperFactory = new DaoHelperFactory();
+    }
+
+    public UserService(DaoHelperFactory daoHelperFactory) {
+        this.daoHelperFactory = daoHelperFactory;
     }
 
     public Optional<User> login(String login, String password) throws ServiceException {

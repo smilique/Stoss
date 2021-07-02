@@ -106,15 +106,4 @@
                 </c:if>
             </ul>
         </nav>
-        <div class="language-select">
-            <div class="language-element">
-                <a class="active" href="controller?command=changeLocale&languageTag=en">English</a>
-            </div>
-            <div class="language-element">
-                <a href="controller?command=changeLocale&languageTag=ru">Русский</a>
-            </div>
-            <div class="language-element">
-                <a href="controller?command=changeLocale&languageTag=by">Беларуская</a>
-            </div>
-        </div>
     </aside>

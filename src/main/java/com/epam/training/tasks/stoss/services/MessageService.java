@@ -20,6 +20,10 @@ public class MessageService {
         this.daoHelperFactory = new DaoHelperFactory();
     }
 
+    public MessageService(DaoHelperFactory daoHelperFactory) {
+        this.daoHelperFactory = daoHelperFactory;
+    }
+
     public List<Message> getMessages() throws ServiceException {
         List<Message> messages = new ArrayList<>();
         try (DaoHelper helper = daoHelperFactory.create()) {

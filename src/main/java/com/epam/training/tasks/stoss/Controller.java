@@ -45,7 +45,8 @@ public class Controller extends HttpServlet {
             LOGGER.debug(" Page: " + page);
             isRedirect = result.isRedirect();
         } catch (Exception e) {
-            request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e.getMessage());
+//            request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e.getMessage());
+            request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e);
             page = ERROR_PAGE;
         }
         HttpSession session = request.getSession();

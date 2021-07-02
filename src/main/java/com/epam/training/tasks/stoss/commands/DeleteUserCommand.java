@@ -1,6 +1,5 @@
 package com.epam.training.tasks.stoss.commands;
 
-import com.epam.training.tasks.stoss.entities.Pages;
 import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
@@ -22,14 +21,10 @@ public class DeleteUserCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(LOGIN_ATTRIBUTE);
-        try {
-            userService.deleteUser(login);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+        userService.deleteUser(login);
+
         return CommandResult.forward(PAGE);
     }
 }

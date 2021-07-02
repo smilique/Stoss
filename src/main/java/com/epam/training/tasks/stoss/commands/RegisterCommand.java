@@ -29,7 +29,7 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         String login = request.getParameter(USERNAME_ATTRIBUTE);
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
@@ -42,21 +42,17 @@ public class RegisterCommand implements Command {
         if (!login.equals("") &&
                 !password.equals("") &&
                 !name.equals("")) {
-            try {
-                if (userService.validateLogin(login)) {
-                    LOGGER.debug("User already exists");
-                    session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User already exists, please try another login.");
-                    nextPage.set(UNSUCCESSFUL_REGISTER);
-                } else {
-                    LOGGER.debug("New user created");
-                    userService.register(login, password, name);
-                    session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User created!");
-                    nextPage.set(SUCCESSFUL_REGISTER);
-                }
-            } catch (ServiceException e) {
-                LOGGER.error(e);
-                throw new CommandException(e);
-            }
+
+                    if (userService.validateLogin(login)) {
+                        LOGGER.debug("User already exists");
+                        session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User already exists, please try another login.");
+                        nextPage.set(UNSUCCESSFUL_REGISTER);
+                    } else {
+                        LOGGER.debug("New user created");
+                        userService.register(login, password, name);
+                        session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User created!");
+                        nextPage.set(SUCCESSFUL_REGISTER);
+                    }
         } else {
             session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Please fill in every form");
             nextPage.set(UNSUCCESSFUL_REGISTER);

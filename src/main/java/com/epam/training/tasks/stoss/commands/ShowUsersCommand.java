@@ -23,14 +23,10 @@ public class ShowUsersCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<User> users = null;
-        try {
-            users = userService.getAllUsers();
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+        users = userService.getAllUsers();
+
         request.setAttribute(USERS_ATTRIBUTE,users);
 
         return CommandResult.forward(USERS_PAGE);

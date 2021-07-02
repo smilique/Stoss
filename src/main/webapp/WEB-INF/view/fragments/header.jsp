@@ -43,6 +43,38 @@
                 </a>
             </div>
         </c:if>
+        <div class="language-select">
+            <div class="language-element">
+                <c:choose>
+                    <c:when test="${sessionScope.locale == 'en'}">
+                        <a class="current-language" href="controller?command=changeLocale&languageTag=en">English</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="language" href="controller?command=changeLocale&languageTag=en">English</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="language-element">
+                <c:choose>
+                    <c:when test="${sessionScope.locale == 'ru'}">
+                        <a class="current-language" href="controller?command=changeLocale&languageTag=ru">Русский</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="language" href="controller?command=changeLocale&languageTag=ru">Русский</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="language-element">
+                <c:choose>
+                    <c:when test="${sessionScope.locale == 'by'}">
+                        <a class="current-language" href="controller?command=changeLocale&languageTag=by">Беларуская</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="language" href="controller?command=changeLocale&languageTag=by">Беларуская</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Commands.REGISTER_COMMAND;
-import static com.epam.training.tasks.stoss.entities.Commands.REGISTER_PAGE_COMMAND;
+import static com.epam.training.tasks.stoss.entities.Commands.*;
 
 public class AuthorizationFilter implements Filter {
 
@@ -37,7 +36,8 @@ public class AuthorizationFilter implements Filter {
             LOGGER.info("No user detected");
             if (command.equals(LOGIN_COMMAND) ||
                     command.equals(REGISTER_PAGE_COMMAND) ||
-                    command.equals(REGISTER_COMMAND)) {
+                    command.equals(REGISTER_COMMAND) ||
+                    command.equals(CHANGE_LOCALE_COMMAND)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 LOGGER.info("Forwarding to index page");

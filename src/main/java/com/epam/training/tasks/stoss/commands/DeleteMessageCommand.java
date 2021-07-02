@@ -21,17 +21,14 @@ public class DeleteMessageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         //TODO delete message command
         String messageId = request.getParameter("messageId");
         Long id = Long.valueOf(messageId);
+
         LOGGER.debug("messageId" + messageId);
-        try {
-            messageService.deleteMessage(id);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+
+        messageService.deleteMessage(id);
         return CommandResult.forward(PAGE);
     }
 }

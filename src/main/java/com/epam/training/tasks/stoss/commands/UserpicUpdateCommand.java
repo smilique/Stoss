@@ -42,7 +42,7 @@ public class UserpicUpdateCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_ATTRIBUTE);
@@ -62,7 +62,6 @@ public class UserpicUpdateCommand implements Command {
                 String filename = userHash + "_" + id + ".png";
                 String path = RESOURCES_PATH + PICTURES_PATH + filename;
                 File userpic = new File (path);
-
                 InputStream inputStream = item.getInputStream();
                 Files.copy(inputStream, userpic.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
@@ -73,9 +72,9 @@ public class UserpicUpdateCommand implements Command {
                 session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "Please choose the file to upload!");
             }
 
-            } catch (ServiceException | IOException | FileUploadException e) {
+            } catch (IOException | FileUploadException e) {
                 LOGGER.error(e);
-                throw new CommandException(e);
+                throw new ServiceException(e);
             }
         return CommandResult.redirect(PAGE);
     }

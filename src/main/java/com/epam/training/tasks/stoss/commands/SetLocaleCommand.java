@@ -34,7 +34,7 @@ public class SetLocaleCommand implements Command{
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
         String languageTag = request.getParameter(LANGUAGE_TAG_ATTRIBUTE);
         Locale locale = Locale.forLanguageTag(languageTag);
@@ -45,7 +45,6 @@ public class SetLocaleCommand implements Command{
 
         if (session.getAttribute(USER_ATTRIBUTE) != null) {
             User user = (User) session.getAttribute(USER_ATTRIBUTE);
-            try {
                 Optional<User> updatedUser = userService.changeLocale(user.getId(), languageTag);
                 session.setAttribute(USER_ATTRIBUTE, updatedUser.get());
                 String currentPage = (String) session.getAttribute(CURRENT_PAGE_ATTRIBUTE);
@@ -75,10 +74,6 @@ public class SetLocaleCommand implements Command{
                         break;
                     }
                 }
-            } catch (ServiceException e) {
-                LOGGER.error(e);
-                throw new CommandException(e);
-            }
         }
 
         return CommandResult.forward(page);

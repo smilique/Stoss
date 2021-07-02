@@ -28,23 +28,19 @@ public class SendMessageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        try {
-            String message = request.getParameter(TEXT_ATTRIBUTE);
-            HttpSession session = request.getSession();
-            User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
-            Long userId = currentUser.getId();
-            LOGGER.debug("user id: " + userId);
-            LOGGER.debug("message: " + message);
-            messageService.postMessage(message, userId);
+        String message = request.getParameter(TEXT_ATTRIBUTE);
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
+        Long userId = currentUser.getId();
+        LOGGER.debug("user id: " + userId);
+        LOGGER.debug("message: " + message);
+        messageService.postMessage(message, userId);
 
-            List<Message> messages = messageService.getMessages();
-            request.setAttribute(MESSAGES_ATTRIBUTE, messages);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            throw new CommandException(e);
-        }
+        List<Message> messages = messageService.getMessages();
+        request.setAttribute(MESSAGES_ATTRIBUTE, messages);
+
 
         return CommandResult.redirect(CHAT_PAGE);
     }
