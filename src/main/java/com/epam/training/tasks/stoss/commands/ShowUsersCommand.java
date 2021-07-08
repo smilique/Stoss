@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.USERS_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.USERS_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.USERS_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Pages.USERS_PAGE;
 
 public class ShowUsersCommand implements Command {
 
@@ -26,7 +26,6 @@ public class ShowUsersCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<User> users = null;
         users = userService.getAllUsers();
-
         request.setAttribute(USERS_ATTRIBUTE,users);
 
         return CommandResult.forward(USERS_PAGE);

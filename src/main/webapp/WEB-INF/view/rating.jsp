@@ -59,13 +59,10 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-
         <jsp:include page="fragments/pagination.jsp">
             <jsp:param name="itemsPerPage" value="${itemsPerPage}"/>
         </jsp:include>
     </table>
-
-
 
 </main>
 

@@ -120,7 +120,7 @@ public class User implements Entity{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, login);
     }
 }
 

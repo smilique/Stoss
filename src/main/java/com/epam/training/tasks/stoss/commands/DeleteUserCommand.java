@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.LOGIN_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Attributes.LOGIN_ATTRIBUTE;
 
 public class DeleteUserCommand implements Command {
 
@@ -23,6 +23,7 @@ public class DeleteUserCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(LOGIN_ATTRIBUTE);
+        LOGGER.debug("deleting user: " + login);
         userService.deleteUser(login);
 
         return CommandResult.forward(PAGE);

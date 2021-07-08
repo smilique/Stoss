@@ -1,10 +1,8 @@
 package com.epam.training.tasks.stoss.commands;
 
-import com.epam.training.tasks.stoss.dao.DaoHelperFactory;
 import com.epam.training.tasks.stoss.entities.Message;
 import com.epam.training.tasks.stoss.entities.User;
 import com.epam.training.tasks.stoss.services.MessageService;
-import com.epam.training.tasks.stoss.services.NewsService;
 import com.epam.training.tasks.stoss.services.ServiceException;
 import org.apache.log4j.Logger;
 
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
 
 public class SendMessageCommand implements Command {
 
@@ -34,8 +32,6 @@ public class SendMessageCommand implements Command {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute(USER_ATTRIBUTE);
         Long userId = currentUser.getId();
-        LOGGER.debug("user id: " + userId);
-        LOGGER.debug("message: " + message);
         messageService.postMessage(message, userId);
 
         List<Message> messages = messageService.getMessages();

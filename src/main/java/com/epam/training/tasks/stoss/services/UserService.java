@@ -4,7 +4,6 @@ import com.epam.training.tasks.stoss.dao.*;
 import com.epam.training.tasks.stoss.entities.User;
 import org.apache.log4j.Logger;
 
-import javax.jws.soap.SOAPBinding;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,17 +55,7 @@ public class UserService {
     }
 
     public boolean validateLogin(String login) throws ServiceException {
-        Optional<User> user = null;
-        try (DaoHelper helper = daoHelperFactory.create()) {
-            helper.startTransaction();
-            UserDao userDao = helper.createUserDao();
-            user = userDao.findUserByLogin(login);
-            helper.endTransaction();
-            LOGGER.debug("user exists? " + user.isPresent());
-        } catch (DaoException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
-        }
+        Optional<User> user = getUser(login);
         return user.isPresent();
     }
 
@@ -83,7 +72,7 @@ public class UserService {
     }
 
     public Optional<User> deposit(Long userId, BigDecimal deposit) throws ServiceException {
-        Optional<User> updatedUser = null;
+        Optional<User> updatedUser;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -91,7 +80,6 @@ public class UserService {
             User user = optionalUser.get();
             BigDecimal balance = user.getBalance();
             BigDecimal newBalance = balance.add(deposit);
-            LOGGER.debug("changing balance from: " + balance + " to: " + newBalance);
             userDao.updateBalance(userId, newBalance);
             updatedUser = userDao.findById(userId);
             helper.endTransaction();
@@ -115,7 +103,7 @@ public class UserService {
     }
 
     public Optional<User> updateUserpic(Long userId, String path) throws ServiceException {
-        Optional<User> user = null;
+        Optional<User> user;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -130,7 +118,7 @@ public class UserService {
     }
 
     public Optional<User> updatePoints(Long userId, Long points) throws ServiceException {
-        Optional<User> user = null;
+        Optional<User> user;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -145,7 +133,13 @@ public class UserService {
     }
 
     public Optional<User> getInfo(String login) throws ServiceException {
-        Optional<User> optionalUser = null;
+        Optional<User> optionalUser;
+        optionalUser = getUser(login);
+        return optionalUser;
+    }
+
+    private Optional<User> getUser(String login) throws ServiceException {
+        Optional<User> optionalUser;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -159,7 +153,7 @@ public class UserService {
     }
 
     public Optional<User> changeLocale(Long userId, String languageTag) throws ServiceException {
-        Optional<User> optionalUser = null;
+        Optional<User> optionalUser;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -174,7 +168,7 @@ public class UserService {
     }
 
     public List<User> getAllUsers() throws ServiceException {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();
@@ -188,7 +182,7 @@ public class UserService {
     }
 
     public List<User> getRating() throws ServiceException {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao userDao = helper.createUserDao();

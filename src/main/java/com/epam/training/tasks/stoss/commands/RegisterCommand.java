@@ -1,7 +1,6 @@
 package com.epam.training.tasks.stoss.commands;
 
 
-import com.epam.training.tasks.stoss.entities.User;
 import com.epam.training.tasks.stoss.services.ServiceException;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
@@ -9,11 +8,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Service;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
 
 public class RegisterCommand implements Command {
 
@@ -34,8 +31,6 @@ public class RegisterCommand implements Command {
         String login = request.getParameter(USERNAME_ATTRIBUTE);
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
         String name = request.getParameter(NAME_ATTRIBUTE);
-//TODO add hidden form, take user language from register page
-        LOGGER.debug(login + " | " + password + " | " + name);
 
         AtomicReference<String> nextPage = new AtomicReference<>();
         HttpSession session = request.getSession();
@@ -48,7 +43,7 @@ public class RegisterCommand implements Command {
                         session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User already exists, please try another login.");
                         nextPage.set(UNSUCCESSFUL_REGISTER);
                     } else {
-                        LOGGER.debug("New user created");
+                        LOGGER.debug("New user " + login + " created");
                         userService.register(login, password, name);
                         session.setAttribute(ERROR_MESSAGE_ATTRIBUTE, "User created!");
                         nextPage.set(SUCCESSFUL_REGISTER);

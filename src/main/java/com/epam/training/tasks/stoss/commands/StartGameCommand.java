@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.GAME_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Attributes.USER_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.GAME_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.GAME_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Attributes.USER_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Pages.GAME_PAGE;
 
 public class StartGameCommand implements Command {
 

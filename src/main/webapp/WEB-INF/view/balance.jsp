@@ -33,10 +33,16 @@
 
         <fmt:message key="local.balance.funds" var="fundsText" bundle="${loc}" scope="session"/>
         <h2 class="welcome-message">${fundsText}</h2>
-        <fmt:message key="local.balance.zeroError" var="zeroErrorMessage" bundle="${loc}" scope="session"/>
+
         <c:if test="${sessionScope.errormessage == 'Enter amount larger than 0!'}">
+            <fmt:message key="local.balance.zeroError" var="zeroErrorMessage" bundle="${loc}" scope="session"/>
             ${zeroErrorMessage}
         </c:if>
+        <c:if test="${sessionScope.errormessage == 'Insufficient funds'}">
+            <fmt:message key="local.balance.insufficient" var="insufficientBalanceMessage" bundle="${loc}" scope="session"/>
+            ${insufficientBalanceMessage}
+        </c:if>
+
         <li class="user-edit-wrapper">
             <div class="user-edit-left">
                 <form class="deposit-left" action="${pageContext.request.contextPath}/controller?command=deposit" method="post">

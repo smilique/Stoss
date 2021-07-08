@@ -28,15 +28,26 @@
 </nav>
 
 <main class="container">
-    <c:if test="${sessionScope.user != null && sessionScope.user.role != 'admin'}">
-        <div class="game">
-<%--            <p class="game-cards">🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠🂠</p>--%>
-            <fmt:message key="local.game.startNewGame" var="startButtonText" bundle="${loc}" scope="session"/>
-            <a class="start-button" href="controller?command=startGame">${startButtonText}</a>
-        </div>
+    <c:if test="${sessionScope.user != null}">
+        <c:if test="${sessionScope.user.role != 'admin'}">
+            <div class="game">
+                <div class="welcome-message">
+                    <fmt:message key="local.main.userWelcome" var="userWelcomeText" bundle="${loc}" scope="session"/>
+                    <p>${userWelcomeText}</p>
+                </div>
+                <div class="game-button">
+                    <fmt:message key="local.game.startNewGame" var="startButtonText" bundle="${loc}" scope="session"/>
+                    <a class="start-button" href="controller?command=startGame">${startButtonText}</a>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user.role == 'admin'}">
+            <div class="welcome-message">
+                <fmt:message key="local.main.adminWelcome" var="adminWelcomeText" bundle="${loc}" scope="session"/>
+                <p>${adminWelcomeText}</p>
+            </div>
+        </c:if>
     </c:if>
-
-
 
 </main>
 

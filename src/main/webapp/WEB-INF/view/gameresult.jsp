@@ -78,10 +78,7 @@
                     <p>${youLoseText}</p>
                     <a href="controller?command=startGame">${startButtonText}</a>
                 </c:if>
-
-
                 <c:if test="${gameStatus == 'continue'}">
-
                         <p>${card.name} of ${card.suit} is chosen.</p>
                     <fmt:message key="local.game.noMatch" var="noMatchText" bundle="${loc}" scope="session"/>
                         <p>${noMatchText}</p>
@@ -96,9 +93,6 @@
                             </form>
                         </div>
                 </c:if>
-
-
-
             </div>
         </div>
     </c:if>

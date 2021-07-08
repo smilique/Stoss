@@ -6,8 +6,8 @@ import com.epam.training.tasks.stoss.services.NewsService;
 import com.epam.training.tasks.stoss.services.UserService;
 import org.apache.log4j.Logger;
 
-import static com.epam.training.tasks.stoss.entities.Commands.*;
-import static com.epam.training.tasks.stoss.entities.Pages.*;
+import static com.epam.training.tasks.stoss.commands.Commands.*;
+import static com.epam.training.tasks.stoss.commands.Pages.*;
 
 public class CommandFactory {
 
@@ -85,8 +85,14 @@ public class CommandFactory {
             case DEPOSIT_COMMAND: {
                 return new DepositCommand(new UserService());
             }
+            case WITHDRAW_COMMAND: {
+                return new WithdrawCommand(new UserService());
+            }
             case NEWS_PAGE_COMMAND: {
                 return new ShowNewsCommand(new NewsService(new DaoHelperFactory()));
+            }
+            case NEWS_ITEM_DELETE_COMMAND: {
+                return new DeleteNewsItemCommand(new NewsService(new DaoHelperFactory()));
             }
             case CHANGE_LOCALE_COMMAND: {
                 return new SetLocaleCommand(new UserService());

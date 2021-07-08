@@ -26,7 +26,7 @@ public class NewsService {
     public News findNews(int currentPage, int recordsPerPage) throws ServiceException {
 
         if (currentPage < 1 || recordsPerPage < 1) {
-            throw new ServiceException("Page index and number of records must be greater than 1");
+            throw new ServiceException("Page index and number of records must be not less than 1");
         }
         int startIndex = currentPage * recordsPerPage - recordsPerPage;
 
@@ -46,13 +46,11 @@ public class NewsService {
                     for (int i = startIndex; i < startIndex + recordsPerPage; i++) {
                         NewsItem item = newsItems.get(i);
                         news.addItem(item);
-                        LOGGER.debug("selected news item #" + i);
                     }
                 } else {
                         for (int i = startIndex; i < newsItems.size(); i++) {
                             NewsItem item = newsItems.get(i);
                             news.addItem(item);
-                            LOGGER.debug("selected news item #" + i);
                         }
                     }
             }

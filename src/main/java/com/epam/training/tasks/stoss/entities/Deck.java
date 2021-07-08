@@ -1,6 +1,7 @@
 package com.epam.training.tasks.stoss.entities;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Stack;
 
 public class Deck {
@@ -11,7 +12,6 @@ public class Deck {
     }
 
     private void getShuffledDeck() {
-        //sets Deck of 52 cards
         for (Cards cardElement: Cards.values()) {
             cards.add(new Card(cardElement));
         }
@@ -42,8 +42,23 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public void split(int cardNumber) {
-        //TODO split the deck into two subdecks and reorder
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "cards=" + cards +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Deck deck = (Deck) o;
+        return Objects.equals(cards, deck.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cards);
     }
 }

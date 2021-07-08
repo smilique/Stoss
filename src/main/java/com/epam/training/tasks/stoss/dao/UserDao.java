@@ -44,27 +44,22 @@ public class UserDao extends AbstractDao<User>{
 
 
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
-        LOGGER.debug("checking password for: " + login);
         return executeForSingleResult(LOGIN_QUERY, login, password);
     }
 
     public Optional<User> findUserByLogin(String login) throws DaoException {
-        LOGGER.debug("finding user with login: " + login);
         return executeForSingleResult(VALIDATE_QUERY, login);
     }
 
     public void updateBalance(Long id, BigDecimal deposit) throws DaoException {
-        LOGGER.debug("updating balance");
         executeUpdate(UPDATE_BALANCE_QUERY, deposit, id);
     }
 
     public void updatePoints(Long id, Long points) throws DaoException {
-        LOGGER.debug("updating points");
         executeUpdate(UPDATE_POINTS_QUERY, points, id);
     }
 
     public void updatePassword(Long id, String password) throws DaoException {
-        LOGGER.debug("Updating password for user id: " + id);
         executeUpdate(UPDATE_PASSWORD_QUERY, password, id);
     }
 
@@ -92,23 +87,19 @@ public class UserDao extends AbstractDao<User>{
 
     @Override
     public Optional<User> findById(Long id) throws DaoException {
-        LOGGER.debug("getting user by id: " + id);
         return executeForSingleResult(GET_BY_ID_QUERY, id);
     }
 
     @Override
     public void save(User user) throws DaoException {
         if (user.getId() == null) {
-            LOGGER.debug("user not found");
             create(user);
         } else {
-            LOGGER.debug("user found");
             update(user);
         }
     }
 
     private void create(User user) throws DaoException {
-        LOGGER.debug("adding to db user: " + user);
         String login = user.getLogin();
         String password = user.getPassword();
         String name = user.getName();
@@ -116,7 +107,6 @@ public class UserDao extends AbstractDao<User>{
     }
 
     private void update(User user) throws DaoException {
-        LOGGER.debug("updating user");
         Optional<User> optionalUser = findById(user.getId());
         executeUpdate(UPDATE, optionalUser);
     }

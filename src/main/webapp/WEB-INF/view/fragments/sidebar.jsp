@@ -68,20 +68,6 @@
                             </li>
                         </c:otherwise>
                     </c:choose>
-
-<%--                    <fmt:message key="local.menu.rules" var="rules" bundle="${loc}" scope="session"/>--%>
-<%--                    <c:choose>--%>
-<%--                        <c:when test="${sessionScope.currentPage == 'WEB-INF/view/rules.jsp'}">--%>
-<%--                            <li class="active">--%>
-<%--                                <a href="controller?command=rules">${rules}</a>--%>
-<%--                            </li>--%>
-<%--                        </c:when>--%>
-<%--                        <c:otherwise>--%>
-<%--                            <li class="inactive">--%>
-<%--                                <a href="controller?command=rules">${rules}</a>--%>
-<%--                            </li>--%>
-<%--                        </c:otherwise>--%>
-<%--                    </c:choose>--%>
                 <c:if test="${sessionScope.user.role != 'admin'}">
                     <fmt:message key="local.menu.rating" var="rating" bundle="${loc}" scope="session"/>
                     <c:choose>

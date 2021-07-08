@@ -8,9 +8,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Service;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
 
 
 public class UpdateCommand implements Command {

@@ -56,9 +56,10 @@
                 </form>
             </div>
             <div class="user-edit-right">
-                <form action="${pageContext.request.contextPath}/controller?command=updateSpecifiedUserpic" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/controller?command=updateUserpic" method="post" enctype="multipart/form-data">
                     <fmt:message key="local.user.changeUserpic" var="userpicText" bundle="${loc}" scope="session"/>
                     <p>${userpicText}</p>
+                    <input type="hidden" name="userId" value="${editedUser.id}">
                     <input type="file" name="userpic" formenctype="multipart/form-data" accept="image/jpeg,image/png" size="1000000"/>
                     <fmt:message key="local.user.upload" var="uploadButtonText" bundle="${loc}" scope="session"/>
                     <input type="submit" class="update_user" value="${uploadButtonText}"/>

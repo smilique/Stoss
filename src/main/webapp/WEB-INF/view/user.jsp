@@ -50,7 +50,6 @@
                     <fmt:message key="local.user.enterNewPassword" var="passwordFieldText" bundle="${loc}" scope="session"/>
                     <input type="password" name="password" placeholder="${passwordFieldText}"/>
                     <input type="hidden" name="userLogin" value="${requestScope.login}">
-<%--                    added user login submit--%>
                     <input type="submit" class="update-user" value="${passwordText}"/>
                 </form>
             </div>
@@ -58,6 +57,8 @@
                 <form action="${pageContext.request.contextPath}/controller?command=updateUserpic" method="post" enctype="multipart/form-data">
                     <fmt:message key="local.user.changeUserpic" var="userpicText" bundle="${loc}" scope="session"/>
                     <p>${userpicText}</p>
+                    <c:set var="currentUser" value="${sessionScope.user}"/>
+                    <input type="hidden" name="userId" value="${currentUser.id}">
                     <input type="file" name="userpic" formenctype="multipart/form-data" accept="image/jpeg,image/png" size="1000000"/>
                     <fmt:message key="local.user.upload" var="uploadButtonText" bundle="${loc}" scope="session"/>
                     <input type="submit" class="update_user" value="${uploadButtonText}"/>

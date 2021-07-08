@@ -30,8 +30,6 @@
 <main class="container">
     <c:if test="${sessionScope.user != null}">
         <div class="game">
-<%--            <c:set var="game" value="${sessionScope.game}"/>--%>
-<%--            <c:set var="punterCards" value="${game.punterDeck}"/>--%>
             <div class="cards-wrapper">
                 <c:set var="card" value="${sessionScope.punterCard}"/>
                 <c:set var="suit" value="${card.suit}"/>
@@ -45,6 +43,10 @@
                     <p>${card.name} of ${card.suit} is chosen.</p>
                     <div class="bet-form">
                         <form action="${pageContext.request.contextPath}/controller?command=bet" method="post">
+                            <c:if test="${sessionScope.errormessage == 'Insufficient funds'}">
+                                <fmt:message key="local.balance.insufficient" var="insufficientBalanceMessage" bundle="${loc}" scope="session"/>
+                                ${insufficientBalanceMessage}
+                            </c:if>
                             <fmt:message key="local.game.placeBetText" var="placeBetText" bundle="${loc}" scope="session"/>
                             <p>${placeBetText}</p>
                             <input type="number" name="betValue" value="10" min="5" max="30">

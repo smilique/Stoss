@@ -1,5 +1,7 @@
 package com.epam.training.tasks.stoss.entities;
 
+import java.util.Objects;
+
 public class Card {
     private final String name;
     private final String suit;
@@ -26,5 +28,18 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" + "name='" + name + " of " + suit + '\'' + ", code=" + code + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return Objects.equals(name, card.name) && Objects.equals(suit, card.suit) && Objects.equals(code, card.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, suit, code);
     }
 }

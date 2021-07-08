@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import java.util.Locale;
 import java.util.Optional;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
-import static com.epam.training.tasks.stoss.entities.Pages.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Pages.*;
 
 public class SetLocaleCommand implements Command{
 
@@ -46,6 +46,7 @@ public class SetLocaleCommand implements Command{
         if (session.getAttribute(USER_ATTRIBUTE) != null) {
             User user = (User) session.getAttribute(USER_ATTRIBUTE);
                 Optional<User> updatedUser = userService.changeLocale(user.getId(), languageTag);
+                LOGGER.debug("changed locale to: " + languageTag);
                 session.setAttribute(USER_ATTRIBUTE, updatedUser.get());
                 String currentPage = (String) session.getAttribute(CURRENT_PAGE_ATTRIBUTE);
                 switch (currentPage) {

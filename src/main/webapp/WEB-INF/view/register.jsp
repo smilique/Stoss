@@ -47,7 +47,6 @@
                 <p><input type="password" name="password" placeholder="${passwordText}"/></p>
                 <fmt:message key="local.register.name" var="nameText" bundle="${loc}" scope="session"/>
                 <p><input type="text" name="name" placeholder="${nameText}"></p>
-<%--                <p>%userPicHere<input type="file" accept="image/jpeg,image/png" size="1000000"/></p>--%>
                 <fmt:message key="local.register.button" var="registerButtonText" bundle="${loc}" scope="session"/>
                 <input type="submit" value="${registerButtonText}"/>
             </form>

@@ -1,10 +1,12 @@
 package com.epam.training.tasks.stoss.entities;
 
+import java.util.Objects;
+
 public class Game {
 
-    private Deck punterDeck;
+    private final Long userId;
+    private final Deck punterDeck;
     private Deck bankerDeck;
-    private Long userId;
     private Long bet;
 
     public Long getBet() {
@@ -35,5 +37,28 @@ public class Game {
 
     public Long getUserId() {
         return userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "userId=" + userId +
+                ", punterDeck=" + punterDeck +
+                ", bankerDeck=" + bankerDeck +
+                ", bet=" + bet +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(userId, game.userId) && Objects.equals(punterDeck, game.punterDeck) && Objects.equals(bankerDeck, game.bankerDeck) && Objects.equals(bet, game.bet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, punterDeck, bankerDeck, bet);
     }
 }

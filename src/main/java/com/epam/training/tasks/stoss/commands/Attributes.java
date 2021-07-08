@@ -1,4 +1,4 @@
-package com.epam.training.tasks.stoss.entities;
+package com.epam.training.tasks.stoss.commands;
 
 public class Attributes {
 
@@ -8,6 +8,7 @@ public class Attributes {
     public static final String COMMAND_ATTRIBUTE = "command";
     public static final String ERROR_MESSAGE_ATTRIBUTE = "errormessage";
     public static final String DEPOSIT_ATTRIBUTE = "deposit";
+    public static final String WITHDRAW_ATTRIBUTE = "withdraw";
     public static final String PASSWORD_ATTRIBUTE = "password";
     public static final String USERNAME_ATTRIBUTE = "username";
     public static final String NAME_ATTRIBUTE = "name";

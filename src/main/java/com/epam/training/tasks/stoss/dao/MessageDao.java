@@ -45,7 +45,7 @@ public class MessageDao extends AbstractDao<Message> {
     public void save(Message item) throws DaoException {
         String text = item.getText();
         Long userId = item.getUserId();
-        Date date = item.getDate();
+        Date date = new Date(System.currentTimeMillis());
         executeUpdate(POST_QUERY, text, userId, date);
     }
 

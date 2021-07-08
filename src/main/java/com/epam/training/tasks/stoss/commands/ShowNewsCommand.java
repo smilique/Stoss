@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
-import static com.epam.training.tasks.stoss.entities.Pages.NEWS_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Pages.NEWS_PAGE;
 
 
 public class ShowNewsCommand implements Command {
@@ -28,8 +28,6 @@ public class ShowNewsCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         int currentPage = Integer.parseInt(request.getParameter(PAGE_ATTRIBUTE));
         int numberOfItems = Integer.parseInt(request.getParameter(ITEMS_ATTRIBUTE));
-
-        LOGGER.debug("currentPage: " + currentPage);
 
         News news = newsService.findNews(currentPage,numberOfItems);
         List<NewsItem> items = news.getAll();

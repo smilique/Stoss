@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="dt" uri="dateTimeTag" %>
 
 <c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>
@@ -38,26 +39,9 @@
                 <p>${message.text}</p>
             </div>
             <div class="message-right-info">
-<%--                <div class="message-date"--%>
-                <c:choose>
-                    <c:when test="${sessionScope.locale == 'en'}">
                         <div class="message-date">
-                            <p><fmt:formatDate value="${message.date}" pattern="yyyy-MM-dd"/></p>
+                            <dt:dateTimeTag date="${message.date}" time="${message.time}" locale="${sessionScope.locale}"/>
                         </div>
-                        <div class="message-time">
-                            <p><fmt:formatDate value="${message.time}" pattern="hh:mm:ss aa"/> </p>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="message-date">
-                            <p><fmt:formatDate value="${message.date}" pattern="dd.MM.yyyy"/></p>
-                        </div>
-                        <div class="message-time">
-                            <p><fmt:formatDate value="${message.time}" pattern="HH:mm:ss"/> </p>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-<%--                </div>--%>
 
     <c:if test="${sessionScope.user.role == 'admin'}">
         <div class="message-moderation">

@@ -12,26 +12,19 @@ public class DaoHelper implements AutoCloseable {
     private final ProxyConnection connection;
 
     public DaoHelper(ProxyConnection connection) {
-        LOGGER.debug("Daohelper with connection: " + connection);
         this.connection = connection;
     }
 
     public UserDao createUserDao() {
-        UserDao userDao = new UserDao(connection);
-        LOGGER.debug("UserDao created: " + userDao);
-        return userDao;
+        return new UserDao(connection);
     }
 
     public NewsDao createNewsDao() {
-        NewsDao newsDao = new NewsDao(connection);
-        LOGGER.debug("NewsDao created: " + newsDao);
-        return newsDao;
+        return new NewsDao(connection);
     }
 
     public MessageDao createMessageDao() {
-        MessageDao messageDao = new MessageDao(connection);
-        LOGGER.debug("MessageDao created: " + messageDao);
-        return messageDao;
+        return new MessageDao(connection);
     }
 
     public void startTransaction() throws DaoException {

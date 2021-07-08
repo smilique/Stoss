@@ -26,11 +26,6 @@ public class NewsItem implements Entity {
         this.time = time;
     }
 
-    public NewsItem(String caption, String text) {
-        this.caption = caption;
-        this.text = text;
-    }
-
     public String getCaption() {
         return caption;
     }

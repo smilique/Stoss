@@ -9,7 +9,7 @@ import java.sql.Time;
 
 import static com.epam.training.tasks.stoss.entities.Message.*;
 
-public class MessageRowMapper implements RowMapper<Message>{
+public class MessageRowMapper implements RowMapper<Message> {
     @Override
     public Message map(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(ID);

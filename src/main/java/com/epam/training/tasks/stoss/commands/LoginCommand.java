@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
 
 public class LoginCommand implements Command {
 
@@ -31,7 +31,7 @@ public class LoginCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(USERNAME_ATTRIBUTE);
         String password = request.getParameter(PASSWORD_ATTRIBUTE);
-        Optional<User> optionalUser = null;
+        Optional<User> optionalUser;
 
         optionalUser = userService.login(login,password);
 

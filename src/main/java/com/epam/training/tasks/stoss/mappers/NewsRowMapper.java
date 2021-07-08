@@ -9,7 +9,7 @@ import java.sql.Time;
 
 import static com.epam.training.tasks.stoss.entities.NewsItem.*;
 
-public class NewsRowMapper implements RowMapper<NewsItem>{
+public class NewsRowMapper implements RowMapper<NewsItem> {
     @Override
     public NewsItem map(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(ID);

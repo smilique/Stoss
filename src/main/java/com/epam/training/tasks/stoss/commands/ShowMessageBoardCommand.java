@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.MESSAGES_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.MESSAGE_BOARD_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.MESSAGES_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Pages.MESSAGE_BOARD_PAGE;
 
 public class ShowMessageBoardCommand implements Command {
 

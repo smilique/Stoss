@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.USERS_ATTRIBUTE;
-import static com.epam.training.tasks.stoss.entities.Pages.RATING_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.USERS_ATTRIBUTE;
+import static com.epam.training.tasks.stoss.commands.Pages.RATING_PAGE;
 
 public class ShowRatingCommand implements Command {
 
@@ -26,8 +26,6 @@ public class ShowRatingCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<User> users = null;
         users = userService.getRating();
-//TODO add place column to users (in jsp, I think)
-
         request.setAttribute(USERS_ATTRIBUTE,users);
 
         return CommandResult.forward(RATING_PAGE);

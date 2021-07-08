@@ -1,4 +1,4 @@
-package com.epam.training.tasks.stoss.entities;
+package com.epam.training.tasks.stoss.commands;
 
 public class Commands {
 
@@ -7,6 +7,7 @@ public class Commands {
     public static final String MESSAGE_BOARD_PAGE_COMMAND = "chat";
     public static final String MESSAGE_POST_COMMAND = "sendMessage";
     public static final String MESSAGE_DELETE_COMMAND = "deleteMessage";
+    public static final String NEWS_ITEM_DELETE_COMMAND = "deleteNewsItem";
     public static final String INDEX_PAGE_COMMAND = "index";
     public static final String USER_PAGE_COMMAND = "user";
     public static final String BALANCE_PAGE_COMMAND = "balance";
@@ -16,6 +17,7 @@ public class Commands {
     public static final String USER_DELETE_COMMAND = "deleteUser";
     public static final String USERPIC_UPDATE_COMMAND = "updateUserpic";
     public static final String DEPOSIT_COMMAND = "deposit";
+    public static final String WITHDRAW_COMMAND = "withdraw";
     public static final String REGISTER_PAGE_COMMAND = "registerPage";
     public static final String NEWS_PAGE_COMMAND = "news";
     public static final String RULES_PAGE_COMMAND = "rules";

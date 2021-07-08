@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
-import static com.epam.training.tasks.stoss.entities.Pages.*;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Pages.*;
 
 public class Controller extends HttpServlet {
 
@@ -40,12 +40,10 @@ public class Controller extends HttpServlet {
         boolean isRedirect = false;
         try {
             CommandResult result = command.execute(request, response);
-            LOGGER.debug("CommandResult " + result);
             page = result.getPage();
-            LOGGER.debug(" Page: " + page);
             isRedirect = result.isRedirect();
         } catch (Exception e) {
-//            request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e.getMessage());
+            LOGGER.error(e);
             request.setAttribute(ERROR_MESSAGE_ATTRIBUTE, e);
             page = ERROR_PAGE;
         }

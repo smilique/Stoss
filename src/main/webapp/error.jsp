@@ -18,10 +18,10 @@
     <link href='<c:url value="static/favicon.ico"/>' rel="icon" type="image/x-icon" />
 </head>
 <body>
-<header class="header">
-    <jsp:include page="WEB-INF/view/fragments/header.jsp"/>
-</header>
 
+<div class="welcome-message">
+    <p>AN ERROR OCCURED</p>
+</div>
 <main class="container">
 
     <c:set var="errormessage" value="${requestScope.errormessage}"/>

@@ -1,4 +1,4 @@
-package com.epam.training.tasks.stoss.entities;
+package com.epam.training.tasks.stoss.commands;
 
 public class Pages {
     public static final String INDEX_PAGE = "/index.jsp";
@@ -16,5 +16,8 @@ public class Pages {
     public static final String RATING_PAGE = "WEB-INF/view/rating.jsp";
     public static final String GAME_PAGE = "WEB-INF/view/game.jsp";
     public static final String BET_PAGE = "WEB-INF/view/bet.jsp";
+    public static final String GAMERESULT_PAGE = "WEB-INF/view/gameresult.jsp";
+
+
 
 }

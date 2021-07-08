@@ -25,7 +25,7 @@ public class MessageService {
     }
 
     public List<Message> getMessages() throws ServiceException {
-        List<Message> messages = new ArrayList<>();
+        List<Message> messages;
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             MessageDao messageDao = helper.createMessageDao();

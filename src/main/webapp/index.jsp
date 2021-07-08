@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="fmt_rt" uri="http://java.sun.com/jstl/fmt_rt" %>--%>
 
 <c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>

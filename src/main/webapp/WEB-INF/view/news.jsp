@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="dt" uri="dateTimeTag" %>
 
 <c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>
@@ -28,7 +29,6 @@
 </nav>
 
 <main class="container">
-
     <div class="news-wrapper">
         <c:set var="itemsPerPage" value="2"/>
         <c:set var="newsList" value="${requestScope.get('news')}"/>
@@ -36,24 +36,19 @@
             <div class="news-item">
                     <p class="news-caption">${newsItem.caption}</p>
                     <p class="news-text">${newsItem.text}</p>
-                <c:choose>
-                    <c:when test="${sessionScope.locale == 'en'}">
                         <div class="news-date">
-                            <p><fmt:formatDate value="${newsItem.date}" pattern="yyyy-MM-dd"/></p>
+                            <dt:dateTimeTag date="${newsItem.date}" time="${newsItem.time}" locale="${sessionScope.locale}"/>
+                            <c:if test="${sessionScope.user.role == 'admin'}">
+                                <div class="message-moderation">
+                                    <form action="${pageContext.request.contextPath}/controller?command=deleteNewsItem" method="post">
+                                        <input type="hidden" name="newsItemId" value="${newsItem.id}">
+                                        <fmt:message key="local.button.delete" var="deleteButtonText" scope="session" bundle="${loc}"/>
+                                        <input type="submit" value="${deleteButtonText}">
+                                    </form>
+                                </div>
+                            </c:if>
                         </div>
-                        <div class="news-date">
-                            <p><fmt:formatDate value="${newsItem.time}" pattern="hh:mm:ss aa"/> </p>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="news-date">
-                            <p><fmt:formatDate value="${newsItem.date}" pattern="dd.MM.yyyy"/></p>
-                        </div>
-                        <div class="news-date">
-                            <p><fmt:formatDate value="${newsItem.time}" pattern="HH:mm:ss"/> </p>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+
             </div>
         </c:forEach>
 
@@ -61,9 +56,6 @@
             <jsp:param name="itemsPerPage" value="${itemsPerPage}"/>
         </jsp:include>
     </div>
-
-
-
 </main>
 
 </body>

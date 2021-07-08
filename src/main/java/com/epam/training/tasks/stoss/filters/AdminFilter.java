@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.epam.training.tasks.stoss.entities.Attributes.*;
-import static com.epam.training.tasks.stoss.entities.Commands.*;
-import static com.epam.training.tasks.stoss.entities.Pages.ERROR_PAGE;
+import static com.epam.training.tasks.stoss.commands.Attributes.*;
+import static com.epam.training.tasks.stoss.commands.Commands.*;
+import static com.epam.training.tasks.stoss.commands.Pages.ERROR_PAGE;
 
 public class AdminFilter implements Filter {
 
@@ -25,7 +25,6 @@ public class AdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        LOGGER.info("Admin filter started");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         String command = request.getParameter(COMMAND_ATTRIBUTE);
@@ -35,7 +34,8 @@ public class AdminFilter implements Filter {
             if (command.equals(USER_DELETE_COMMAND) ||
                     command.equals(MESSAGE_DELETE_COMMAND) ||
                     command.equals(USER_DELETE_CONFIRM_COMMAND) ||
-                    command.equals(USERS_PAGE_COMMAND)) {
+                    command.equals(USERS_PAGE_COMMAND) ||
+                    command.equals(NEWS_ITEM_DELETE_COMMAND)) {
                 LOGGER.info("Running admin only command");
                 servletRequest.setAttribute(ERROR_MESSAGE_ATTRIBUTE,"You have no rights to run this command");
                 RequestDispatcher dispatcher = servletRequest.getRequestDispatcher(ERROR_PAGE);
