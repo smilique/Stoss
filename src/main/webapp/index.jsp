@@ -1,24 +1,47 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:if test="${sessionScope.locale != null}">
+    <fmt:setLocale value="${sessionScope.locale}"/>
+</c:if>
+<fmt:setBundle basename="localization" var="loc" scope="session"/>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <fmt:message key="local.header.caption" var="caption" bundle="${loc}" scope="session"/>
+    <title>${caption}</title>
+    <link rel="stylesheet" href="static/reset.css">
+    <link rel="stylesheet" href="static/style.css">
+    <link href='<c:url value="static/favicon.ico"/>' rel="icon" type="image/x-icon" />
+</head>
 <body>
-<div class="header">
+<header class="header">
     <jsp:include page="WEB-INF/view/fragments/header.jsp"/>
-</div>
+</header>
 
-<div class="menu">
-    <jsp:include page="WEB-INF/view/fragments/menu.jsp"/>
-</div>
-    <div class="container">
-    <form action="/Stoss/controller" method="post"/>
-        <input type="hidden" name="command" value="login"/>
-        <input type="text" name="username"/>
-        <br/>
-        <input type="password" name="password"/>
-        <br/>
-        <input type="submit" value="submit"/>
-    </form>
-    </div>
+<nav class="menu">
+    <jsp:include page="WEB-INF/view/fragments/sidebar.jsp"/>
+</nav>
+
+<main class="container">
+    <c:if test="${sessionScope.errormessage != null}">
+        <div style="color:#ff0000">
+            <c:if test="${sessionScope.errormessage == 'Invalid login or password!'}">
+                <fmt:message key="local.message.userNotFound" var="loginMessage" bundle="${loc}" scope="session"/>
+                ${loginMessage}
+            </c:if>
+            <c:if test="${sessionScope.errormessage == 'User created!'}">
+                <fmt:message key="local.message.userCreated" var="userCreatedMessage" bundle="${loc}" scope="session"/>
+                ${userCreatedMessage}
+                %userCreated
+            </c:if>
+        </div>
+    </c:if>
+    <jsp:include page="WEB-INF/view/fragments/login.jsp"/>
+</main>
+
+
 </body>
 </html>

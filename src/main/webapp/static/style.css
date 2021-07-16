@@ -1,6 +1,14 @@
+@charset "UTF-8";
+
 .main {
     padding: 20px;
+}
 
+.item {
+    width: 200px;
+    height: 100px;
+    background-color: red;
+    padding: 20px;
 }
 
 input {
@@ -9,19 +17,666 @@ input {
 
 .header {
     width: 100%;
-    background-color: gray;
+    height: 160px;
+    top: 0;
+    position: fixed;
+    background-color: #555555;
+    padding: 10px;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.header-logo-img {
+    width: auto;
+    height: auto;
+}
+
+.logout {
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    list-style-type: none;
+}
+
+.header-caption {
+    align-content: center;
+    padding-left: 5%;
+}
+
+.logo-text {
+    font-size: 60px;
+    font-weight: bold;
+    color: silver;
+}
+
+.game-button {
+    padding: 10px;
+    margin: 10px;
+}
+
+.welcome-message {
+    margin: 10px;
+    padding: 30px;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.language-element a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-decoration: none;
+    text-transform: none;
+    font-size: 14px;
+}
+
+.language-element a:hover {
+    width: 100%;
+
+}
+
+.language {
+    color: white;
+}
+
+.current-language {
+    background: silver;
+    color: black;
+    /*border: solid 1px silver;*/
+}
+
+.language-select {
+    align: left;
+    text-align: left;
+    position: relative;
+    padding: 10px;
+}
+
+.language-select select {
+    background-color: #555555;
+    color: #7f7f7f;
+    width: 70px;
+    border: solid;
     font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
+.language-select::before {
+    align: left;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: #fdfdfe;
+    background-color: #525253;
+    pointer-events: none;
+}
+
+.language-select:hover::before {
+    color: #1f1f99;
+    background-color: #bc1f1f;
+}
+
+.language-select a:hover {
+    color: black;
+}
+
+.language-select select option {
+    padding: 30px;
+}
+
+.message-user {
+    font-weight: 600;
+}
+
+.deposit-left {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+table {
+    width: 100%;
+    background: whitesmoke;
+}
+
+th {
+    margin:10px;
+    padding: 5px;
+    border: 1px solid silver;
+}
+
+td {
+    margin:10px;
+    padding: 5px;
+    border: 1px solid silver;
+}
+
+.user-wrapper {
+    align: right;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.user-edit-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-edit-left {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.user-edit-right {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.user-edit-captions {
+    align: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.user-edit-fields {
+    align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.confirmation-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-item {
+    text-align: center;
+}
+
+.current-user-item {
+    background: #969696ab;
+    text-align: center;
+}
+
+.users-wrapper img {
+    width: 50px;
+    border-radius: 3px;
+}
+
+/*.user-item img {*/
+/*    width: 50px;*/
+/*    border-radius: 3px;*/
+/*}*/
+
+.users-wrapper a {
+    text-transform: none;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #fdfdfe;
+    border: 2px black;
+    padding: 5px;
+    background: #525253;
+}
+
+.users-wrapper a:hover {
+    background: black;
+}
+
+strong {
+    font-weight: 600;
+}
+
+.delete-confirmation a {
+    margin: 10px;
+    padding: 5px;
+    border: 2px black;
+    border-radius: 3px;
+    text-decoration: none;
+    text-transform: none;
+    color: black;
+    background: azure;
+}
+
+.delete-confirmation a:hover {
+    background: white;
+}
+
+.delete-confirmation p {
+    margin: 10px;
+    padding: 5px;
+}
+
+.delete-yes {
+    margin: 10px;
+    padding: 5px;
+}
+
+.delete-no {
+    margin: 10px;
+    padding: 5px;
+}
+
+.delete-yes a {
+    background: mediumseagreen;
+}
+
+.delete-no a {
+    background: indianred;
+}
+
+.user-item-wrapper {
+}
+
+.open-delete-popup-button {
+
+}
+
+.user-item-wrapper img {
+    height: 50px;
+    width: 50px;
+}
+
+.user-info {
+    text-align: right;
+    align: right;
+    margin: 10px;
+    line-height: 30px;
+    color: white;
+}
+
+.user-info a {
+    text-decoration: none;
+    color: #cccccc;
+}
+
+.user-info a:hover {
+    color: black;
+}
+
+.card-owner {
+    text-transform: capitalize;
+}
+
+.userpic {
+    margin: 10px;
+}
+
+.userpic-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+}
+
+.start-button {
+    text-decoration: none;
+    color: #cccccc;
+    border-radius: 5px;
+    background: #222222;
+    padding: 5px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: stretch;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.login-form {
+    text-align: right;
+    list-style-type: none;
+}
+
+.news-wrapper {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.news-caption {
+    margin: 10px;
+    font-size: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    background: gainsboro;
+    border-radius: 5px;
+}
+
+.news-date {
+    margin: 5px;
+    font-size: 12px;
+    text-align: right;
+}
+
+.news-text {
+    margin: 10px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.news-item {
+    background: white;
+    margin: 20px;
+    padding: 10px;
+    border: #222222;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.pages-number select {
+    align-content: center;
+    align: left;
+    color: #fdfdfe;
+    border: #1f1f99;
+}
+
+.pages-number option {
+    color: #bc1f1f;
 }
 
 .menu {
-    width: 20%;
+    top: 160px;
     position: fixed;
     display: block;
-    height: 100%;
-    background-color: aquamarine;
-
+    background-color: #555555;
 }
+
+.sidebar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background: #555555;
+    font-size: 13px;
+}
+
 .container {
-    padding-left: 20%;
+    margin-top: 160px;
+    margin-left: 20%;
+    padding: 30px;
+    position: center;
+    background-color: #7F7F7F;
+    text-align: center;
+    height: 65%;
+}
+
+.chatbox {
+    margin-left: 20%;
+    margin-top: 0%;
+    padding: 10px;
+    position: center;
+    background-color: #7F7F7F;
+    text-align: center;
+    height: 20%;
+}
+
+.pagination-wrapper {
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.message-container {
+    padding: 20px;
+    background-color: #969696;
+    height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 5px;
+}
+
+.message {
+    margin: 5px;
+    padding: 10px;
+    background-color: #fdfdfe;
+    border-radius: 10px;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.message-left-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.message-right-info {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+}
+
+.card-black {
+    text-decoration: none;
+    color: black;
+    font-size: 100px;
+    transition: font-size 1s;
+}
+
+.chosen-card-black {
+    font-size: 150px;
+    color: black;
+}
+
+.card-black:hover {
+    font-size: 150px;
+}
+
+.card-red {
+    text-decoration: none;
+    color: darkred;
+    font-size: 100px;
+    transition: font-size 1s;
+}
+
+.chosen-card-red {
+    font-size: 150px;
+    color: darkred;
+}
+
+.card-red:hover {
+    font-size: 150px;
+}
+
+.card {
+    margin: 20px;
+    padding: 10px;
+}
+
+.banker-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pagination {
+    padding: 10px;
+    margin: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+}
+
+.pagination li {
     position: relative;
+    display: block;
+    letter-spacing: 7px;
+}
+
+.pagination a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.pagination a:hover {
+    color: cadetblue;
+}
+
+.pagination a:active {
+    color: #222222;
+}
+
+.game-cards {
+    font-size: 70px;
+}
+
+.nav {
+    position: relative;
+    margin: 0 5%;
+    font-weight: bold;
+    color: #555555;
+}
+
+.nav ul {
+    list-style: none;
+    text-align: right;
+}
+
+.nav li {
+    position: relative;
+    margin: 5px 0;
+    padding: 5px;
+    border: solid #7F7F7F;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+}
+
+.nav a {
+    line-height: 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    color: white;
+    display: block;
+}
+
+.nav a:hover {
+    color: black;
+}
+
+.active a {
+    color: #222222;
+    background: silver;
+}
+
+
+
+.marque {
+    display: inline;
+    width: 70px;
+    font-family: Commissioner, serif;
+    font-size: 18px;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    -webkit-animation: scroll 5s infinite linear;
+    -moz-animation: scroll 5s infinite linear;
+    animation: scroll 5s infinite linear;
+}
+
+
+@-webkit-keyframes scroll {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+    100% {
+        -webkit-transform: translate(-100%, 0);
+        transform: translate(-100%, 0)
+    }
+}
+
+@-moz-keyframes scroll {
+    0% {
+        -moz-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+    100% {
+        -moz-transform: translate(-100%, 0);
+        transform: translate(-100%, 0)
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-100%, 0)
+    }
+}
+
+@font-face {
+    font-family: 'Commissioner';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/commissioner-v4-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('fonts/commissioner-v4-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('fonts/commissioner-v4-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('fonts/commissioner-v4-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */ url('fonts/commissioner-v4-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('fonts/commissioner-v4-latin_cyrillic-regular.svg#Commissioner') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'Commissioner';
+    font-style: normal;
+    font-weight: 600;
+    src: url('fonts/commissioner-v4-latin_cyrillic-600.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('fonts/commissioner-v4-latin_cyrillic-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('fonts/commissioner-v4-latin_cyrillic-600.woff2') format('woff2'), /* Super Modern Browsers */ url('fonts/commissioner-v4-latin_cyrillic-600.woff') format('woff'), /* Modern Browsers */ url('fonts/commissioner-v4-latin_cyrillic-600.ttf') format('truetype'), /* Safari, Android, iOS */ url('fonts/commissioner-v4-latin_cyrillic-600.svg#Commissioner') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-family: 'Commissioner', serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.2;
+    font-weight: 400;
+    color: black;
+}
+
+html {
+    box-sizing: border-box;
+    background-color: #7F7F7F;
+    font-family: 'Commissioner', serif;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    list-style-type: none;
+
 }
